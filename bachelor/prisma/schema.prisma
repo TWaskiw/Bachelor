@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id                  Int                   @id @default(autoincrement())
+  categoryId          Int
+  image               String
+  cut                 String?
+  stock               Int
+  price               Float
+  weight              Float
+  description         String
+  recommended         Boolean
+  name                String
+  show                Boolean
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  category            Category              @relation(fields: [categoryId], references: [id])
+  sales               Sale[]
+  variants            ProductVariant[]
+  carts               Cart[]
+  InventoryAdjustment InventoryAdjustment[]
+  SaleDetail          SaleDetail[]
+}
+
+model Sale {
+  id           Int          @id @default(autoincrement())
+  userId       Int? // Valgfri, hvis ikke alle salg er knyttet til en bruger
+  dateTime     DateTime
+  soldPrice    Float
+  quantitySold Int
+  user         User?        @relation(fields: [userId], references: [id])
+  saleDetails  SaleDetail[]
+  productId    Int
+  product      Product      @relation(fields: [productId], references: [id])
+}
+
+model InventoryAdjustment {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  dateTime  DateTime
+  change    Int
+  comment   String?
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id             Int          @id @default(autoincrement())
+  phoneNumber    String       @unique
+  name           String
+  email          String?
+  creationDate   DateTime     @default(now())
+  isAdmin        Boolean
+  passwordId     Int          @unique
+  password       UserPassword @relation(fields: [passwordId], references: [id])
+  carts          Cart[]
+  previousOrders Sale[]
+}
+
+model UserPassword {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  password String
+  user     User?
+}
+
+model ProductVariant {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  weight    Float
+  taste     String
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  carts     Cart[]
+}
+
+model SaleDetail {
+  id            Int     @id @default(autoincrement())
+  saleId        Int
+  productId     Int
+  soldPrice     Float
+  quantity      Int
+  paymentMethod String
+  sale          Sale    @relation(fields: [saleId], references: [id])
+  product       Product @relation(fields: [productId], references: [id])
+}
+
+model Cart {
+  id         Int             @id @default(autoincrement())
+  userId     Int
+  productId  Int
+  variantId  Int?
+  quantity   Int
+  totalPrice Float
+  addedAt    DateTime
+  user       User            @relation(fields: [userId], references: [id])
+  product    Product         @relation(fields: [productId], references: [id])
+  variant    ProductVariant? @relation(fields: [variantId], references: [id])
+}
