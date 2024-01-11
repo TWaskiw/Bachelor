@@ -30,8 +30,6 @@ export async function loader({ request }) {
 
 export default function AdminPage() {
   const { products, categories } = useLoaderData();
-  console.log(products.map((product) => product.name));
-  console.log(categories);
 
   return (
     <div className="max-w-lg mx-auto mt-2">
@@ -50,21 +48,22 @@ export default function AdminPage() {
       </div>
       <div className="overflow-x-auto whitespace-nowrap">
         {categories?.map((category) => {
-          return <MobilMenu key={category.name} category={category.name} />;
+          return <MobilMenu key={category.id} category={category.name} />;
         })}
       </div>
 
-      {/*       <div>
-        {uniqueCategories?.map((category) => {
+      <div>
+        {categories?.map((category) => {
           return (
             <ProductCategoryAdmin
-              key={category}
+              key={category.id}
               products={products}
-              category={category}
+              category={category.name}
+              id={category.id}
             />
           );
         })}
-      </div> */}
+      </div>
     </div>
   );
 }

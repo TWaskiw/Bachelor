@@ -1,10 +1,7 @@
 import { Link } from "react-scroll";
 import { buttonVariants } from "./ui/button";
-import formatCategoryName from "./formatCategoryName";
 
 export default function MobilMenu({ category, active }) {
-  const formattedCategory = formatCategoryName(category);
-
   return (
     <Link
       to={category}
@@ -18,7 +15,7 @@ export default function MobilMenu({ category, active }) {
         }
       )}`}
     >
-      {formattedCategory}
+      {category}
     </Link>
   );
 }

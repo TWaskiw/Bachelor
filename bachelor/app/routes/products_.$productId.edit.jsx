@@ -33,30 +33,38 @@ import { useRef } from "react";
 
 export async function loader({ params, request }) {
   await requireUserSession(request);
+  productId = parseInt(params.productId, 10);
 
-  const db = await connectDb();
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
 
-  const product = await db.models.Product.findById(params.productId);
+  const category = await prisma.category.findUnique({
+    where: { id: product.categoryId },
+  });
+
+  const categories = await prisma.category.findMany();
 
   if (!product) {
-    throw new Response(
-      `Produkt med dette id findes ikke: ${params.productId}`,
-      {
-        status: 404,
-      }
-    );
+    throw new Response(`Dette produkt findes ikke: ${params.productId}`, {
+      status: 404,
+    });
   }
-  return json(product);
+  return json({ product, category, categories, productId });
 }
 
 export async function action({ request, params }) {
+  const productId = useLoaderData();
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
-  const db = await connectDb();
-  console.log(formValues, "testestset er der en delete intent");
 
   if (form.get("intent") === "delete") {
-    await db.models.Product.findByIdAndDelete(params.productId);
+    await prisma.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+
     return redirect(`/products/`);
   }
 
@@ -67,23 +75,6 @@ export async function action({ request, params }) {
     product.name = form.get("name");
     product.description = form.get("description");
     product.stock = form.getAll("stock");
-    product.inventory[0] = {
-      stock: form.get("stock0"),
-      weight: form.get("weight0"),
-      price: form.get("price0"),
-    };
-    if (form.get("stock1")) {
-      product.inventory[1] = {
-        stock: form.get("stock1"),
-        weight: form.get("weight1"),
-        price: form.get("price1"),
-      };
-      product.inventory[2] = {
-        stock: form.get("stock2"),
-        weight: form.get("weight2"),
-        price: form.get("price2"),
-      };
-    }
 
     await product.save();
     return redirect(`/products/${params.productId}/edit`);
@@ -94,11 +85,11 @@ export async function action({ request, params }) {
 }
 
 export default function EditProduct() {
-  const product = useLoaderData();
+  const { product, category, categories } = useLoaderData();
   const actionData = useActionData();
   const [activeShow, setActiveShow] = useState(product.show);
   const [activeRec, setActiveRec] = useState(product.recommended);
-  const [selectedValue, setSelectedValue] = useState(product.category);
+  const [selectedValue, setSelectedValue] = useState(category.name);
   const deleteBtn = useRef(null);
 
   return (
@@ -143,17 +134,17 @@ export default function EditProduct() {
           <Select
             onValueChange={(newValue) => setSelectedValue(newValue)}
             name="category"
-            defaultValue={product?.category}
+            defaultValue={category.name}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Vælg kategori" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="boffersteaks">Bøffer/Steaks</SelectItem>
-              <SelectItem value="hakket">Hakket oksekød</SelectItem>
-              <SelectItem value="helestege">Hele Stege</SelectItem>
-              <SelectItem value="spegepolse">Spegepølse</SelectItem>
-              <SelectItem value="is">Is</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category.id} value={category.name}>
+                  {category.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -182,19 +173,6 @@ export default function EditProduct() {
               checked={activeRec}
               name="recommended"
             />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <div className="w-full ml-auto">
-            {product.inventory.map((item, idx) => (
-              <InventoryNew
-                actionData={actionData}
-                product={item}
-                idx={idx}
-                key={item.weight}
-              />
-            ))}
           </div>
         </div>
 

@@ -474,7 +474,7 @@ function BackButton({ children, ...rest }) {
 }
 
 // app/routes/products_.$productId.edit.jsx
-var import_node5 = require("@remix-run/node"), import_react6 = require("@remix-run/react");
+var import_db = __toESM(require_db_server()), import_node5 = require("@remix-run/node"), import_react6 = require("@remix-run/react");
 
 // app/components/ui/switch.jsx
 var React3 = __toESM(require("react")), SwitchPrimitives = __toESM(require("@radix-ui/react-switch"));
@@ -1119,46 +1119,39 @@ function InventoryNew({ actionData, product, idx }) {
 // app/routes/products_.$productId.edit.jsx
 var import_react8 = require("react"), import_jsx_dev_runtime15 = require("react/jsx-dev-runtime");
 async function loader2({ params, request }) {
-  await requireUserSession(request);
-  let product = await (await connectDb()).models.Product.findById(params.productId);
+  await requireUserSession(request), productId = parseInt(params.productId, 10);
+  let product = await import_db.prisma.product.findUnique({
+    where: { id: productId }
+  }), category = await import_db.prisma.category.findUnique({
+    where: { id: product.categoryId }
+  }), categories = await import_db.prisma.category.findMany();
   if (!product)
-    throw new Response(
-      `Produkt med dette id findes ikke: ${params.productId}`,
-      {
-        status: 404
-      }
-    );
-  return (0, import_node5.json)(product);
+    throw new Response(`Dette produkt findes ikke: ${params.productId}`, {
+      status: 404
+    });
+  return (0, import_node5.json)({ product, category, categories, productId });
 }
 async function action({ request, params }) {
-  let form = await request.formData(), formValues = Object.fromEntries(form), db = await connectDb();
-  if (console.log(formValues, "testestset er der en delete intent"), form.get("intent") === "delete")
-    return await db.models.Product.findByIdAndDelete(params.productId), (0, import_node5.redirect)("/products/");
+  let productId2 = (0, import_react6.useLoaderData)(), form = await request.formData(), formValues = Object.fromEntries(form);
+  if (form.get("intent") === "delete")
+    return await import_db.prisma.product.delete({
+      where: {
+        id: productId2
+      }
+    }), (0, import_node5.redirect)("/products/");
   try {
     let product = await db.models.Product.findById(params.productId);
-    return product.show = form.get("show") === "on", product.recommended = form.get("recommended") === "on", product.name = form.get("name"), product.description = form.get("description"), product.stock = form.getAll("stock"), product.inventory[0] = {
-      stock: form.get("stock0"),
-      weight: form.get("weight0"),
-      price: form.get("price0")
-    }, form.get("stock1") && (product.inventory[1] = {
-      stock: form.get("stock1"),
-      weight: form.get("weight1"),
-      price: form.get("price1")
-    }, product.inventory[2] = {
-      stock: form.get("stock2"),
-      weight: form.get("weight2"),
-      price: form.get("price2")
-    }), await product.save(), (0, import_node5.redirect)(`/products/${params.productId}/edit`);
+    return product.show = form.get("show") === "on", product.recommended = form.get("recommended") === "on", product.name = form.get("name"), product.description = form.get("description"), product.stock = form.getAll("stock"), await product.save(), (0, import_node5.redirect)(`/products/${params.productId}/edit`);
   } catch (error) {
     return console.log(error), (0, import_node5.json)({ errors: error.errors, values: formValues }, { status: 400 });
   }
 }
 function EditProduct() {
-  let product = (0, import_react6.useLoaderData)(), actionData = (0, import_react6.useActionData)(), [activeShow, setActiveShow] = (0, import_react7.useState)(product.show), [activeRec, setActiveRec] = (0, import_react7.useState)(product.recommended), [selectedValue, setSelectedValue] = (0, import_react7.useState)(product.category), deleteBtn = (0, import_react8.useRef)(null);
+  let { product, category, categories } = (0, import_react6.useLoaderData)(), actionData = (0, import_react6.useActionData)(), [activeShow, setActiveShow] = (0, import_react7.useState)(product.show), [activeRec, setActiveRec] = (0, import_react7.useState)(product.recommended), [selectedValue, setSelectedValue] = (0, import_react7.useState)(category.name), deleteBtn = (0, import_react8.useRef)(null);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "max-w-lg container mx-auto p-4", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(BackButton, {}, void 0, !1, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 106,
+      lineNumber: 97,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(import_react6.Form, { method: "post", className: "mx-auto", children: [
@@ -1167,13 +1160,13 @@ function EditProduct() {
         product.name
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 109,
+        lineNumber: 100,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Label2, { htmlFor: "name", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 111,
+          lineNumber: 102,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1190,20 +1183,20 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 115,
+            lineNumber: 106,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 110,
+        lineNumber: 101,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Label2, { htmlFor: "description", className: "block text-gray-600 mb-2", children: "Beskrivelse" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 126,
+          lineNumber: 117,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1220,20 +1213,20 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 129,
+            lineNumber: 120,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 125,
+        lineNumber: 116,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 140,
+          lineNumber: 131,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1241,46 +1234,24 @@ function EditProduct() {
           {
             onValueChange: (newValue) => setSelectedValue(newValue),
             name: "category",
-            defaultValue: product == null ? void 0 : product.category,
+            defaultValue: category.name,
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 149,
+                lineNumber: 140,
                 columnNumber: 15
               }, this) }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 148,
+                lineNumber: 139,
                 columnNumber: 13
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectContent, { children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: "boffersteaks", children: "B\xF8ffer/Steaks" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 152,
-                  columnNumber: 15
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: "hakket", children: "Hakket oksek\xF8d" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 153,
-                  columnNumber: 15
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: "helestege", children: "Hele Stege" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 154,
-                  columnNumber: 15
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: "spegepolse", children: "Spegep\xF8lse" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 155,
-                  columnNumber: 15
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: "is", children: "Is" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 156,
-                  columnNumber: 15
-                }, this)
-              ] }, void 0, !0, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectContent, { children: categories.map((category2) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(SelectItem, { value: category2.name, children: category2.name }, category2.id, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 151,
+                lineNumber: 144,
+                columnNumber: 17
+              }, this)) }, void 0, !1, {
+                fileName: "app/routes/products_.$productId.edit.jsx",
+                lineNumber: 142,
                 columnNumber: 13
               }, this)
             ]
@@ -1289,21 +1260,21 @@ function EditProduct() {
           !0,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 143,
+            lineNumber: 134,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 139,
+        lineNumber: 130,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4 flex justify-between", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Label2, { htmlFor: "show", className: "block text-gray-600 mb-2", children: "Skal den vises?" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 162,
+            lineNumber: 153,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1319,20 +1290,20 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 165,
+              lineNumber: 156,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 161,
+          lineNumber: 152,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Label2, { htmlFor: "recommended", className: "block text-gray-600 mb-2", children: "Anbefales p\xE5 forsiden?" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 175,
+            lineNumber: 166,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1348,43 +1319,19 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 178,
+              lineNumber: 169,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 174,
+          lineNumber: 165,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 160,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "w-full ml-auto", children: product.inventory.map((item, idx) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
-        InventoryNew,
-        {
-          actionData,
-          product: item,
-          idx
-        },
-        item.weight,
-        !1,
-        {
-          fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 191,
-          columnNumber: 15
-        },
-        this
-      )) }, void 0, !1, {
-        fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 189,
-        columnNumber: 11
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 188,
+        lineNumber: 151,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: [
@@ -1402,7 +1349,7 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 202,
+            lineNumber: 180,
             columnNumber: 11
           },
           this
@@ -1410,11 +1357,11 @@ function EditProduct() {
         /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialog, { children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(Button, { variant: "outline", children: "Slet produkt" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 214,
+            lineNumber: 192,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 213,
+            lineNumber: 191,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogContent, { children: [
@@ -1425,23 +1372,23 @@ function EditProduct() {
                 "?"
               ] }, void 0, !0, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 218,
+                lineNumber: 196,
                 columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogDescription, { children: "Dette fjerner den permanent" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 221,
+                lineNumber: 199,
                 columnNumber: 17
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 217,
+              lineNumber: 195,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogFooter, { children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogCancel, { children: "Annull\xE9r" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 226,
+                lineNumber: 204,
                 columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(AlertDialogAction, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
@@ -1457,43 +1404,43 @@ function EditProduct() {
                 !1,
                 {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 228,
+                  lineNumber: 206,
                   columnNumber: 19
                 },
                 this
               ) }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 227,
+                lineNumber: 205,
                 columnNumber: 17
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 225,
+              lineNumber: 203,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 216,
+            lineNumber: 194,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 212,
+          lineNumber: 190,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 201,
+        lineNumber: 179,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 108,
+      lineNumber: 99,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/products_.$productId.edit.jsx",
-    lineNumber: 105,
+    lineNumber: 96,
     columnNumber: 5
   }, this);
 }
@@ -1530,16 +1477,8 @@ function Stock({ stock }) {
 
 // app/components/MobilMenu.jsx
 var import_react_scroll = require("react-scroll");
-
-// app/components/formatCategoryName.jsx
-function formatCategoryName(category) {
-  return category === "boffersteaks" ? "B\xF8ffer/Steaks" : category === "spegepolse" ? "Spegep\xF8lse" : category === "helestege" ? "Hele stege" : category === "is" ? "Is" : category === "hakket" ? "Hakket oksek\xF8d" : category.toUpperCase();
-}
-
-// app/components/MobilMenu.jsx
 var import_jsx_dev_runtime17 = require("react/jsx-dev-runtime");
 function MobilMenu({ category, active }) {
-  let formattedCategory = formatCategoryName(category);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime17.jsxDEV)(
     import_react_scroll.Link,
     {
@@ -1553,13 +1492,13 @@ function MobilMenu({ category, active }) {
           variant: category === active ? "outlineLunds" : "ghostNav"
         }
       )}`,
-      children: formattedCategory
+      children: category
     },
     void 0,
     !1,
     {
       fileName: "app/components/MobilMenu.jsx",
-      lineNumber: 9,
+      lineNumber: 6,
       columnNumber: 5
     },
     this
@@ -1568,6 +1507,13 @@ function MobilMenu({ category, active }) {
 
 // app/components/ProductCategory.jsx
 var import_react9 = require("@remix-run/react");
+
+// app/components/formatCategoryName.jsx
+function formatCategoryName(category) {
+  return category === "boffersteaks" ? "B\xF8ffer/Steaks" : category === "spegepolse" ? "Spegep\xF8lse" : category === "helestege" ? "Hele stege" : category === "is" ? "Is" : category === "hakket" ? "Hakket oksek\xF8d" : category.name;
+}
+
+// app/components/ProductCategory.jsx
 var import_jsx_dev_runtime18 = require("react/jsx-dev-runtime");
 global.Buffer = global.Buffer || require("buffer").Buffer;
 function ProductCategory({ products, category }) {
@@ -1700,9 +1646,9 @@ function ProductCategory({ products, category }) {
 }
 
 // app/components/extractCategories.jsx
-var import_db = __toESM(require_db_server());
+var import_db2 = __toESM(require_db_server());
 async function extractCategories({}) {
-  let categories = await import_db.prisma.category.findMany({});
+  let categories = await import_db2.prisma.category.findMany({});
   return Array.from(categories);
 }
 
@@ -1869,10 +1815,10 @@ async function loader4({ request }) {
   return await requireUserSession(request), null;
 }
 async function action2({ request }) {
-  let session = await requireUserSession(request), form = await request.formData(), formValues = Object.fromEntries(form), db = await connectDb();
+  let session = await requireUserSession(request), form = await request.formData(), formValues = Object.fromEntries(form), db2 = await connectDb();
   console.log(form.get("image")), console.log(formValues);
   try {
-    return await new db.models.Product({
+    return await new db2.models.Product({
       name: form.get("name"),
       description: form.get("description"),
       category: form.get("category"),
@@ -2336,12 +2282,50 @@ __export(products_exports, {
   default: () => AdminPage,
   loader: () => loader6
 });
-var import_react15 = require("@remix-run/react"), import_node9 = require("@remix-run/node"), import_db2 = __toESM(require_db_server());
+var import_react16 = require("@remix-run/react"), import_node9 = require("@remix-run/node"), import_db3 = __toESM(require_db_server());
+
+// app/components/ProductCategoryAdmin.jsx
+var import_react15 = require("@remix-run/react");
 var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime");
+function ProductCategoryAdmin({ products, category, id }) {
+  let filteredProducts = products.filter(
+    (product) => product.categoryId === id
+  );
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "list-decimal mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h1", { id, children: category }, void 0, !1, {
+      fileName: "app/components/ProductCategoryAdmin.jsx",
+      lineNumber: 12,
+      columnNumber: 7
+    }, this),
+    filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+      import_react15.Link,
+      {
+        to: `${product.id}/edit`,
+        className: `m-2 ${buttonVariants({ variant: "outline" })}`,
+        children: product.name
+      },
+      product.id,
+      !1,
+      {
+        fileName: "app/components/ProductCategoryAdmin.jsx",
+        lineNumber: 14,
+        columnNumber: 9
+      },
+      this
+    ))
+  ] }, void 0, !0, {
+    fileName: "app/components/ProductCategoryAdmin.jsx",
+    lineNumber: 11,
+    columnNumber: 5
+  }, this);
+}
+
+// app/routes/products.jsx
+var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
 async function loader6({ request }) {
   let userId = (await getSession(request.headers.get("Cookie"))).get("userId");
   await requireUserSession(request);
-  let user = await import_db2.prisma.user.findUnique({ where: { id: userId } }), products = await import_db2.prisma.product.findMany({}), categories = await import_db2.prisma.category.findMany({});
+  let user = await import_db3.prisma.user.findUnique({ where: { id: userId } }), products = await import_db3.prisma.product.findMany({}), categories = await import_db3.prisma.category.findMany({});
   if (!user)
     throw new Response(`Couldn't find course with id ${userId}`, {
       status: 404
@@ -2349,11 +2333,11 @@ async function loader6({ request }) {
   return (0, import_node9.json)({ products, categories });
 }
 function AdminPage() {
-  let { products, categories } = (0, import_react15.useLoaderData)();
-  return console.log(products.map((product) => product.name)), console.log(categories), /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "max-w-lg mx-auto mt-2", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: " flex flex-row justify-end w-full", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
-        import_react15.Link,
+  let { products, categories } = (0, import_react16.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "max-w-lg mx-auto mt-2", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: " flex flex-row justify-end w-full", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        import_react16.Link,
         {
           to: "/products/new",
           className: "bg-orange-400 m-2 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600",
@@ -2363,37 +2347,57 @@ function AdminPage() {
         !1,
         {
           fileName: "app/routes/products.jsx",
-          lineNumber: 39,
+          lineNumber: 37,
           columnNumber: 9
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Button, { className: "m-2", variant: "ghost", children: "Log ud" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Button, { className: "m-2", variant: "ghost", children: "Log ud" }, void 0, !1, {
         fileName: "app/routes/products.jsx",
-        lineNumber: 46,
+        lineNumber: 44,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/products.jsx",
-        lineNumber: 45,
+        lineNumber: 43,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/products.jsx",
-      lineNumber: 38,
+      lineNumber: 36,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "overflow-x-auto whitespace-nowrap", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(MobilMenu, { category: category.name }, category.name, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "overflow-x-auto whitespace-nowrap", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(MobilMenu, { category: category.name }, category.id, !1, {
       fileName: "app/routes/products.jsx",
-      lineNumber: 53,
+      lineNumber: 51,
       columnNumber: 18
     }, this)) }, void 0, !1, {
       fileName: "app/routes/products.jsx",
-      lineNumber: 51,
+      lineNumber: 49,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+      ProductCategoryAdmin,
+      {
+        products,
+        category: category.name,
+        id: category.id
+      },
+      category.id,
+      !1,
+      {
+        fileName: "app/routes/products.jsx",
+        lineNumber: 58,
+        columnNumber: 13
+      },
+      this
+    )) }, void 0, !1, {
+      fileName: "app/routes/products.jsx",
+      lineNumber: 55,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/products.jsx",
-    lineNumber: 37,
+    lineNumber: 35,
     columnNumber: 5
   }, this);
 }
@@ -2404,12 +2408,12 @@ __export(index_exports, {
   default: () => Index,
   meta: () => meta
 });
-var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime"), meta = () => [
+var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime"), meta = () => [
   { title: "New Remix App" },
   { name: "description", content: "Welcome to Remix!" }
 ];
 function Index() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("h1", { children: "Lundsbjerggaaard" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { children: "Lundsbjerggaaard" }, void 0, !1, {
     fileName: "app/routes/_index.jsx",
     lineNumber: 11,
     columnNumber: 7
@@ -2446,35 +2450,35 @@ __export(login_exports, {
   default: () => Login,
   loader: () => loader8
 });
-var import_node11 = require("@remix-run/node"), import_bcryptjs = __toESM(require("bcryptjs")), import_react16 = require("@remix-run/react"), import_db3 = __toESM(require_db_server());
-var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
+var import_node11 = require("@remix-run/node"), import_bcryptjs = __toESM(require("bcryptjs")), import_react17 = require("@remix-run/react"), import_db4 = __toESM(require_db_server());
+var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 async function loader8({ request }) {
   let session = await getSession(request.headers.get("Cookie"));
   return (0, import_node11.json)({ userId: session.get("userId") });
 }
 function Login() {
   var _a, _b;
-  let actionData = (0, import_react16.useActionData)(), { userId } = (0, import_react16.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "my-16 p-4 max-w-lg h-full m-auto overflow-hidden rounded-lg bg-white shadow-lg", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("img", { src: "Logo.svg", alt: "Logo", className: "max-w-lg m-auto my-2" }, void 0, !1, {
+  let actionData = (0, import_react17.useActionData)(), { userId } = (0, import_react17.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "my-16 p-4 max-w-lg h-full m-auto overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("img", { src: "Logo.svg", alt: "Logo", className: "max-w-lg m-auto my-2" }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 20,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { className: "mb-1 text-lg font-bold", children: "Login" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("h1", { className: "mb-1 text-lg font-bold", children: "Login" }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 21,
       columnNumber: 7
     }, this),
-    (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
+    (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 23,
       columnNumber: 9
     }, this),
-    userId ? /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("p", { children: [
+    userId ? /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("p", { children: [
         "Du allerede logget ind; g\xE5 til",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Button, { asChild: !0, className: "ml-1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react16.Link, { to: "/products", children: "Products" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Button, { asChild: !0, className: "ml-1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react17.Link, { to: "/products", children: "Products" }, void 0, !1, {
           fileName: "app/routes/login.jsx",
           lineNumber: 32,
           columnNumber: 15
@@ -2488,7 +2492,7 @@ function Login() {
         lineNumber: 29,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Button, { variant: "outline", children: "Log ud" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Button, { variant: "outline", children: "Log ud" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 36,
         columnNumber: 13
@@ -2501,13 +2505,13 @@ function Login() {
       fileName: "app/routes/login.jsx",
       lineNumber: 28,
       columnNumber: 9
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("form", { method: "post", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "phoneNumber", children: "Telefonnummer" }, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("form", { method: "post", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Label2, { htmlFor: "phoneNumber", children: "Telefonnummer" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 41,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
         Input,
         {
           type: "text",
@@ -2525,12 +2529,12 @@ function Login() {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "password", children: "Kodeord" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Label2, { htmlFor: "password", children: "Kodeord" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 49,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
         Input,
         {
           type: "password",
@@ -2548,12 +2552,12 @@ function Login() {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("br", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 57,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Button, { variant: "outline", children: "Login" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Button, { variant: "outline", children: "Login" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 58,
         columnNumber: 11
@@ -2570,7 +2574,7 @@ function Login() {
   }, this);
 }
 async function action4({ request }) {
-  let formData = await request.formData(), formDataObject = Object.fromEntries(formData), session = await getSession(request.headers.get("Cookie")), phoneNumber = formData.get("phoneNumber").trim(), user = await import_db3.prisma.user.findUnique({
+  let formData = await request.formData(), formDataObject = Object.fromEntries(formData), session = await getSession(request.headers.get("Cookie")), phoneNumber = formData.get("phoneNumber").trim(), user = await import_db4.prisma.user.findUnique({
     where: {
       phoneNumber
     },
@@ -2595,7 +2599,7 @@ async function action4({ request }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-BZ3LTAUE.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-R3DZS5HI.js", imports: ["/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-E5PDHTRN.js", imports: ["/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-NIWDHVJQ.js", imports: ["/build/_shared/chunk-GRXZ6XIR.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-RFAMPMXU.js", imports: ["/build/_shared/chunk-Q2PGSMLA.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-2TLUOKML.js", imports: ["/build/_shared/chunk-Q2PGSMLA.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-GYQUSTCU.js", imports: ["/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-GRXZ6XIR.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-AKQUJSAV.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "adf9f400", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1705001467629 }, url: "/build/manifest-ADF9F400.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-BZ3LTAUE.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-R3DZS5HI.js", imports: ["/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-E5PDHTRN.js", imports: ["/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-H37MXPCI.js", imports: ["/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-OX5AAMO2.js", imports: ["/build/_shared/chunk-WQO6FBNC.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-WDXTOPJQ.js", imports: ["/build/_shared/chunk-WQO6FBNC.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-AQZ5MYCR.js", imports: ["/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-AKQUJSAV.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "cb3a9f5c", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1705011407318 }, url: "/build/manifest-CB3A9F5C.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

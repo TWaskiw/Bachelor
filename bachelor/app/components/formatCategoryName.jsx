@@ -19,7 +19,7 @@ export default function formatCategoryName(category) {
     return "Hakket oksekød";
   }
 
-  const formattedCategory = category.toUpperCase();
+  const formattedCategory = category.name;
 
   return formattedCategory;
 }
