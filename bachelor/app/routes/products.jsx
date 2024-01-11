@@ -14,10 +14,10 @@ export async function loader({ request }) {
   const userId = session.get("userId");
 
   await requireUserSession(request);
-  const db = await connectDb();
 
-  const user = await db.models.User.findById(userId);
-  const products = await db.models.Product.find();
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const products = await prisma.product.findMany({});
+  const categories = await prisma.category.findMany({});
 
   if (!user) {
     throw new Response(`Couldn't find course with id ${userId}`, {
@@ -25,13 +25,13 @@ export async function loader({ request }) {
     });
   }
 
-  return json(products);
+  return json({ products, categories });
 }
 
 export default function AdminPage() {
-  const products = useLoaderData();
-  console.log(products.map((product) => product._id));
-  const uniqueCategories = extractCategories({ products });
+  const { products, categories } = useLoaderData();
+  console.log(products.map((product) => product.name));
+  console.log(categories);
 
   return (
     <div className="max-w-lg mx-auto mt-2">
@@ -49,12 +49,12 @@ export default function AdminPage() {
         </form>
       </div>
       <div className="overflow-x-auto whitespace-nowrap">
-        {uniqueCategories?.map((category) => {
-          return <MobilMenu key={category} category={category} />;
+        {categories?.map((category) => {
+          return <MobilMenu key={category.name} category={category.name} />;
         })}
       </div>
 
-      <div>
+      {/*       <div>
         {uniqueCategories?.map((category) => {
           return (
             <ProductCategoryAdmin
@@ -64,7 +64,7 @@ export default function AdminPage() {
             />
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 }

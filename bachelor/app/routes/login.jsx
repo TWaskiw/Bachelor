@@ -14,7 +14,6 @@ export async function loader({ request }) {
 
 export default function Login() {
   const actionData = useActionData();
-  console.log(actionData);
   const { userId } = useLoaderData();
   return (
     <div className="my-16 p-4 max-w-lg h-full m-auto overflow-hidden rounded-lg bg-white shadow-lg">
@@ -38,14 +37,14 @@ export default function Login() {
           </form>
         </div>
       ) : (
-        <form method="post" reloadDocument>
-          <Label htmlFor="email">E-mail</Label>
+        <form method="post">
+          <Label htmlFor="phoneNumber">Telefonnummer</Label>
           <Input
             type="text"
-            name="email"
-            id="email"
-            placeholder="E-mail"
-            defaultValue={actionData?.values?.email}
+            name="phoneNumber"
+            id="phoneNumber"
+            placeholder="Telefonnummer"
+            defaultValue={actionData?.values?.phoneNumber}
           />
           <Label htmlFor="password">Kodeord</Label>
           <Input
@@ -67,21 +66,28 @@ export async function action({ request }) {
   const formData = await request.formData();
   const formDataObject = Object.fromEntries(formData);
   const session = await getSession(request.headers.get("Cookie"));
-  const db = connectDb();
-  const user = await db.models.User.findOne({
-    email: formData.get("email").trim(),
+  const phoneNumber = formData.get("phoneNumber").trim();
+  const user = await prisma.user.findUnique({
+    where: {
+      phoneNumber: phoneNumber,
+    },
+    include: {
+      password: true,
+    },
   });
-  console.log(user);
+
   if (!user) {
     return json(
       { errorMessage: "Bruger ikke fundet", values: formDataObject },
       { status: 404 }
     );
   }
+
   const passwordIsValid = await bcrypt.compare(
     formData.get("password").trim(),
-    user.password
+    user.password.password
   );
+
   if (!passwordIsValid) {
     return json(
       { errorMessage: "Invalid password", values: formDataObject },
@@ -89,7 +95,7 @@ export async function action({ request }) {
     );
   }
 
-  session.set("userId", user._id);
+  session.set("userId", user.id);
   return redirect("/products", {
     headers: {
       "Set-Cookie": await commitSession(session),
