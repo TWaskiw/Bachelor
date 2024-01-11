@@ -1,5 +1,5 @@
 import BackButton from "~/components/BackButton";
-import connectDb from "~/db/connectDb.server.js";
+import { prisma } from "~/db.server";
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData, Form, useActionData } from "@remix-run/react";
 import { requireUserSession } from "../sessions.server";
