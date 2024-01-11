@@ -1,7 +1,7 @@
 import { json, redirect } from "@remix-run/node";
 import bcrypt from "bcryptjs";
 import { Link, useActionData, useLoaderData } from "@remix-run/react";
-import connectDb from "~/db/connectDb.server";
+import { prisma } from "~/db.server";
 import { getSession, commitSession } from "~/sessions.server.js";
 import { Button } from "~/components/ui/button";
 import { Label } from "../components/ui/label";
