@@ -54,9 +54,9 @@ export async function loader({ params, request }) {
 }
 
 export async function action({ request, params }) {
-  const productId = useLoaderData();
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
+  console.log("Form Data:", Object.fromEntries(form));
 
   if (form.get("intent") === "delete") {
     await prisma.product.delete({
@@ -69,15 +69,28 @@ export async function action({ request, params }) {
   }
 
   try {
-    const product = await db.models.Product.findById(params.productId);
-    product.show = form.get("show") === "on";
-    product.recommended = form.get("recommended") === "on";
-    product.name = form.get("name");
-    product.description = form.get("description");
-    product.stock = form.getAll("stock");
+    const categoryName = form.get("category");
+    const category = await prisma.category.findFirst({
+      where: {
+        name: categoryName,
+      },
+    });
+    const categoryNewId = category.id;
 
-    await product.save();
-    return redirect(`/products/${params.productId}/edit`);
+    await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        name: form.get("name"),
+        description: form.get("description"),
+        show: form.get("show") === "on",
+        recommended: form.get("recommended") === "on",
+        categoryId: categoryNewId,
+      },
+    });
+
+    return redirect(`/products`);
   } catch (error) {
     console.log(error);
     return json({ errors: error.errors, values: formValues }, { status: 400 });
@@ -89,7 +102,7 @@ export default function EditProduct() {
   const actionData = useActionData();
   const [activeShow, setActiveShow] = useState(product.show);
   const [activeRec, setActiveRec] = useState(product.recommended);
-  const [selectedValue, setSelectedValue] = useState(category.name);
+  const [selectedValue, setSelectedValue] = useState(category.id);
   const deleteBtn = useRef(null);
 
   return (
@@ -160,6 +173,11 @@ export default function EditProduct() {
               checked={activeShow}
               name="show"
             />
+            <input
+              type="hidden"
+              name="show"
+              value={activeShow ? "on" : "off"}
+            />
           </div>
 
           <div className="mb-4">
@@ -172,6 +190,11 @@ export default function EditProduct() {
               }}
               checked={activeRec}
               name="recommended"
+            />
+            <input
+              type="hidden"
+              name="recommended"
+              value={activeRec ? "on" : "off"}
             />
           </div>
         </div>
