@@ -39,31 +39,6 @@ export async function action({ request }) {
       show: Boolean(form.get("show")),
       recommended: Boolean(form.get("recommended")),
       image: form.get("image"),
-      inventory: form.get("stock1")
-        ? [
-            {
-              stock: form.get("stock0"),
-              weight: form.get("weight0"),
-              price: form.get("price0"),
-            },
-            {
-              stock: form.get("stock1"),
-              weight: form.get("weight1"),
-              price: form.get("price1"),
-            },
-            {
-              stock: form.get("stock2"),
-              weight: form.get("weight2"),
-              price: form.get("price2"),
-            },
-          ]
-        : [
-            {
-              stock: form.get("stock0"),
-              weight: form.get("weight0"),
-              price: form.get("price0"),
-            },
-          ],
     });
     await newProduct.save();
     return redirect(`/products`);

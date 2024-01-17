@@ -17,6 +17,7 @@ import {
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import AdminInventory from "../components/AdminInventory";
+import AdminVariants from "../components/AdminVariants";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,6 +38,9 @@ export async function loader({ params, request }) {
 
   const product = await prisma.product.findUnique({
     where: { id: productId },
+    include: {
+      variants: true,
+    },
   });
 
   const category = await prisma.category.findUnique({
@@ -56,7 +60,8 @@ export async function loader({ params, request }) {
 export async function action({ request, params }) {
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
-  console.log("Form Data:", Object.fromEntries(form));
+  console.log(form);
+  console.log(formValues);
 
   if (form.get("intent") === "delete") {
     await prisma.product.delete({
@@ -77,6 +82,7 @@ export async function action({ request, params }) {
     });
     const categoryNewId = category.id;
 
+    /*     if (product.variants && product.variants.length > 0)  */
     await prisma.product.update({
       where: {
         id: productId,
@@ -103,6 +109,7 @@ export default function EditProduct() {
   const [activeShow, setActiveShow] = useState(product.show);
   const [activeRec, setActiveRec] = useState(product.recommended);
   const [selectedValue, setSelectedValue] = useState(category.id);
+  const [weight, setWeight] = useState(product.weight);
   const deleteBtn = useRef(null);
 
   return (
@@ -139,7 +146,13 @@ export default function EditProduct() {
             className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
           />
         </div>
-
+        <div>
+          {product.variants && product.variants.length > 0 ? (
+            <AdminVariants variants={product.variants} />
+          ) : (
+            <AdminInventory product={product} />
+          )}
+        </div>
         <div className="mb-4">
           <Label htmlFor="category" className="block text-gray-600 mb-2">
             Kategori
