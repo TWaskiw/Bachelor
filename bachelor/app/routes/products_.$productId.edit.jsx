@@ -60,6 +60,8 @@ export async function loader({ params, request }) {
 export async function action({ request, params }) {
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
+  const actionType = form.get("actionType");
+
   console.log(form);
   console.log(formValues);
 
@@ -69,8 +71,35 @@ export async function action({ request, params }) {
         id: productId,
       },
     });
+  }
 
-    return redirect(`/products/`);
+  switch (actionType) {
+    case "updateProduct":
+      await prisma.product.update({
+        where: {
+          id: productId,
+        },
+        data: {
+          name: form.get("name"),
+          description: form.get("description"),
+          show: form.get("show") === "on",
+          recommended: form.get("recommended") === "on",
+        },
+      });
+      break;
+    case "updateVariant":
+      const variantId = parseInt(form.get("variantId"), 10);
+      await prisma.productvariant.update({
+        where: {
+          id: variantId,
+        },
+        data: {
+          name: form.get("taste"),
+          price: parseInt(form.get("price"), 10),
+          weight: parseInt(form.get("weight"), 10),
+        },
+      });
+      break;
   }
 
   try {
@@ -83,18 +112,6 @@ export async function action({ request, params }) {
     const categoryNewId = category.id;
 
     /*     if (product.variants && product.variants.length > 0)  */
-    await prisma.product.update({
-      where: {
-        id: productId,
-      },
-      data: {
-        name: form.get("name"),
-        description: form.get("description"),
-        show: form.get("show") === "on",
-        recommended: form.get("recommended") === "on",
-        categoryId: categoryNewId,
-      },
-    });
 
     return redirect(`/products`);
   } catch (error) {
@@ -117,6 +134,7 @@ export default function EditProduct() {
       <BackButton />
 
       <Form method="post" className="mx-auto">
+        <Input type="hidden" name="actionType" value="updateProduct" />
         <h1 className="text-2xl font-semibold mb-4">Redigér {product.name}</h1>
         <div className="mb-4">
           <Label htmlFor="name" className="block text-gray-600 mb-2">

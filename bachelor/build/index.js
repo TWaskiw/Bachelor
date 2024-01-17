@@ -158,7 +158,7 @@ __export(root_exports, {
 });
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-3FST7UOX.css";
+var tailwind_default = "/build/_assets/tailwind-QTTRJNSU.css";
 
 // app/root.jsx
 var import_react4 = require("@remix-run/react");
@@ -228,10 +228,10 @@ var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), buttonVariants =
     }
   }
 ), Button = React.forwardRef(
-  ({ className, variant: variant2, size, asChild = !1, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
+  ({ className, variant, size, asChild = !1, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
     asChild ? import_react_slot.Slot : "button",
     {
-      className: cn(buttonVariants({ variant: variant2, size, className })),
+      className: cn(buttonVariants({ variant, size, className })),
       ref,
       ...props
     },
@@ -875,213 +875,322 @@ function AdminInventory({ product }) {
   }, this);
 }
 
-// app/components/ui/accordion.jsx
-var React9 = __toESM(require("react")), AccordionPrimitive = __toESM(require("@radix-ui/react-accordion")), import_lucide_react3 = require("lucide-react");
-var import_jsx_dev_runtime13 = require("react/jsx-dev-runtime"), Accordion = AccordionPrimitive.Root, AccordionItem = React9.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(AccordionPrimitive.Item, { ref, className: cn("border-b", className), ...props }, void 0, !1, {
-  fileName: "app/components/ui/accordion.jsx",
-  lineNumber: 12,
-  columnNumber: 3
-}, this));
-AccordionItem.displayName = "AccordionItem";
-var AccordionTrigger = React9.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(AccordionPrimitive.Header, { className: "flex", children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-  AccordionPrimitive.Trigger,
+// app/components/AdminVariants.jsx
+var import_react6 = require("@remix-run/react");
+
+// app/components/ui/dialog.jsx
+var React9 = __toESM(require("react")), DialogPrimitive = __toESM(require("@radix-ui/react-dialog")), import_lucide_react3 = require("lucide-react");
+var import_jsx_dev_runtime13 = require("react/jsx-dev-runtime"), Dialog = DialogPrimitive.Root, DialogTrigger = DialogPrimitive.Trigger, DialogPortal = DialogPrimitive.Portal;
+var DialogOverlay = React9.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+  DialogPrimitive.Overlay,
   {
     ref,
     className: cn(
-      "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     ),
-    ...props,
-    children: [
-      children,
-      /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_lucide_react3.ChevronDown, { className: "h-4 w-4 shrink-0 transition-transform duration-200" }, void 0, !1, {
-        fileName: "app/components/ui/accordion.jsx",
-        lineNumber: 26,
-        columnNumber: 7
-      }, this)
-    ]
-  },
-  void 0,
-  !0,
-  {
-    fileName: "app/components/ui/accordion.jsx",
-    lineNumber: 18,
-    columnNumber: 5
-  },
-  this
-) }, void 0, !1, {
-  fileName: "app/components/ui/accordion.jsx",
-  lineNumber: 17,
-  columnNumber: 3
-}, this));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-var AccordionContent = React9.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
-  AccordionPrimitive.Content,
-  {
-    ref,
-    className: "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-    ...props,
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("div", { className: cn("pb-4 pt-0", className), children }, void 0, !1, {
-      fileName: "app/components/ui/accordion.jsx",
-      lineNumber: 37,
-      columnNumber: 5
-    }, this)
+    ...props
   },
   void 0,
   !1,
   {
-    fileName: "app/components/ui/accordion.jsx",
-    lineNumber: 33,
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 18,
     columnNumber: 3
   },
   this
 ));
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
-
-// app/components/AdminVariants.jsx
-var import_react6 = require("@remix-run/react"), import_jsx_dev_runtime14 = require("react/jsx-dev-runtime");
-function AdminVariants({ variants }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "my-4 rounded-lg bg-white shadow-lg p-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_react6.Form, { method: "post", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { children: "Varianter" }, void 0, !1, {
-      fileName: "app/components/AdminVariants.jsx",
-      lineNumber: 32,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Accordion, { type: "single", collapsible: !0, children: variants.map((variant2) => /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(AccordionItem, { value: variant2.id.toString(), children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(AccordionTrigger, { children: variant2.taste }, void 0, !1, {
-        fileName: "app/components/AdminVariants.jsx",
-        lineNumber: 36,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(AccordionContent, { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: "taste", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
-            fileName: "app/components/AdminVariants.jsx",
-            lineNumber: 39,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
-            Input,
-            {
-              type: "text",
-              name: "taste",
-              id: "taste",
-              placeholder: "Smag",
-              defaultValue: variant2 == null ? void 0 : variant2.taste,
-              className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/components/AdminVariants.jsx",
-              lineNumber: 43,
-              columnNumber: 19
-            },
-            this
-          )
-        ] }, void 0, !0, {
-          fileName: "app/components/AdminVariants.jsx",
-          lineNumber: 38,
-          columnNumber: 17
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: "price", className: "block text-gray-600 mb-2", children: "Pris" }, void 0, !1, {
-            fileName: "app/components/AdminVariants.jsx",
-            lineNumber: 53,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
-            Input,
-            {
-              type: "number",
-              name: "price",
-              id: "price",
-              placeholder: "Pris",
-              defaultValue: variant2 == null ? void 0 : variant2.price,
-              className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/components/AdminVariants.jsx",
-              lineNumber: 57,
-              columnNumber: 19
-            },
-            this
-          )
-        ] }, void 0, !0, {
-          fileName: "app/components/AdminVariants.jsx",
-          lineNumber: 52,
-          columnNumber: 17
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: "price", className: "block text-gray-600 mb-2", children: "V\xE6gt" }, void 0, !1, {
-            fileName: "app/components/AdminVariants.jsx",
-            lineNumber: 67,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
-            Input,
-            {
-              type: "number",
-              name: "weight",
-              id: "weight",
-              placeholder: "V\xE6gt",
-              defaultValue: variant2 == null ? void 0 : variant2.price,
-              className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/components/AdminVariants.jsx",
-              lineNumber: 71,
-              columnNumber: 19
-            },
-            this
-          )
-        ] }, void 0, !0, {
-          fileName: "app/components/AdminVariants.jsx",
-          lineNumber: 66,
-          columnNumber: 17
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
-          Button,
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+var DialogContent = React9.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(DialogPortal, { children: [
+  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(DialogOverlay, {}, void 0, !1, {
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 30,
+    columnNumber: 5
+  }, this),
+  /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+    DialogPrimitive.Content,
+    {
+      ref,
+      className: cn(
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+        className
+      ),
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+          DialogPrimitive.Close,
           {
-            value: "Gem",
-            type: "submit",
-            className: "bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600",
-            children: "Gem"
+            className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_lucide_react3.X, { className: "h-4 w-4" }, void 0, !1, {
+                fileName: "app/components/ui/dialog.jsx",
+                lineNumber: 41,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("span", { className: "sr-only", children: "Close" }, void 0, !1, {
+                fileName: "app/components/ui/dialog.jsx",
+                lineNumber: 42,
+                columnNumber: 9
+              }, this)
+            ]
           },
           void 0,
-          !1,
+          !0,
           {
-            fileName: "app/components/AdminVariants.jsx",
-            lineNumber: 80,
-            columnNumber: 17
+            fileName: "app/components/ui/dialog.jsx",
+            lineNumber: 39,
+            columnNumber: 7
           },
           this
         )
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/ui/dialog.jsx",
+      lineNumber: 31,
+      columnNumber: 5
+    },
+    this
+  )
+] }, void 0, !0, {
+  fileName: "app/components/ui/dialog.jsx",
+  lineNumber: 29,
+  columnNumber: 3
+}, this));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
+var DialogHeader = ({
+  className,
+  ...props
+}) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+  "div",
+  {
+    className: cn("flex flex-col space-y-1.5 text-center sm:text-left", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 53,
+    columnNumber: 3
+  },
+  this
+);
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({
+  className,
+  ...props
+}) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+  "div",
+  {
+    className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 63,
+    columnNumber: 3
+  },
+  this
+);
+DialogFooter.displayName = "DialogFooter";
+var DialogTitle = React9.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+  DialogPrimitive.Title,
+  {
+    ref,
+    className: cn("text-lg font-semibold leading-none tracking-tight", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 70,
+    columnNumber: 3
+  },
+  this
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
+var DialogDescription = React9.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
+  DialogPrimitive.Description,
+  {
+    ref,
+    className: cn("text-sm text-muted-foreground", className),
+    ...props
+  },
+  void 0,
+  !1,
+  {
+    fileName: "app/components/ui/dialog.jsx",
+    lineNumber: 78,
+    columnNumber: 3
+  },
+  this
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
+
+// app/components/AdminVariants.jsx
+var import_jsx_dev_runtime14 = require("react/jsx-dev-runtime");
+function AdminVariants({ variants }) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "my-4 rounded-lg bg-white shadow-lg p-4", children: variants.map((variant) => {
+    let fetcher = (0, import_react6.useFetcher)();
+    return /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(fetcher.Form, { method: "post", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("input", { type: "hidden", name: "actionType", value: "updateVariant" }, void 0, !1, {
+        fileName: "app/components/AdminVariants.jsx",
+        lineNumber: 19,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("input", { type: "hidden", name: "variantId", value: variant.id }, void 0, !1, {
+        fileName: "app/components/AdminVariants.jsx",
+        lineNumber: 20,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Dialog, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(DialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Button, { variant: "outline", children: variant.taste }, void 0, !1, {
+          fileName: "app/components/AdminVariants.jsx",
+          lineNumber: 24,
+          columnNumber: 17
+        }, this) }, void 0, !1, {
+          fileName: "app/components/AdminVariants.jsx",
+          lineNumber: 23,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(DialogContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(DialogTitle, { children: [
+            "Rediger ",
+            variant.taste
+          ] }, void 0, !0, {
+            fileName: "app/components/AdminVariants.jsx",
+            lineNumber: 27,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: `taste-${variant.id}`, children: "Navn" }, void 0, !1, {
+              fileName: "app/components/AdminVariants.jsx",
+              lineNumber: 30,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+              Input,
+              {
+                type: "text",
+                name: "taste",
+                id: `taste-${variant.id}`,
+                defaultValue: variant.taste,
+                className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/AdminVariants.jsx",
+                lineNumber: 31,
+                columnNumber: 19
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/components/AdminVariants.jsx",
+            lineNumber: 29,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: `price-${variant.id}`, children: "Pris" }, void 0, !1, {
+              fileName: "app/components/AdminVariants.jsx",
+              lineNumber: 41,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+              Input,
+              {
+                type: "number",
+                name: "price",
+                id: `price-${variant.id}`,
+                defaultValue: variant.price,
+                className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/AdminVariants.jsx",
+                lineNumber: 42,
+                columnNumber: 19
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/components/AdminVariants.jsx",
+            lineNumber: 40,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)("div", { className: "mb-4", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Label2, { htmlFor: `weight-${variant.id}`, children: "V\xE6gt" }, void 0, !1, {
+              fileName: "app/components/AdminVariants.jsx",
+              lineNumber: 52,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+              Input,
+              {
+                type: "number",
+                name: "weight",
+                id: `weight-${variant.id}`,
+                defaultValue: variant.weight,
+                className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/AdminVariants.jsx",
+                lineNumber: 53,
+                columnNumber: 19
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/components/AdminVariants.jsx",
+            lineNumber: 51,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
+            Button,
+            {
+              type: "submit",
+              className: "bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600",
+              asChild: !0,
+              children: "Gem"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/components/AdminVariants.jsx",
+              lineNumber: 62,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, !0, {
+          fileName: "app/components/AdminVariants.jsx",
+          lineNumber: 26,
+          columnNumber: 15
+        }, this)
       ] }, void 0, !0, {
         fileName: "app/components/AdminVariants.jsx",
-        lineNumber: 37,
-        columnNumber: 15
+        lineNumber: 22,
+        columnNumber: 13
       }, this)
-    ] }, variant2.id, !0, {
+    ] }, variant.id, !0, {
       fileName: "app/components/AdminVariants.jsx",
-      lineNumber: 35,
-      columnNumber: 13
-    }, this)) }, void 0, !1, {
-      fileName: "app/components/AdminVariants.jsx",
-      lineNumber: 33,
-      columnNumber: 9
-    }, this)
-  ] }, void 0, !0, {
+      lineNumber: 18,
+      columnNumber: 11
+    }, this);
+  }) }, void 0, !1, {
     fileName: "app/components/AdminVariants.jsx",
-    lineNumber: 31,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/components/AdminVariants.jsx",
-    lineNumber: 30,
+    lineNumber: 14,
     columnNumber: 5
   }, this);
 }
@@ -1115,10 +1224,10 @@ var import_jsx_dev_runtime15 = require("react/jsx-dev-runtime"), buttonVariants2
       size: "default"
     }
   }
-), Button2 = React10.forwardRef(({ className, variant: variant2, size, asChild = !1, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
+), Button2 = React10.forwardRef(({ className, variant, size, asChild = !1, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime15.jsxDEV)(
   asChild ? import_react_slot2.Slot : "button",
   {
-    className: cn(buttonVariants2({ variant: variant2, size, className })),
+    className: cn(buttonVariants2({ variant, size, className })),
     ref,
     ...props
   },
@@ -1456,31 +1565,46 @@ async function loader2({ params, request }) {
   return (0, import_node5.json)({ product, category, categories, productId });
 }
 async function action({ request, params }) {
-  let form = await request.formData(), formValues = Object.fromEntries(form);
-  if (console.log(form), console.log(formValues), form.get("intent") === "delete")
-    return await import_db.prisma.product.delete({
-      where: {
-        id: productId
-      }
-    }), (0, import_node5.redirect)("/products/");
+  let form = await request.formData(), formValues = Object.fromEntries(form), actionType = form.get("actionType");
+  switch (console.log(form), console.log(formValues), form.get("intent") === "delete" && await import_db.prisma.product.delete({
+    where: {
+      id: productId
+    }
+  }), actionType) {
+    case "updateProduct":
+      await import_db.prisma.product.update({
+        where: {
+          id: productId
+        },
+        data: {
+          name: form.get("name"),
+          description: form.get("description"),
+          show: form.get("show") === "on",
+          recommended: form.get("recommended") === "on"
+        }
+      });
+      break;
+    case "updateVariant":
+      let variantId = parseInt(form.get("variantId"), 10);
+      await import_db.prisma.productvariant.update({
+        where: {
+          id: variantId
+        },
+        data: {
+          name: form.get("taste"),
+          price: parseInt(form.get("price"), 10),
+          weight: parseInt(form.get("weight"), 10)
+        }
+      });
+      break;
+  }
   try {
     let categoryName = form.get("category"), categoryNewId = (await import_db.prisma.category.findFirst({
       where: {
         name: categoryName
       }
     })).id;
-    return await import_db.prisma.product.update({
-      where: {
-        id: productId
-      },
-      data: {
-        name: form.get("name"),
-        description: form.get("description"),
-        show: form.get("show") === "on",
-        recommended: form.get("recommended") === "on",
-        categoryId: categoryNewId
-      }
-    }), (0, import_node5.redirect)("/products");
+    return (0, import_node5.redirect)("/products");
   } catch (error) {
     return console.log(error), (0, import_node5.json)({ errors: error.errors, values: formValues }, { status: 400 });
   }
@@ -1490,22 +1614,27 @@ function EditProduct() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "max-w-lg container mx-auto p-4", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(BackButton, {}, void 0, !1, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 117,
+      lineNumber: 134,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react7.Form, { method: "post", className: "mx-auto", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Input, { type: "hidden", name: "actionType", value: "updateProduct" }, void 0, !1, {
+        fileName: "app/routes/products_.$productId.edit.jsx",
+        lineNumber: 137,
+        columnNumber: 9
+      }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("h1", { className: "text-2xl font-semibold mb-4", children: [
         "Redig\xE9r ",
         product.name
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 120,
+        lineNumber: 138,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "name", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 122,
+          lineNumber: 140,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1522,20 +1651,20 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 126,
+            lineNumber: 144,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 121,
+        lineNumber: 139,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "description", className: "block text-gray-600 mb-2", children: "Beskrivelse" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 137,
+          lineNumber: 155,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1552,33 +1681,33 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 140,
+            lineNumber: 158,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 136,
+        lineNumber: 154,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: product.variants && product.variants.length > 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AdminVariants, { variants: product.variants }, void 0, !1, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 151,
+        lineNumber: 169,
         columnNumber: 13
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AdminInventory, { product }, void 0, !1, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 153,
+        lineNumber: 171,
         columnNumber: 13
       }, this) }, void 0, !1, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 149,
+        lineNumber: 167,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 157,
+          lineNumber: 175,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1590,20 +1719,20 @@ function EditProduct() {
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 166,
+                lineNumber: 184,
                 columnNumber: 15
               }, this) }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 165,
+                lineNumber: 183,
                 columnNumber: 13
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectContent, { children: categories.map((category2) => /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectItem, { value: category2.name, children: category2.name }, category2.id, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 170,
+                lineNumber: 188,
                 columnNumber: 17
               }, this)) }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 168,
+                lineNumber: 186,
                 columnNumber: 13
               }, this)
             ]
@@ -1612,21 +1741,21 @@ function EditProduct() {
           !0,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 160,
+            lineNumber: 178,
             columnNumber: 11
           },
           this
         )
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 156,
+        lineNumber: 174,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4 flex justify-between", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "show", className: "block text-gray-600 mb-2", children: "Skal den vises?" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 179,
+            lineNumber: 197,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1642,7 +1771,7 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 182,
+              lineNumber: 200,
               columnNumber: 13
             },
             this
@@ -1658,20 +1787,20 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 189,
+              lineNumber: 207,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 178,
+          lineNumber: 196,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "recommended", className: "block text-gray-600 mb-2", children: "Anbefales p\xE5 forsiden?" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 197,
+            lineNumber: 215,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1687,7 +1816,7 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 200,
+              lineNumber: 218,
               columnNumber: 13
             },
             this
@@ -1703,19 +1832,19 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 207,
+              lineNumber: 225,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 196,
+          lineNumber: 214,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 177,
+        lineNumber: 195,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: [
@@ -1733,7 +1862,7 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 216,
+            lineNumber: 234,
             columnNumber: 11
           },
           this
@@ -1741,11 +1870,11 @@ function EditProduct() {
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialog, { children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Button, { variant: "outline", children: "Slet produkt" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 228,
+            lineNumber: 246,
             columnNumber: 15
           }, this) }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 227,
+            lineNumber: 245,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogContent, { children: [
@@ -1756,23 +1885,23 @@ function EditProduct() {
                 "?"
               ] }, void 0, !0, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 232,
+                lineNumber: 250,
                 columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogDescription, { children: "Dette fjerner den permanent" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 235,
+                lineNumber: 253,
                 columnNumber: 17
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 231,
+              lineNumber: 249,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogFooter, { children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogCancel, { children: "Annull\xE9r" }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 240,
+                lineNumber: 258,
                 columnNumber: 17
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogAction, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1788,43 +1917,43 @@ function EditProduct() {
                 !1,
                 {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 242,
+                  lineNumber: 260,
                   columnNumber: 19
                 },
                 this
               ) }, void 0, !1, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 241,
+                lineNumber: 259,
                 columnNumber: 17
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 239,
+              lineNumber: 257,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 230,
+            lineNumber: 248,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 226,
+          lineNumber: 244,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 215,
+        lineNumber: 233,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 119,
+      lineNumber: 136,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/products_.$productId.edit.jsx",
-    lineNumber: 116,
+    lineNumber: 133,
     columnNumber: 5
   }, this);
 }
@@ -2960,7 +3089,7 @@ async function action4({ request }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-BZ3LTAUE.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6LJXYFKL.js", imports: ["/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-E5PDHTRN.js", imports: ["/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-KM7C7IC6.js", imports: ["/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-U2AUE2UB.js", imports: ["/build/_shared/chunk-X4VFWAUS.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-CWTU5MIE.js", imports: ["/build/_shared/chunk-X4VFWAUS.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-AQZ5MYCR.js", imports: ["/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-AKQUJSAV.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "3111f681", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1705522932578 }, url: "/build/manifest-3111F681.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-BZ3LTAUE.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GXRUB464.js", imports: ["/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-E5PDHTRN.js", imports: ["/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-KM7C7IC6.js", imports: ["/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-BAP4GWS5.js", imports: ["/build/_shared/chunk-UDSUNUUN.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-AHSUYTII.js", imports: ["/build/_shared/chunk-UDSUNUUN.js", "/build/_shared/chunk-4QIDAUBB.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-AQZ5MYCR.js", imports: ["/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-JF6MFLNP.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-NJAYVFQP.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-TTF3VLZS.js", "/build/_shared/chunk-LSI5DTKS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "ce13e7f7", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1705535841569 }, url: "/build/manifest-CE13E7F7.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
