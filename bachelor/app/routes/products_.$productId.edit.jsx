@@ -1,7 +1,12 @@
 import BackButton from "~/components/BackButton";
 import { prisma } from "~/db.server";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, Form, useActionData } from "@remix-run/react";
+import {
+  useLoaderData,
+  Form,
+  useActionData,
+  useFetcher,
+} from "@remix-run/react";
 import { requireUserSession } from "../sessions.server";
 import { Switch } from "../components/ui/switch";
 import { Textarea } from "../components/ui/textarea";
@@ -31,6 +36,12 @@ import {
 } from "../components/ui/alert-dialog";
 import InventoryNew from "../components/InventoryNew";
 import { useRef } from "react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
 
 export async function loader({ params, request }) {
   await requireUserSession(request);
@@ -100,6 +111,15 @@ export async function action({ request, params }) {
         },
       });
       break;
+    case "newVariant":
+      await prisma.productvariant.create({
+        data: {
+          productId: productId,
+          name: form.get("taste"),
+          price: parseInt(form.get("price"), 10),
+          weight: parseInt(form.get("weight"), 10),
+        },
+      });
   }
 
   try {
@@ -163,13 +183,6 @@ export default function EditProduct() {
             defaultValue={product?.description}
             className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
           />
-        </div>
-        <div>
-          {product.variants && product.variants.length > 0 ? (
-            <AdminVariants variants={product.variants} />
-          ) : (
-            <AdminInventory product={product} />
-          )}
         </div>
         <div className="mb-4">
           <Label htmlFor="category" className="block text-gray-600 mb-2">
@@ -272,6 +285,13 @@ export default function EditProduct() {
           </AlertDialog>
         </div>
       </Form>
+      <div>
+        {product.variants && product.variants.length > 0 ? (
+          <AdminVariants variants={product.variants} />
+        ) : (
+          <AdminInventory product={product} />
+        )}
+      </div>
     </div>
   );
 }

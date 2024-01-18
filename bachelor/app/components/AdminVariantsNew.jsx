@@ -16,7 +16,7 @@ export default function AdminVariants({ variants }) {
         const fetcher = useFetcher();
         return (
           <fetcher.Form key={variant.id} method="post">
-            <input type="hidden" name="actionType" value="updateVariant" />
+            <input type="hidden" name="actionType" value="newVariant" />
             <input type="hidden" name="variantId" value={variant.id} />
             <div className="mb-4">
               <Label htmlFor={`weight-${variant.id}`}>Vægt</Label>
