@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "../components/ui/button";
 import MobilMenu from "../components/MobilMenu";
 import extractCategories from "../components/extractCategories";
 import ProductCategoryAdmin from "../components/ProductCategoryAdmin";
+import AdminCategoryNew from "../components/AdminCategoryNew";
 
 export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -28,12 +29,40 @@ export async function loader({ request }) {
   return json({ products, categories });
 }
 
+export async function action({ request }) {
+  const form = await request.formData();
+  const formValues = Object.fromEntries(form);
+  const actionType = form.get("actionType");
+  const categoryId = parseInt(form.get("category"), 10);
+
+  console.log(form);
+  console.log(formValues);
+
+  switch (actionType) {
+    case "newCategory":
+      await prisma.Category.create({
+        data: {
+          name: form.get("name"),
+        },
+      });
+      break;
+    case "deleteCategory":
+      await prisma.Category.delete({
+        where: {
+          id: categoryId,
+        },
+      });
+  }
+  return null;
+}
+
 export default function AdminPage() {
   const { products, categories } = useLoaderData();
 
   return (
     <div className="max-w-lg mx-auto mt-2">
       <div className=" flex flex-row justify-end w-full">
+        <AdminCategoryNew />
         <Link
           to={`/products/new`}
           className="bg-orange-400 m-2 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"

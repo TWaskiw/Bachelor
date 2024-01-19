@@ -100,22 +100,22 @@ export async function action({ request, params }) {
       break;
     case "updateVariant":
       const variantId = parseInt(form.get("variantId"), 10);
-      await prisma.productvariant.update({
+      await prisma.ProductVariant.update({
         where: {
           id: variantId,
         },
         data: {
-          name: form.get("taste"),
+          taste: form.get("taste"),
           price: parseInt(form.get("price"), 10),
           weight: parseInt(form.get("weight"), 10),
         },
       });
       break;
     case "newVariant":
-      await prisma.productvariant.create({
+      await prisma.ProductVariant.create({
         data: {
           productId: productId,
-          name: form.get("taste"),
+          taste: form.get("taste"),
           price: parseInt(form.get("price"), 10),
           weight: parseInt(form.get("weight"), 10),
         },
@@ -152,146 +152,160 @@ export default function EditProduct() {
   return (
     <div className="max-w-lg container mx-auto p-4">
       <BackButton />
+      <Tabs defaultValue="product" className="w-[400px]">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="product">Redigér {product.name}</TabsTrigger>
+          <TabsTrigger value="variant">Varianter</TabsTrigger>
+        </TabsList>
+        <TabsContent value="product">
+          <Form method="post" className="mx-auto">
+            <Input type="hidden" name="actionType" value="updateProduct" />
+            <div className="mb-4">
+              <Label htmlFor="name" className="block text-gray-600 mb-2">
+                Navn
+              </Label>
 
-      <Form method="post" className="mx-auto">
-        <Input type="hidden" name="actionType" value="updateProduct" />
-        <h1 className="text-2xl font-semibold mb-4">Redigér {product.name}</h1>
-        <div className="mb-4">
-          <Label htmlFor="name" className="block text-gray-600 mb-2">
-            Navn
-          </Label>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Navn"
+                defaultValue={product?.name}
+                className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              />
+            </div>
 
-          <Input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Navn"
-            defaultValue={product?.name}
-            className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-          />
-        </div>
+            <div className="mb-4">
+              <Label htmlFor="description" className="block text-gray-600 mb-2">
+                Beskrivelse
+              </Label>
+              <Textarea
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Beskrivelse"
+                defaultValue={product?.description}
+                className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="category" className="block text-gray-600 mb-2">
+                Kategori
+              </Label>
+              <Select
+                onValueChange={(newValue) => setSelectedValue(newValue)}
+                name="category"
+                defaultValue={category.name}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Vælg kategori" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.name}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="mb-4 flex justify-between">
+              <div className="mb-4">
+                <Label htmlFor="show" className="block text-gray-600 mb-2">
+                  Skal den vises?
+                </Label>
+                <Switch
+                  onCheckedChange={() => {
+                    setActiveShow(!activeShow);
+                  }}
+                  checked={activeShow}
+                  name="show"
+                />
+                <input
+                  type="hidden"
+                  name="show"
+                  value={activeShow ? "on" : "off"}
+                />
+              </div>
 
-        <div className="mb-4">
-          <Label htmlFor="description" className="block text-gray-600 mb-2">
-            Beskrivelse
-          </Label>
-          <Textarea
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Beskrivelse"
-            defaultValue={product?.description}
-            className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-4">
-          <Label htmlFor="category" className="block text-gray-600 mb-2">
-            Kategori
-          </Label>
-          <Select
-            onValueChange={(newValue) => setSelectedValue(newValue)}
-            name="category"
-            defaultValue={category.name}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Vælg kategori" />
-            </SelectTrigger>
-            <SelectContent>
-              {categories.map((category) => (
-                <SelectItem key={category.id} value={category.name}>
-                  {category.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="mb-4 flex justify-between">
-          <div className="mb-4">
-            <Label htmlFor="show" className="block text-gray-600 mb-2">
-              Skal den vises?
-            </Label>
-            <Switch
-              onCheckedChange={() => {
-                setActiveShow(!activeShow);
-              }}
-              checked={activeShow}
-              name="show"
-            />
-            <input
-              type="hidden"
-              name="show"
-              value={activeShow ? "on" : "off"}
-            />
+              <div className="mb-4">
+                <Label
+                  htmlFor="recommended"
+                  className="block text-gray-600 mb-2"
+                >
+                  Anbefales på forsiden?
+                </Label>
+                <Switch
+                  onCheckedChange={() => {
+                    setActiveRec(!activeRec);
+                  }}
+                  checked={activeRec}
+                  name="recommended"
+                />
+                <input
+                  type="hidden"
+                  name="recommended"
+                  value={activeRec ? "on" : "off"}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-between gap-4 mb-4">
+              <Button
+                ref={deleteBtn}
+                name="intent"
+                value=""
+                type="submit"
+                className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
+              >
+                Gem
+              </Button>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline">Slet produkt</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Er du sikker på at du vil slette {product.name}?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Dette fjerner den permanent
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Annullér</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <Button
+                        onClick={() => {
+                          deleteBtn.current.value = "delete";
+                          deleteBtn.current.click();
+                        }}
+                        variant="outline"
+                      >
+                        Bekræft
+                      </Button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          </Form>
+        </TabsContent>
+        <TabsContent value="variant">
+          <div>
+            {product.variants && product.variants.length > 0 ? (
+              <AdminVariants
+                variants={product.variants}
+                productId={product.id}
+              />
+            ) : (
+              <AdminInventory product={product} />
+            )}
           </div>
-
-          <div className="mb-4">
-            <Label htmlFor="recommended" className="block text-gray-600 mb-2">
-              Anbefales på forsiden?
-            </Label>
-            <Switch
-              onCheckedChange={() => {
-                setActiveRec(!activeRec);
-              }}
-              checked={activeRec}
-              name="recommended"
-            />
-            <input
-              type="hidden"
-              name="recommended"
-              value={activeRec ? "on" : "off"}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-between gap-4 mb-4">
-          <Button
-            ref={deleteBtn}
-            name="intent"
-            value=""
-            type="submit"
-            className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
-          >
-            Gem
-          </Button>
-
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="outline">Slet produkt</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Er du sikker på at du vil slette {product.name}?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Dette fjerner den permanent
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Annullér</AlertDialogCancel>
-                <AlertDialogAction asChild>
-                  <Button
-                    onClick={() => {
-                      deleteBtn.current.value = "delete";
-                      deleteBtn.current.click();
-                    }}
-                    variant="outline"
-                  >
-                    Bekræft
-                  </Button>
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>
-      </Form>
-      <div>
-        {product.variants && product.variants.length > 0 ? (
-          <AdminVariants variants={product.variants} />
-        ) : (
-          <AdminInventory product={product} />
-        )}
-      </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
