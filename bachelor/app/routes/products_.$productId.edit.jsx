@@ -42,6 +42,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
+import AdminVariantNew from "../components/AdminVariantNew";
 
 export async function loader({ params, request }) {
   await requireUserSession(request);
@@ -72,6 +73,7 @@ export async function action({ request, params }) {
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
   const actionType = form.get("actionType");
+  const productId = parseInt(params.productId, 10);
 
   console.log(form);
   console.log(formValues);
@@ -83,57 +85,60 @@ export async function action({ request, params }) {
       },
     });
   }
-
-  switch (actionType) {
-    case "updateProduct":
-      await prisma.product.update({
-        where: {
-          id: productId,
-        },
-        data: {
-          name: form.get("name"),
-          description: form.get("description"),
-          show: form.get("show") === "on",
-          recommended: form.get("recommended") === "on",
-        },
-      });
-      break;
-    case "updateVariant":
-      const variantId = parseInt(form.get("variantId"), 10);
-      await prisma.ProductVariant.update({
-        where: {
-          id: variantId,
-        },
-        data: {
-          taste: form.get("taste"),
-          price: parseInt(form.get("price"), 10),
-          weight: parseInt(form.get("weight"), 10),
-        },
-      });
-      break;
-    case "newVariant":
-      await prisma.ProductVariant.create({
-        data: {
-          productId: productId,
-          taste: form.get("taste"),
-          price: parseInt(form.get("price"), 10),
-          weight: parseInt(form.get("weight"), 10),
-        },
-      });
-  }
-
   try {
-    const categoryName = form.get("category");
-    const category = await prisma.category.findFirst({
-      where: {
-        name: categoryName,
-      },
-    });
-    const categoryNewId = category.id;
+    switch (actionType) {
+      case "updateProduct":
+        const categoryName = form.get("category");
+        const newCategory = await prisma.category.findFirst({
+          where: {
+            name: categoryName,
+          },
+        });
+        await prisma.product.update({
+          where: {
+            id: productId,
+          },
+          data: {
+            name: form.get("name"),
+            description: form.get("description"),
+            show: form.get("show") === "on",
+            recommended: form.get("recommended") === "on",
+            category: {
+              connect: { id: newCategory.id },
+            },
+          },
+        });
+        return redirect(`/products`);
 
-    /*     if (product.variants && product.variants.length > 0)  */
+      case "updateVariant":
+        const variantId = parseInt(form.get("variantId"), 10);
+        await prisma.ProductVariant.update({
+          where: {
+            id: variantId,
+          },
+          data: {
+            taste: form.get("taste"),
+            price: parseInt(form.get("price"), 10),
+            weight: parseInt(form.get("weight"), 10),
+            stock: parseInt(form.get("stock"), 10),
+          },
+        });
+        break;
+      case "newVariant":
+        await prisma.ProductVariant.create({
+          data: {
+            taste: form.get("taste"),
+            price: parseInt(form.get("price"), 10),
+            weight: parseInt(form.get("weight"), 10),
+            stock: parseInt(form.get("stock"), 10),
+            product: {
+              connect: { id: productId },
+            },
+          },
+        });
+    }
 
-    return redirect(`/products`);
+    return null;
   } catch (error) {
     console.log(error);
     return json({ errors: error.errors, values: formValues }, { status: 400 });
@@ -146,7 +151,6 @@ export default function EditProduct() {
   const [activeShow, setActiveShow] = useState(product.show);
   const [activeRec, setActiveRec] = useState(product.recommended);
   const [selectedValue, setSelectedValue] = useState(category.id);
-  const [weight, setWeight] = useState(product.weight);
   const deleteBtn = useRef(null);
 
   return (
@@ -303,6 +307,7 @@ export default function EditProduct() {
             ) : (
               <AdminInventory product={product} />
             )}
+            <AdminVariantNew />
           </div>
         </TabsContent>
       </Tabs>

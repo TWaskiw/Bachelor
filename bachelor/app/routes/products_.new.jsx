@@ -16,31 +16,51 @@ import {
 } from "../components/ui/select";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
+import { Checkbox } from "../components/ui/checkbox";
 import InventoryNew from "../components/InventoryNew";
+import NewProductVariant from "../components/NewProductVariant";
 
 export async function loader({ request }) {
   await requireUserSession(request);
-  return null;
+  const categories = await prisma.category.findMany();
+
+  return json({ categories });
 }
 
 export async function action({ request }) {
   const session = await requireUserSession(request);
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
-  const db = await connectDb();
   console.log(form.get("image"));
   console.log(formValues);
 
+  const stockValue = form.get("stock");
+  const stock = stockValue === null ? 0 : parseInt(stockValue, 10);
+  console.log(form.get("category"));
+
   try {
-    const newProduct = new db.models.Product({
-      name: form.get("name"),
-      description: form.get("description"),
-      category: form.get("category"),
-      show: Boolean(form.get("show")),
-      recommended: Boolean(form.get("recommended")),
-      image: form.get("image"),
+    const categoryName = form.get("category");
+    const categoryId = await prisma.category.findFirst({
+      where: {
+        name: categoryName,
+      },
+      select: {
+        id: true,
+      },
     });
-    await newProduct.save();
+    await prisma.product.create({
+      data: {
+        stock: stock,
+        weight: form.get("weight"),
+        price: form.get("price"),
+        name: form.get("name"),
+        description: form.get("description"),
+        show: form.get("show") === "on",
+        recommended: form.get("recommended") === "on",
+        image: form.get("image"),
+        categoryId: Number(categoryId.id),
+      },
+    });
     return redirect(`/products`);
   } catch (error) {
     console.error("Fejl ved oprettelse af produkt:", error);
@@ -53,7 +73,12 @@ export default function NewProduct() {
   const [activeShow, setActiveShow] = useState("");
   const [activeRec, setActiveRec] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  const [isVariantChecked, setIsVariantChecked] = useState(false);
   const test = useRef(null);
+  const { categories } = useLoaderData();
+  const handleCheckboxChange = (checked) => {
+    setIsVariantChecked(checked);
+  };
 
   return (
     <div className="max-w-lg container mx-auto p-4">
@@ -116,20 +141,16 @@ export default function NewProduct() {
           <Label htmlFor="category" className="block text-gray-600 mb-2">
             Kategori
           </Label>
-
-          <Select
-            onValueChange={(newValue) => setSelectedValue(newValue)}
-            name="category"
-          >
+          <Select name="category">
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Vælg kategori" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="boffersteaks">Bøffer/Steaks</SelectItem>
-              <SelectItem value="hakket">Hakket oksekød</SelectItem>
-              <SelectItem value="helestege">Hele Stege</SelectItem>
-              <SelectItem value="spegepolse">Spegepølse</SelectItem>
-              <SelectItem value="is">Is</SelectItem>
+              {categories.map((category) => (
+                <SelectItem key={category.id} value={category.name}>
+                  {category.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -160,18 +181,24 @@ export default function NewProduct() {
             />
           </div>
         </div>
-
-        <div className="mb-4">
-          {selectedValue === "is" ? (
-            <div className="w-full ml-auto">
-              <InventoryNew idx={0} actionData={actionData} />
-              <InventoryNew idx={1} actionData={actionData} />
-              <InventoryNew idx={2} actionData={actionData} />
-            </div>
-          ) : (
-            <InventoryNew idx={0} actionData={actionData} />
-          )}
+        <div className="items-top flex space-x-2 mb-8">
+          <Checkbox id="terms" onCheckedChange={handleCheckboxChange} />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Har dette produkt flere under-varianter?
+            </label>
+            {isVariantChecked && (
+              <p className="text-sm text-muted-foreground">
+                Tilføj varianter på rediger-produkt siden, efter at have trykket
+                "Gem"
+              </p>
+            )}
+          </div>
         </div>
+        {!isVariantChecked && <NewProductVariant />}
 
         <div className="flex justify-between gap-4 mb-4">
           <Button

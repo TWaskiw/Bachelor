@@ -21,9 +21,9 @@ model Product {
   categoryId          Int
   image               String
   cut                 String?
-  stock               Int
-  price               Float
-  weight              Float
+  stock               Int                   @default(0)
+  price               Float?
+  weight              Float?
   description         String
   recommended         Boolean
   name                String

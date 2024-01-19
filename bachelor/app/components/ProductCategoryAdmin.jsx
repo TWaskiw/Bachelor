@@ -25,13 +25,13 @@ export default function ProductCategoryAdmin({ products, category, id }) {
         <div className="flex justify-between gap-4 mb-4">
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="outline">Slet</Button>
+              <Button variant="link">Slet</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  Er du sikker på at du vil slette {category} og alle
-                  dertilhørende produkt- og produktvarianter?
+                  Er du sikker på at du vil slette {category} og alle dets
+                  produkter og varianter?
                 </AlertDialogTitle>
                 <AlertDialogDescription>
                   Dette er permanent

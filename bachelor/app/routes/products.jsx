@@ -47,6 +47,27 @@ export async function action({ request }) {
       });
       break;
     case "deleteCategory":
+      const productsInCategory = await prisma.product.findMany({
+        where: {
+          categoryId: categoryId,
+        },
+        select: {
+          id: true,
+        },
+      });
+      // For hvert produkt, sletter jeg alle dets varianter
+      for (const product of productsInCategory) {
+        await prisma.ProductVariant.deleteMany({
+          where: {
+            productId: product.id,
+          },
+        });
+      }
+      await prisma.Product.deleteMany({
+        where: {
+          categoryId: categoryId,
+        },
+      });
       await prisma.Category.delete({
         where: {
           id: categoryId,
