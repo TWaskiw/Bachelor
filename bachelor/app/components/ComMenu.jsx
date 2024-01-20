@@ -7,7 +7,7 @@ export default function ComMenu({ category, active }) {
   return (
     <div>
       <Link
-        to={category.name}
+        to={category.id}
         spy={true}
         smooth={true}
         duration={600}

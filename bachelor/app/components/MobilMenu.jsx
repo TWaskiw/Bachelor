@@ -7,7 +7,7 @@ export default function MobilMenu({ category, active }) {
 
   return (
     <Link
-      to={category.name}
+      to={category.id}
       spy={true}
       smooth={true}
       duration={600}
