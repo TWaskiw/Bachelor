@@ -78,66 +78,83 @@ export async function action({ request, params }) {
   console.log(form);
   console.log(formValues);
 
-  if (form.get("intent") === "delete") {
-    await prisma.product.delete({
-      where: {
-        id: productId,
-      },
-    });
-  }
   try {
-    switch (actionType) {
-      case "updateProduct":
-        const categoryName = form.get("category");
-        const newCategory = await prisma.category.findFirst({
-          where: {
-            name: categoryName,
-          },
-        });
-        await prisma.product.update({
-          where: {
-            id: productId,
-          },
-          data: {
-            name: form.get("name"),
-            description: form.get("description"),
-            show: form.get("show") === "on",
-            recommended: form.get("recommended") === "on",
-            category: {
-              connect: { id: newCategory.id },
-            },
-          },
-        });
-        return redirect(`/products`);
+    const intent = form.get("intent") || ""; // Sætter en standardværdi, hvis det er undefined
+    const actionType = form.get("actionType") || ""; // Sætter en standardværdi
 
-      case "updateVariant":
-        const variantId = parseInt(form.get("variantId"), 10);
-        await prisma.ProductVariant.update({
-          where: {
-            id: variantId,
-          },
-          data: {
-            taste: form.get("taste"),
-            price: parseInt(form.get("price"), 10),
-            weight: parseInt(form.get("weight"), 10),
-            stock: parseInt(form.get("stock"), 10),
-          },
-        });
-        break;
-      case "newVariant":
-        await prisma.ProductVariant.create({
-          data: {
-            taste: form.get("taste"),
-            price: parseInt(form.get("price"), 10),
-            weight: parseInt(form.get("weight"), 10),
-            stock: parseInt(form.get("stock"), 10),
-            product: {
-              connect: { id: productId },
+    if (intent) {
+      switch (intent) {
+        case "deleteProduct":
+          await prisma.product.delete({
+            where: {
+              id: productId,
             },
-          },
-        });
+          });
+          return redirect(`/products`);
+
+        case "deleteVariant":
+          const variantId = parseInt(form.get("variantId"), 10);
+          await prisma.ProductVariant.delete({
+            where: {
+              id: variantId,
+            },
+          });
+          break;
+      }
     }
+    if (actionType) {
+      switch (actionType) {
+        case "updateProduct":
+          const categoryName = form.get("category");
+          const newCategory = await prisma.category.findFirst({
+            where: {
+              name: categoryName,
+            },
+          });
+          await prisma.product.update({
+            where: {
+              id: productId,
+            },
+            data: {
+              name: form.get("name"),
+              description: form.get("description"),
+              show: form.get("show") === "on",
+              recommended: form.get("recommended") === "on",
+              category: {
+                connect: { id: newCategory.id },
+              },
+            },
+          });
+          return redirect(`/products`);
 
+        case "updateVariant":
+          const variantId = parseInt(form.get("variantId"), 10);
+          await prisma.ProductVariant.update({
+            where: {
+              id: variantId,
+            },
+            data: {
+              taste: form.get("taste"),
+              price: parseInt(form.get("price"), 10),
+              weight: parseInt(form.get("weight"), 10),
+              stock: parseInt(form.get("stock"), 10),
+            },
+          });
+          break;
+        case "newVariant":
+          await prisma.ProductVariant.create({
+            data: {
+              taste: form.get("taste"),
+              price: parseInt(form.get("price"), 10),
+              weight: parseInt(form.get("weight"), 10),
+              stock: parseInt(form.get("stock"), 10),
+              product: {
+                connect: { id: productId },
+              },
+            },
+          });
+      }
+    }
     return null;
   } catch (error) {
     console.log(error);
@@ -283,7 +300,7 @@ export default function EditProduct() {
                     <AlertDialogAction asChild>
                       <Button
                         onClick={() => {
-                          deleteBtn.current.value = "delete";
+                          deleteBtn.current.value = "deleteProduct";
                           deleteBtn.current.click();
                         }}
                         variant="outline"
@@ -304,9 +321,8 @@ export default function EditProduct() {
                 variants={product.variants}
                 productId={product.id}
               />
-            ) : (
-              <AdminInventory product={product} />
-            )}
+            ) : null}
+
             <AdminVariantNew />
           </div>
         </TabsContent>

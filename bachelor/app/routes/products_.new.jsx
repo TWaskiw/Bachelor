@@ -48,7 +48,7 @@ export async function action({ request }) {
         id: true,
       },
     });
-    await prisma.product.create({
+    const product = await prisma.product.create({
       data: {
         stock: stock,
         weight: form.get("weight"),
@@ -61,7 +61,13 @@ export async function action({ request }) {
         categoryId: Number(categoryId.id),
       },
     });
-    return redirect(`/products`);
+    const isCheckboxChecked = form.get("moreVariants") === "on";
+
+    if (isCheckboxChecked) {
+      return redirect(`/products/${product.id}/edit`);
+    } else {
+      return redirect(`/products`);
+    }
   } catch (error) {
     console.error("Fejl ved oprettelse af produkt:", error);
     return json({ errors: error.errors, values: formValues }, { status: 400 });
@@ -182,7 +188,11 @@ export default function NewProduct() {
           </div>
         </div>
         <div className="items-top flex space-x-2 mb-8">
-          <Checkbox id="terms" onCheckedChange={handleCheckboxChange} />
+          <Checkbox
+            id="moreVariants"
+            name="moreVariants"
+            onCheckedChange={handleCheckboxChange}
+          />
           <div className="grid gap-1.5 leading-none">
             <label
               htmlFor="terms"

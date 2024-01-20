@@ -71,19 +71,22 @@ export default function AdminVariants({ variants }) {
                   />
                 </div>
                 <DialogClose asChild>
-                  <Button
-                    type="submit"
-                    className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
-                  >
-                    Gem
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    type="submit"
-                    className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
-                  >
-                    Gem
-                  </Button>
+                  <div className="flex justify-between gap-4 mb-4">
+                    <Button
+                      type="submit"
+                      className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
+                    >
+                      Gem
+                    </Button>
+                    <Button
+                      type="submit"
+                      name="intent"
+                      value="deleteVariant"
+                      variant="outline"
+                    >
+                      Slet {variant.taste}
+                    </Button>
+                  </div>
                 </DialogClose>
               </fetcher.Form>
             </DialogContent>
