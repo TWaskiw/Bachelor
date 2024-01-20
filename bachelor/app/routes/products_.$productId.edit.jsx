@@ -99,7 +99,7 @@ export async function action({ request, params }) {
               id: variantId,
             },
           });
-          break;
+          return null;
       }
     }
     if (actionType) {

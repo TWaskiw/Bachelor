@@ -21,7 +21,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
   return (
     <div className="list-decimal mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
       <div className="w-full flex justify-between">
-        <h1>{category}</h1>
+        <h1>{category.name}</h1>
         <div className="flex justify-between gap-4 mb-4">
           <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -30,7 +30,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  Er du sikker på at du vil slette {category} og alle dets
+                  Er du sikker på at du vil slette {category.id} og alle dets
                   produkter og varianter?
                 </AlertDialogTitle>
                 <AlertDialogDescription>
@@ -47,7 +47,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
                       name="actionType"
                       value="deleteCategory"
                     />
-                    <button type="submit">Slet {category}</button>
+                    <button type="submit">Slet {category.name}</button>
                   </fetcher.Form>
                 </AlertDialogAction>
               </AlertDialogFooter>

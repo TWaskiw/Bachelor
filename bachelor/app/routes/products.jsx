@@ -98,7 +98,7 @@ export default function AdminPage() {
       </div>
       <div className="overflow-x-auto whitespace-nowrap">
         {categories?.map((category) => {
-          return <MobilMenu key={category.id} category={category.name} />;
+          return <MobilMenu key={category.id.toString()} category={category} />;
         })}
       </div>
 
@@ -108,7 +108,7 @@ export default function AdminPage() {
             <ProductCategoryAdmin
               key={category.id}
               products={products}
-              category={category.name}
+              category={category}
               id={category.id}
             />
           );
