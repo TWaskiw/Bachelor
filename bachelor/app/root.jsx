@@ -11,6 +11,7 @@ import {
 import { getSession } from "./sessions.server";
 import { json } from "@remix-run/node";
 import Navigation from "./components/Navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -39,6 +40,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <Toaster />
       </body>
     </html>
   );

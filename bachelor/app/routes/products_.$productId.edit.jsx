@@ -43,6 +43,7 @@ import {
   TabsTrigger,
 } from "../components/ui/tabs";
 import AdminVariantNew from "../components/AdminVariantNew";
+import { Toaster } from "../components/ui/sonner";
 
 export async function loader({ params, request }) {
   await requireUserSession(request);
@@ -90,7 +91,6 @@ export async function action({ request, params }) {
               id: productId,
             },
           });
-          return redirect(`/products`);
 
         case "deleteVariant":
           const variantId = parseInt(form.get("variantId"), 10);
@@ -105,30 +105,39 @@ export async function action({ request, params }) {
     if (actionType) {
       switch (actionType) {
         case "updateProduct":
-          const categoryName = form.get("category");
-          const newCategory = await prisma.category.findFirst({
-            where: {
-              name: categoryName,
-            },
-          });
-          await prisma.product.update({
-            where: {
-              id: productId,
-            },
-            data: {
-              name: form.get("name"),
-              description: form.get("description"),
-              show: form.get("show") === "on",
-              recommended: form.get("recommended") === "on",
-              category: {
-                connect: { id: newCategory.id },
+          const name = form.get("name").trim();
+          if (!name) {
+            return json(
+              { errorMessage: "Navn skal udfyldes", values: formValues },
+              { status: 400 }
+            );
+          } else {
+            const categoryName = form.get("category");
+            const newCategory = await prisma.category.findFirst({
+              where: {
+                name: categoryName,
               },
-            },
-          });
-          return redirect(`/products`);
+            });
+            await prisma.product.update({
+              where: {
+                id: productId,
+              },
+              data: {
+                name: name,
+                description: form.get("description"),
+                show: form.get("show") === "on",
+                recommended: form.get("recommended") === "on",
+                category: {
+                  connect: { id: newCategory.id },
+                },
+              },
+            });
+            return redirect(`/products`);
+          }
 
         case "updateVariant":
           const variantId = parseInt(form.get("variantId"), 10);
+
           await prisma.ProductVariant.update({
             where: {
               id: variantId,
@@ -171,15 +180,22 @@ export default function EditProduct() {
   const deleteBtn = useRef(null);
 
   return (
-    <div className="max-w-lg container mx-auto p-4">
+    <div className="max-w-lg container mx-auto">
       <BackButton />
-      <Tabs defaultValue="product" className="w-[400px]">
+      <Tabs defaultValue="product">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="product">Redigér {product.name}</TabsTrigger>
           <TabsTrigger value="variant">Varianter</TabsTrigger>
         </TabsList>
         <TabsContent value="product">
           <Form method="post" className="mx-auto">
+            <div>
+              {actionData?.errorMessage && (
+                <p className="mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900">
+                  {actionData?.errorMessage}
+                </p>
+              )}
+            </div>
             <Input type="hidden" name="actionType" value="updateProduct" />
             <div className="mb-4">
               <Label htmlFor="name" className="block text-gray-600 mb-2">

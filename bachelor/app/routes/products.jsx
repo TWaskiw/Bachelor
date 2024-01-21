@@ -1,4 +1,10 @@
-import { useLoaderData, Link, Outlet } from "@remix-run/react";
+import {
+  useLoaderData,
+  Link,
+  Outlet,
+  useActionData,
+  useFetcher,
+} from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { prisma } from "~/db.server";
 import { getSession, requireUserSession } from "~/sessions.server";
@@ -9,11 +15,14 @@ import MobilMenu from "../components/MobilMenu";
 import extractCategories from "../components/extractCategories";
 import ProductCategoryAdmin from "../components/ProductCategoryAdmin";
 import AdminCategoryNew from "../components/AdminCategoryNew";
+import { Toaster, toast } from "sonner";
+import { deleteCategory } from "../components/backendFunctions/deleteFunctions";
+import { newCategory } from "../components/backendFunctions/createFunctions";
+import { useEffect } from "react";
 
 export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
-
   await requireUserSession(request);
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -40,45 +49,44 @@ export async function action({ request }) {
 
   switch (actionType) {
     case "newCategory":
-      await prisma.Category.create({
-        data: {
-          name: form.get("name"),
-        },
-      });
-      break;
-    case "deleteCategory":
-      const productsInCategory = await prisma.product.findMany({
-        where: {
-          categoryId: categoryId,
-        },
-        select: {
-          id: true,
-        },
-      });
-      // For hvert produkt, sletter jeg alle dets varianter
-      for (const product of productsInCategory) {
-        await prisma.ProductVariant.deleteMany({
-          where: {
-            productId: product.id,
-          },
-        });
+      try {
+        await newCategory(form);
+        return json({ status: "success", message: "Kategorien blev oprettet" });
+      } catch (error) {
+        console.error(error); // Log fejlen for debugging
+        return json(
+          { status: "error", message: "Fejl ved oprettelse af kategori" },
+          { status: 500 }
+        );
       }
-      await prisma.Product.deleteMany({
-        where: {
-          categoryId: categoryId,
-        },
-      });
-      await prisma.Category.delete({
-        where: {
-          id: categoryId,
-        },
-      });
+
+    case "deleteCategory":
+      try {
+        await deleteCategory(categoryId);
+        return json({ status: "success", message: "Kategorien blev slettet" });
+      } catch (error) {
+        console.error(error); // Log fejlen for debugging
+        return json(
+          { status: "error", message: "Fejl ved sletning af kategori" },
+          { status: 500 }
+        );
+      }
   }
   return null;
 }
 
 export default function AdminPage() {
   const { products, categories } = useLoaderData();
+  const actionData = useActionData();
+  console.log(actionData);
+
+  useEffect(() => {
+    if (actionData?.status === "success") {
+      toast.success(actionData.message);
+    } else if (actionData?.status === "error") {
+      toast.error(actionData.message);
+    }
+  }, [actionData]);
 
   return (
     <div className="max-w-lg mx-auto mt-2">

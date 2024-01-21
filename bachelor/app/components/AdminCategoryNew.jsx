@@ -1,4 +1,4 @@
-import { useFetcher } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -11,7 +11,6 @@ import {
 } from "../components/ui/dialog";
 
 export default function AdminCategoryNew({}) {
-  const fetcher = useFetcher();
   return (
     <div>
       <Dialog>
@@ -22,7 +21,7 @@ export default function AdminCategoryNew({}) {
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Tilføj ny kategori</DialogTitle>
-          <fetcher.Form method="post">
+          <Form method="post">
             <input type="hidden" name="actionType" value="newCategory" />
             <div className="mb-4">
               <Input
@@ -40,7 +39,7 @@ export default function AdminCategoryNew({}) {
                 Gem
               </Button>
             </DialogClose>
-          </fetcher.Form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>

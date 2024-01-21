@@ -17,7 +17,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
   const filteredProducts = products.filter(
     (product) => product.categoryId === id
   );
-  const fetcher = useFetcher();
+
   return (
     <div className="list-decimal mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
       <div className="w-full flex justify-between">
@@ -40,7 +40,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
               <AlertDialogFooter>
                 <AlertDialogCancel>Annullér</AlertDialogCancel>
                 <AlertDialogAction asChild>
-                  <fetcher.Form method="post">
+                  <Form method="post">
                     <input type="hidden" name="category" value={id} />
                     <input
                       type="hidden"
@@ -48,7 +48,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
                       value="deleteCategory"
                     />
                     <button type="submit">Slet {category.name}</button>
-                  </fetcher.Form>
+                  </Form>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
