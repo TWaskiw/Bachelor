@@ -6,12 +6,13 @@ import {
   Form,
   useActionData,
   useFetcher,
+  useSearchParams,
 } from "@remix-run/react";
 import { requireUserSession } from "../sessions.server";
 import { Switch } from "../components/ui/switch";
 import { Textarea } from "../components/ui/textarea";
 import { Button } from "../components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -44,6 +45,12 @@ import {
 } from "../components/ui/tabs";
 import AdminVariantNew from "../components/AdminVariantNew";
 import { Toaster } from "../components/ui/sonner";
+import {
+  deleteProduct,
+  deleteVariant,
+} from "../components/backendFunctions/deleteFunctions";
+import { toast } from "sonner";
+import { newVariant } from "../components/backendFunctions/createFunctions";
 
 export async function loader({ params, request }) {
   await requireUserSession(request);
@@ -86,20 +93,38 @@ export async function action({ request, params }) {
     if (intent) {
       switch (intent) {
         case "deleteProduct":
-          await prisma.product.delete({
-            where: {
-              id: productId,
-            },
-          });
+          try {
+            await deleteProduct(productId);
+            return redirect(`/products?deleted=true`);
+          } catch (error) {
+            console.error(error);
+            return json(
+              {
+                status: "error",
+                message: "Fejl ved sletning af produkt",
+              },
+              { status: 500 }
+            );
+          }
 
         case "deleteVariant":
-          const variantId = parseInt(form.get("variantId"), 10);
-          await prisma.ProductVariant.delete({
-            where: {
-              id: variantId,
-            },
-          });
-          return null;
+          try {
+            const variantId = parseInt(form.get("variantId"), 10);
+            await deleteVariant(variantId);
+            return json({
+              status: "success",
+              message: "Variant blev slettet",
+            });
+          } catch (error) {
+            console.error(error); // Log fejlen for debugging
+            return json(
+              {
+                status: "error",
+                message: "Fejl ved sletning af variant",
+              },
+              { status: 500 }
+            );
+          }
       }
     }
     if (actionType) {
@@ -151,17 +176,21 @@ export async function action({ request, params }) {
           });
           break;
         case "newVariant":
-          await prisma.ProductVariant.create({
-            data: {
-              taste: form.get("taste"),
-              price: parseInt(form.get("price"), 10),
-              weight: parseInt(form.get("weight"), 10),
-              stock: parseInt(form.get("stock"), 10),
-              product: {
-                connect: { id: productId },
+          try {
+            await newVariant(form, productId);
+            return json({
+              status: "success",
+              message: "Variant blev oprettet",
+            });
+          } catch (error) {
+            return json(
+              {
+                status: "error",
+                message: "Fejl ved oprettelse af variant",
               },
-            },
-          });
+              { status: 500 }
+            );
+          }
       }
     }
     return null;
@@ -178,6 +207,22 @@ export default function EditProduct() {
   const [activeRec, setActiveRec] = useState(product.recommended);
   const [selectedValue, setSelectedValue] = useState(category.id);
   const deleteBtn = useRef(null);
+  const [searchParams] = useSearchParams();
+  const success = searchParams.get("success");
+
+  useEffect(() => {
+    if (actionData?.status === "success") {
+      toast.success(actionData.message);
+    } else if (actionData?.status === "error") {
+      toast.error(actionData.message);
+    }
+  }, [actionData]);
+
+  useEffect(() => {
+    if (success === "true") {
+      toast.success("Produktet blev oprettet");
+    }
+  }, [success]);
 
   return (
     <div className="max-w-lg container mx-auto">

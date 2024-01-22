@@ -1,4 +1,4 @@
-import { useFetcher } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -11,7 +11,6 @@ import {
 } from "../components/ui/dialog";
 
 export default function AdminVariantNew() {
-  const fetcher = useFetcher();
   return (
     <div>
       <Dialog>
@@ -22,8 +21,7 @@ export default function AdminVariantNew() {
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Tilføj ny variant</DialogTitle>
-          <fetcher.Form method="post">
-            <input type="hidden" name="actionType" value="newVariant" />
+          <Form method="post">
             <div className="mb-4">
               <Label htmlFor="taste">Navn</Label>
               <Input
@@ -74,12 +72,14 @@ export default function AdminVariantNew() {
             <DialogClose asChild>
               <Button
                 type="submit"
-                className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
+                name="actionType"
+                value="newVariant"
+                className="bg-orange-400 text-white py-2 px-4 mt-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
               >
                 Gem
               </Button>
             </DialogClose>
-          </fetcher.Form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>

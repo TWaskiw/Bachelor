@@ -1,4 +1,4 @@
-import { useFetcher } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -11,7 +11,6 @@ import {
 } from "../components/ui/dialog";
 
 export default function AdminVariants({ variants }) {
-  const fetcher = useFetcher();
   return (
     <div className="my-4 rounded-lg bg-white shadow-lg p-4">
       {variants.map((variant) => {
@@ -24,8 +23,7 @@ export default function AdminVariants({ variants }) {
             </DialogTrigger>
             <DialogContent>
               <DialogTitle>Rediger {variant.taste}</DialogTitle>
-              <fetcher.Form key={variant.id} method="post">
-                <input type="hidden" name="actionType" value="updateVariant" />
+              <Form key={variant.id} method="post">
                 <input type="hidden" name="variantId" value={variant.id} />
                 <div className="mb-4">
                   <Label htmlFor={`taste-${variant.id}`}>Navn</Label>
@@ -74,6 +72,8 @@ export default function AdminVariants({ variants }) {
                   <div className="flex justify-between gap-4 mb-4">
                     <Button
                       type="submit"
+                      name="actionType"
+                      value="updateVariant"
                       className="bg-orange-400 text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600"
                     >
                       Gem
@@ -88,7 +88,7 @@ export default function AdminVariants({ variants }) {
                     </Button>
                   </div>
                 </DialogClose>
-              </fetcher.Form>
+              </Form>
             </DialogContent>
           </Dialog>
         );

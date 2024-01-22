@@ -1,7 +1,12 @@
 import BackButton from "~/components/BackButton";
 import { prisma } from "~/db.server";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, Form, useActionData } from "@remix-run/react";
+import {
+  useLoaderData,
+  Form,
+  useActionData,
+  useSearchParams,
+} from "@remix-run/react";
 import { requireUserSession } from "../sessions.server";
 import { Switch } from "../components/ui/switch";
 import { Textarea } from "../components/ui/textarea";
@@ -19,6 +24,7 @@ import { Input } from "../components/ui/input";
 import { Checkbox } from "../components/ui/checkbox";
 import InventoryNew from "../components/InventoryNew";
 import NewProductVariant from "../components/NewProductVariant";
+import { toast } from "sonner";
 
 export async function loader({ request }) {
   await requireUserSession(request);
@@ -64,7 +70,7 @@ export async function action({ request }) {
     const isCheckboxChecked = form.get("moreVariants") === "on";
 
     if (isCheckboxChecked) {
-      return redirect(`/products/${product.id}/edit`);
+      return redirect(`/products/${product.id}/edit?success=true`);
     } else {
       return redirect(`/products`);
     }

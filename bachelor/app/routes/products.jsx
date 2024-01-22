@@ -4,6 +4,7 @@ import {
   Outlet,
   useActionData,
   useFetcher,
+  useSearchParams,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { prisma } from "~/db.server";
@@ -78,6 +79,8 @@ export async function action({ request }) {
 export default function AdminPage() {
   const { products, categories } = useLoaderData();
   const actionData = useActionData();
+  const [searchParams] = useSearchParams();
+  const deleted = searchParams.get("deleted");
   console.log(actionData);
 
   useEffect(() => {
@@ -87,6 +90,13 @@ export default function AdminPage() {
       toast.error(actionData.message);
     }
   }, [actionData]);
+
+  useEffect(() => {
+    if (deleted === "true") {
+      toast.success("Produktet blev slettet");
+    }
+    console.log("i fire once");
+  }, [deleted]);
 
   return (
     <div className="max-w-lg mx-auto mt-2">

@@ -1,5 +1,6 @@
 import { prisma } from "~/db.server";
 
+//// CATEGORY ////
 export async function deleteCategory(categoryId) {
   return prisma.$transaction(async (prisma) => {
     // Find alle produkter i kategorien
@@ -37,12 +38,32 @@ export async function deleteCategory(categoryId) {
   });
 }
 
-/*
-export async function deleteVariant(variantId) {
-  return prisma.ProductVariant.delete({
-    where: { id: variantId },
+//// PRODUCT ////
+// Slet produkter med tilhørende varianter (kører selvom der ingen varianter er)
+export async function deleteProduct(productId) {
+  return await prisma.$transaction(async (prisma) => {
+    // Tjek først om der er varianter tilknyttet til produktet
+    const variants = await prisma.productVariant.findMany({
+      where: { productId: productId },
+    });
+
+    // Hvis der er varianter, slet dem
+    if (variants.length > 0) {
+      await prisma.productVariant.deleteMany({
+        where: { productId: productId },
+      });
+    }
+
+    // Derefter slet produktet
+    await prisma.product.delete({
+      where: { id: productId },
+    });
   });
 }
 
-// Du kan tilføje flere hjælpefunktioner her
-*/
+//// VARIANT ////
+export async function deleteVariant(variantId) {
+  return await prisma.productVariant.delete({
+    where: { id: variantId },
+  });
+}
