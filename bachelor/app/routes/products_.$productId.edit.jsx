@@ -87,7 +87,7 @@ export async function action({ request, params }) {
 
   try {
     const intent = form.get("intent") || ""; // Sætter en standardværdi, hvis det er undefined
-    const actionType = form.get("actionType") || ""; // Sætter en standardværdi
+    const actionType = form.get("actionType") || "";
 
     if (intent) {
       switch (intent) {

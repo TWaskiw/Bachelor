@@ -23,7 +23,7 @@ export default function AdminVariantNew() {
           <DialogTitle>Tilføj ny variant</DialogTitle>
           <Form method="post">
             <div className="mb-4">
-              <Label htmlFor="name">Navn</Label>
+              <Label htmlFor="name">Navn/Vægt</Label>
               <Input
                 type="text"
                 name="name"
@@ -40,18 +40,6 @@ export default function AdminVariantNew() {
                 type="number"
                 name="price"
                 id="price"
-                className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-              />
-            </div>
-
-            <div className="mt-4">
-              <Label htmlFor="weight" className="block text-gray-600 mb-2">
-                Vægt
-              </Label>
-              <Input
-                type="number"
-                name="weight"
-                id="weight"
                 className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
               />
             </div>

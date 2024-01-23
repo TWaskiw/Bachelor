@@ -13,16 +13,23 @@ import Stock from "../components/Stock";
 export async function loader({ request, params }) {
   const session = await getSession(request.headers.get("Cookie"));
   const userId = session.get("userId");
+  productId = parseInt(params.productId, 10);
+  console.log(productId);
 
-  const db = await connectDb();
-  const product = await db.models.Product.findById(params.productId);
+  const product = await prisma.Product.findUnique({
+    where: { id: productId },
+    include: {
+      variants: true,
+    },
+  });
 
-  return json(product, userId);
+  console.log(product);
+
+  return json({ product, userId });
 }
 
 export default function ProductPage() {
-  const product = useLoaderData();
-  const userId = useLoaderData();
+  const { product } = useLoaderData();
 
   return (
     <div className="w-full md:flex-row flex flex-col-reverse">
@@ -39,23 +46,21 @@ export default function ProductPage() {
             <div className="info flex flex-row text-start flex-wrap">
               <div className="flex-none w-1/2 mt-auto">
                 <p className="text-base text-gray-500">Kilopris</p>
-                <p className="text-xl">{product.inventory[0].price} kr/kg</p>
+                <p className="text-xl">{product.price} kr/kg</p>
               </div>
               <div className="flex-none w-1/2 mt-auto">
                 <p className="text-base text-gray-500">Generel Vægt</p>
-                <p className="text-xl">Ca. {product.inventory[0].weight} g</p>
+                <p className="text-xl">Ca. {product.weight} g</p>
               </div>
 
               <div className="flex-none w-1/2 mt-auto ">
                 <p className="text-base text-gray-500 mt-6">Fra</p>
                 <p className="text-xl">
-                  {(product.inventory[0].weight / 1000) *
-                    product.inventory[0].price}{" "}
-                  kr,-
+                  {(product.weight / 1000) * product.price} kr,-
                 </p>
               </div>
               <div className="flex-none w-1/2 mt-auto">
-                <Stock className="mt-6" stock={product.inventory[0].stock} />
+                {/* <Stock className="mt-6" stock={product.stock} /> */}
               </div>
             </div>
           </div>

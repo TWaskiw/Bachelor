@@ -51,14 +51,11 @@ const Navigation = () => {
             </li>
           ))}
           {userId ? (
-            <Button asChild variant="outline">
-              <Link
-                to="/products"
-                className="md:ml-8 md:my-0 my-7 text-blue-500"
-              >
-                Admin
-              </Link>
-            </Button>
+            <li className="md:ml-8 md:my-0 my-7">
+              <Button asChild variant="link">
+                <Link to="/products">Admin</Link>
+              </Button>
+            </li>
           ) : (
             ""
           )}
