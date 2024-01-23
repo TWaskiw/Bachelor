@@ -22,19 +22,12 @@ import { newCategory } from "../components/backendFunctions/createFunctions";
 import { useEffect } from "react";
 
 export async function loader({ request }) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const userId = session.get("userId");
+  /*   const session = await getSession(request.headers.get("Cookie"));
+  const userId = session.get("userId"); */ // Hvis man vil vide hvem der er logget ind
   await requireUserSession(request);
 
-  const user = await prisma.user.findUnique({ where: { id: userId } });
   const products = await prisma.product.findMany({});
   const categories = await prisma.category.findMany({});
-
-  if (!user) {
-    throw new Response(`Couldn't find course with id ${userId}`, {
-      status: 404,
-    });
-  }
 
   return json({ products, categories });
 }
@@ -114,11 +107,11 @@ export default function AdminPage() {
           </Button>
         </form>
       </div>
-      <div className="overflow-x-auto whitespace-nowrap">
+      {/*       <div className="overflow-x-auto whitespace-nowrap">
         {categories?.map((category) => {
           return <MobilMenu key={category.id.toString()} category={category} />;
         })}
-      </div>
+      </div> */}
 
       <div>
         {categories?.map((category) => {

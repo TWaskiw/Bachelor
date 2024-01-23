@@ -80,7 +80,6 @@ export async function loader({ params, request }) {
 export async function action({ request, params }) {
   const form = await request.formData();
   const formValues = Object.fromEntries(form);
-  const actionType = form.get("actionType");
   const productId = parseInt(params.productId, 10);
 
   console.log(form);
