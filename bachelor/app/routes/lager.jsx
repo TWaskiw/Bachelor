@@ -11,7 +11,7 @@ import {
 } from "../components/ui/table";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 
@@ -55,9 +55,35 @@ export async function action({ request }) {
 
 export default function Lager() {
   const { products } = useLoaderData();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    const filtered = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.variants.some((variant) =>
+          variant.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
+    setFilteredProducts(filtered);
+  }, [searchTerm, products]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <div className="list-decimal mx-auto mt-4 mb-16 max-w-[800px] overflow-hidden rounded-lg bg-white shadow-lg">
+      <div className="m-4">
+        <Input
+          className="max-w-[200px]"
+          type="text"
+          placeholder="Søg i produkter..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        ></Input>
+      </div>
       <Form method="post">
         <Table>
           <thead>
@@ -68,7 +94,7 @@ export default function Lager() {
             </TableRow>
           </thead>
           <TableBody>
-            {products.map((product, index) => {
+            {filteredProducts.map((product, index) => {
               const bgColorClass = index % 2 === 0 ? "bg-gray-100" : "bg-white";
               return (
                 <React.Fragment key={product.id}>
@@ -92,7 +118,7 @@ export default function Lager() {
                       <TableCell className="p-4 align-middle"></TableCell>{" "}
                       {/* Tom celle for hovedprodukt */}
                       <TableCell className="p-4 align-middle">
-                        {variant.taste}
+                        {variant.name}
                       </TableCell>
                       <TableCell className="p-4 align-middle">
                         <Input

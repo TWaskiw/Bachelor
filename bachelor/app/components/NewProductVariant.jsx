@@ -5,8 +5,8 @@ export default function NewProductVariant() {
   return (
     <div className="flex-col justify-center w-full h-full mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
       <div className="mt-4">
-        <Label htmlFor="name" className="block text-gray-600 mb-2">
-          Pris
+        <Label htmlFor="price" className="block text-gray-600 mb-2">
+          Pris (Kilopris)
         </Label>
 
         <Input
@@ -19,7 +19,7 @@ export default function NewProductVariant() {
 
       <div className="mt-4">
         <Label htmlFor="weight" className="block text-gray-600 mb-2">
-          Vægt
+          Vægt (Generel vægt i gram)
         </Label>
         <Input
           type="number"

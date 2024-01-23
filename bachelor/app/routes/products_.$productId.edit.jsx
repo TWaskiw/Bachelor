@@ -167,9 +167,8 @@ export async function action({ request, params }) {
               id: variantId,
             },
             data: {
-              taste: form.get("taste"),
+              name: form.get("name"),
               price: parseInt(form.get("price"), 10),
-              weight: parseInt(form.get("weight"), 10),
               stock: parseInt(form.get("stock"), 10),
             },
           });

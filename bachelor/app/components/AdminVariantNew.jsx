@@ -23,11 +23,11 @@ export default function AdminVariantNew() {
           <DialogTitle>Tilføj ny variant</DialogTitle>
           <Form method="post">
             <div className="mb-4">
-              <Label htmlFor="taste">Navn</Label>
+              <Label htmlFor="name">Navn</Label>
               <Input
                 type="text"
-                name="taste"
-                id="taste"
+                name="name"
+                id="name"
                 className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
               />
             </div>

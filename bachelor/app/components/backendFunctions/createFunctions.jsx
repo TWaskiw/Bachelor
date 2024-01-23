@@ -16,9 +16,8 @@ export async function newCategory(form) {
 export async function newVariant(form, productId) {
   await prisma.ProductVariant.create({
     data: {
-      taste: form.get("taste"),
+      name: form.get("name"),
       price: parseInt(form.get("price"), 10),
-      weight: parseInt(form.get("weight"), 10),
       stock: parseInt(form.get("stock"), 10),
       product: {
         connect: { id: productId },

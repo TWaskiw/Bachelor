@@ -46,6 +46,15 @@ export async function action({ request }) {
 
   try {
     const categoryName = form.get("category");
+    const name = form.get("name");
+
+    if (!name) {
+      return json(
+        { errorMessage: "Udfyld navn", values: formValues },
+        { status: 400 }
+      );
+    }
+
     const categoryId = await prisma.category.findFirst({
       where: {
         name: categoryName,
@@ -54,11 +63,19 @@ export async function action({ request }) {
         id: true,
       },
     });
+
+    if (!categoryId) {
+      return json(
+        { errorMessage: "Vælg kategori", values: formValues },
+        { status: 400 }
+      );
+    }
+
     const product = await prisma.product.create({
       data: {
         stock: stock,
-        weight: form.get("weight"),
-        price: form.get("price"),
+        weight: parseInt(form.get("weight")),
+        price: parseInt(form.get("price")),
         name: form.get("name"),
         description: form.get("description"),
         show: form.get("show") === "on",
@@ -95,9 +112,15 @@ export default function NewProduct() {
   return (
     <div className="max-w-lg container mx-auto p-4">
       <BackButton />
-
       <Form method="post" className=" mx-auto" encType="multipart/form-data">
         <h1 className="text-2xl font-semibold mb-4">Tilføj produkt</h1>
+        <div>
+          {actionData?.errorMessage && (
+            <p className="mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900">
+              {actionData?.errorMessage}
+            </p>
+          )}
+        </div>
         <input
           type="file"
           accept="image/*"

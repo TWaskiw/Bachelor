@@ -18,42 +18,31 @@ export default function AdminVariants({ variants }) {
           <Dialog key={variant.id}>
             <DialogTrigger asChild>
               <Button className="m-2" variant="outline">
-                {variant.taste}
+                {variant.name}
               </Button>
             </DialogTrigger>
             <DialogContent>
-              <DialogTitle>Rediger {variant.taste}</DialogTitle>
+              <DialogTitle>Rediger {variant.name}</DialogTitle>
               <Form key={variant.id} method="post">
                 <input type="hidden" name="variantId" value={variant.id} />
                 <div className="mb-4">
-                  <Label htmlFor={`taste-${variant.id}`}>Navn</Label>
+                  <Label htmlFor={`name-${variant.id}`}>Navn/Vægt</Label>
                   <Input
                     type="text"
-                    name="taste"
-                    id={`taste-${variant.id}`}
-                    defaultValue={variant.taste}
+                    name="name"
+                    id={`name-${variant.id}`}
+                    defaultValue={variant.name}
                     className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
                 <div className="mb-4">
-                  <Label htmlFor={`price-${variant.id}`}>Pris</Label>
+                  <Label htmlFor={`price-${variant.id}`}>Pris (kr/kg)</Label>
                   <Input
                     type="number"
                     name="price"
                     id={`price-${variant.id}`}
                     defaultValue={variant.price}
-                    className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <Label htmlFor={`weight-${variant.id}`}>Vægt</Label>
-                  <Input
-                    type="number"
-                    name="weight"
-                    id={`weight-${variant.id}`}
-                    defaultValue={variant.weight}
                     className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                   />
                 </div>
@@ -84,7 +73,7 @@ export default function AdminVariants({ variants }) {
                       value="deleteVariant"
                       variant="outline"
                     >
-                      Slet {variant.taste}
+                      Slet {variant.name}
                     </Button>
                   </div>
                 </DialogClose>
