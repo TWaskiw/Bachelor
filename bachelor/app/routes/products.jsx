@@ -74,7 +74,6 @@ export default function AdminPage() {
   const actionData = useActionData();
   const [searchParams] = useSearchParams();
   const deleted = searchParams.get("deleted");
-  console.log(actionData);
 
   useEffect(() => {
     if (actionData?.status === "success") {
@@ -88,7 +87,6 @@ export default function AdminPage() {
     if (deleted === "true") {
       toast.success("Produktet blev slettet");
     }
-    console.log("i fire once");
   }, [deleted]);
 
   return (

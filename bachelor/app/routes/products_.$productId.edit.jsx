@@ -62,6 +62,7 @@ export async function loader({ params, request }) {
       variants: true,
     },
   });
+  console.log(product);
 
   const category = await prisma.category.findUnique({
     where: { id: product.categoryId },
@@ -148,6 +149,7 @@ export async function action({ request, params }) {
               },
               data: {
                 name: name,
+                stock: form.has("stock") ? parseInt(form.get("stock"), 10) : 0,
                 description: form.get("description"),
                 show: form.get("show") === "on",
                 recommended: form.get("recommended") === "on",
@@ -268,29 +270,50 @@ export default function EditProduct() {
                 className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
               />
             </div>
-            <div className="mb-4">
-              <Label htmlFor="category" className="block text-gray-600 mb-2">
-                Kategori
-              </Label>
-              <Select
-                onValueChange={(newValue) => setSelectedValue(newValue)}
-                name="category"
-                defaultValue={category.name}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Vælg kategori" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.name}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="mb-4 flex">
+              <div className="w-1/2">
+                <Label htmlFor="category" className="block text-gray-600 mb-2">
+                  Kategori
+                </Label>
+                <Select
+                  onValueChange={(newValue) => setSelectedValue(newValue)}
+                  name="category"
+                  defaultValue={category.name}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Vælg kategori" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.name}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-1/2">
+                <Label htmlFor="stock" className="block text-gray-600 mb-2">
+                  Lagerbeholdning
+                </Label>
+                {product.variants.length === 0 ? (
+                  <Input
+                    type="number"
+                    name="stock"
+                    id="stock"
+                    placeholder="Lagerbeholdning"
+                    defaultValue={product?.stock}
+                    className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                  ></Input>
+                ) : (
+                  <p className="text-sm text-gray-400">
+                    Ændre lager på individuelle varianter
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="mb-4 flex justify-between">
-              <div className="mb-4">
+            <div className="mb-4 flex">
+              <div className="mb-4 w-1/2">
                 <Label htmlFor="show" className="block text-gray-600 mb-2">
                   Skal den vises?
                 </Label>
@@ -351,7 +374,7 @@ export default function EditProduct() {
                       Er du sikker på at du vil slette {product.name}?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      Dette fjerner den permanent
+                      Dette fjerner produktet og tilhørende varianter permanent
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

@@ -4,8 +4,7 @@ import { buttonVariants } from "./ui/button";
 import formatCategoryName from "./formatCategoryName";
 global.Buffer = global.Buffer || require("buffer").Buffer;
 import logo from "../../public/Logo.svg";
-import Stock from "./Stock";
-import Pil from "../../public/pil.svg";
+import ProductCardsInfo from "./ProductCardsInfo";
 
 export default function ProductCategory({ products, category }) {
   const filteredProducts = products.filter(
@@ -21,12 +20,12 @@ export default function ProductCategory({ products, category }) {
       <div className="grid grid-cols-1 gap-10 sm:w-full md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 auto-rows-[600px,auto] max-w-[800px]">
         {filteredProducts.map((product) => {
           return (
-            <div
+            <article
               key={product.id}
               className="list-decimal mb-4 overflow-hidden rounded w-full shadow-lg cursor-pointer hover:shadow-xl"
             >
               <Link to={`${product.id}`}>
-                <article>
+                <div>
                   <div className="bg-red object-cover rounded-t-md h-2/4">
                     <img
                       src={product.image}
@@ -34,25 +33,10 @@ export default function ProductCategory({ products, category }) {
                       alt={product.name}
                     />
                   </div>
-                  <div className="flex flex-col items-start flex-basis-45 p-4">
-                    <h3 className="font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-300">{product.price} kr/kg</p>
-                    <p className="text-gray-600">Ca. {product.weight} g</p>
-                    <p className="py-4 text-xl">Fra {product.price} kr,-</p>
-                    <div className="mt-16 flex flex-row justify-between w-full h-full">
-                      <Stock stock={product.stock} />
-                      <img
-                        src={Pil}
-                        className="w-6 h-6 my-auto"
-                        alt="Navigations pil"
-                      ></img>
-                    </div>
-                  </div>
-                </article>
+                  <ProductCardsInfo product={product} />
+                </div>
               </Link>
-            </div>
+            </article>
           );
         })}
       </div>

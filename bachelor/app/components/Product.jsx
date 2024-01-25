@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import Stock from "~/components/Stock";
+import ProductCardsInfo from "~/components/ProductStockInfo";
 
 export default function Product({ product }) {
   return (
@@ -17,7 +17,7 @@ export default function Product({ product }) {
               <li className="list-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-gray-600 mb-2">
                 Vægt: {inventory.weight}
               </li>
-              <Stock key={product._id} stock={inventory.stock} />
+              <ProductCardsInfo key={product._id} stock={inventory.stock} />
             </div>
           );
         })}

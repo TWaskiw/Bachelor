@@ -158,7 +158,7 @@ __export(root_exports, {
 });
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-I3FOPYGP.css";
+var tailwind_default = "/build/_assets/tailwind-S3V2PMH3.css";
 
 // app/root.jsx
 var import_react4 = require("@remix-run/react");
@@ -1613,7 +1613,9 @@ async function loader2({ params, request }) {
     include: {
       variants: !0
     }
-  }), category = await import_db3.prisma.category.findUnique({
+  });
+  console.log(product);
+  let category = await import_db3.prisma.category.findUnique({
     where: { id: product.categoryId }
   }), categories = await import_db3.prisma.category.findMany();
   if (!product)
@@ -1674,6 +1676,7 @@ async function action({ request, params }) {
               },
               data: {
                 name,
+                stock: form.has("stock") ? parseInt(form.get("stock"), 10) : 0,
                 description: form.get("description"),
                 show: form.get("show") === "on",
                 recommended: form.get("recommended") === "on",
@@ -1730,7 +1733,7 @@ function EditProduct() {
   }, [success]), /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "max-w-lg container mx-auto", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(BackButton, {}, void 0, !1, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 227,
+      lineNumber: 229,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Tabs, { defaultValue: "product", children: [
@@ -1740,38 +1743,38 @@ function EditProduct() {
           product.name
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 230,
+          lineNumber: 232,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(TabsTrigger, { value: "variant", children: "Varianter" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 231,
+          lineNumber: 233,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 229,
+        lineNumber: 231,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(TabsContent, { value: "product", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(import_react8.Form, { method: "post", className: "mx-auto", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 237,
+          lineNumber: 239,
           columnNumber: 17
         }, this) }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 235,
+          lineNumber: 237,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Input, { type: "hidden", name: "actionType", value: "updateProduct" }, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 242,
+          lineNumber: 244,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "name", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 244,
+            lineNumber: 246,
             columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1788,20 +1791,20 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 248,
+              lineNumber: 250,
               columnNumber: 15
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 243,
+          lineNumber: 245,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "description", className: "block text-gray-600 mb-2", children: "Beskrivelse" }, void 0, !1, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 259,
+            lineNumber: 261,
             columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1818,68 +1821,108 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 262,
+              lineNumber: 264,
               columnNumber: 15
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 258,
+          lineNumber: 260,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
-            fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 272,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
-            Select,
-            {
-              onValueChange: (newValue) => setSelectedValue(newValue),
-              name: "category",
-              defaultValue: category.name,
-              children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 281,
-                  columnNumber: 19
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 280,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectContent, { children: categories.map((category2) => /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectItem, { value: category2.name, children: category2.name }, category2.id, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 285,
-                  columnNumber: 21
-                }, this)) }, void 0, !1, {
-                  fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 283,
-                  columnNumber: 17
-                }, this)
-              ]
-            },
-            void 0,
-            !0,
-            {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4 flex", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "w-1/2", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
               fileName: "app/routes/products_.$productId.edit.jsx",
               lineNumber: 275,
-              columnNumber: 15
-            },
-            this
-          )
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+              Select,
+              {
+                onValueChange: (newValue) => setSelectedValue(newValue),
+                name: "category",
+                defaultValue: category.name,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
+                    fileName: "app/routes/products_.$productId.edit.jsx",
+                    lineNumber: 284,
+                    columnNumber: 21
+                  }, this) }, void 0, !1, {
+                    fileName: "app/routes/products_.$productId.edit.jsx",
+                    lineNumber: 283,
+                    columnNumber: 19
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectContent, { children: categories.map((category2) => /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(SelectItem, { value: category2.name, children: category2.name }, category2.id, !1, {
+                    fileName: "app/routes/products_.$productId.edit.jsx",
+                    lineNumber: 288,
+                    columnNumber: 23
+                  }, this)) }, void 0, !1, {
+                    fileName: "app/routes/products_.$productId.edit.jsx",
+                    lineNumber: 286,
+                    columnNumber: 19
+                  }, this)
+                ]
+              },
+              void 0,
+              !0,
+              {
+                fileName: "app/routes/products_.$productId.edit.jsx",
+                lineNumber: 278,
+                columnNumber: 17
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/routes/products_.$productId.edit.jsx",
+            lineNumber: 274,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "w-1/2", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "stock", className: "block text-gray-600 mb-2", children: "Lagerbeholdning" }, void 0, !1, {
+              fileName: "app/routes/products_.$productId.edit.jsx",
+              lineNumber: 296,
+              columnNumber: 17
+            }, this),
+            product.variants.length === 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
+              Input,
+              {
+                type: "number",
+                name: "stock",
+                id: "stock",
+                placeholder: "Lagerbeholdning",
+                defaultValue: product == null ? void 0 : product.stock,
+                className: "w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/routes/products_.$productId.edit.jsx",
+                lineNumber: 300,
+                columnNumber: 19
+              },
+              this
+            ) : /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("p", { className: "text-sm text-gray-400", children: "\xC6ndre lager p\xE5 individuelle varianter" }, void 0, !1, {
+              fileName: "app/routes/products_.$productId.edit.jsx",
+              lineNumber: 309,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/routes/products_.$productId.edit.jsx",
+            lineNumber: 295,
+            columnNumber: 15
+          }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 271,
+          lineNumber: 273,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4 flex justify-between", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4 flex", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4 w-1/2", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Label2, { htmlFor: "show", className: "block text-gray-600 mb-2", children: "Skal den vises?" }, void 0, !1, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 294,
+              lineNumber: 317,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -1895,7 +1938,7 @@ function EditProduct() {
               !1,
               {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 297,
+                lineNumber: 320,
                 columnNumber: 17
               },
               this
@@ -1911,14 +1954,14 @@ function EditProduct() {
               !1,
               {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 304,
+                lineNumber: 327,
                 columnNumber: 17
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 293,
+            lineNumber: 316,
             columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "mb-4", children: [
@@ -1933,7 +1976,7 @@ function EditProduct() {
               !1,
               {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 312,
+                lineNumber: 335,
                 columnNumber: 17
               },
               this
@@ -1951,7 +1994,7 @@ function EditProduct() {
               !1,
               {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 318,
+                lineNumber: 341,
                 columnNumber: 17
               },
               this
@@ -1967,19 +2010,19 @@ function EditProduct() {
               !1,
               {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 325,
+                lineNumber: 348,
                 columnNumber: 17
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 311,
+            lineNumber: 334,
             columnNumber: 15
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 292,
+          lineNumber: 315,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: [
@@ -1997,7 +2040,7 @@ function EditProduct() {
             !1,
             {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 334,
+              lineNumber: 357,
               columnNumber: 15
             },
             this
@@ -2005,11 +2048,11 @@ function EditProduct() {
           /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialog, { children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(Button, { variant: "outline", children: "Slet produkt" }, void 0, !1, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 346,
+              lineNumber: 369,
               columnNumber: 19
             }, this) }, void 0, !1, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 345,
+              lineNumber: 368,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogContent, { children: [
@@ -2020,23 +2063,23 @@ function EditProduct() {
                   "?"
                 ] }, void 0, !0, {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 350,
+                  lineNumber: 373,
                   columnNumber: 21
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogDescription, { children: "Dette fjerner den permanent" }, void 0, !1, {
+                /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogDescription, { children: "Dette fjerner produktet og tilh\xF8rende varianter permanent" }, void 0, !1, {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 353,
+                  lineNumber: 376,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 349,
+                lineNumber: 372,
                 columnNumber: 19
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogFooter, { children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogCancel, { children: "Annull\xE9r" }, void 0, !1, {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 358,
+                  lineNumber: 381,
                   columnNumber: 21
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AlertDialogAction, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(
@@ -2052,42 +2095,42 @@ function EditProduct() {
                   !1,
                   {
                     fileName: "app/routes/products_.$productId.edit.jsx",
-                    lineNumber: 360,
+                    lineNumber: 383,
                     columnNumber: 23
                   },
                   this
                 ) }, void 0, !1, {
                   fileName: "app/routes/products_.$productId.edit.jsx",
-                  lineNumber: 359,
+                  lineNumber: 382,
                   columnNumber: 21
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/products_.$productId.edit.jsx",
-                lineNumber: 357,
+                lineNumber: 380,
                 columnNumber: 19
               }, this)
             ] }, void 0, !0, {
               fileName: "app/routes/products_.$productId.edit.jsx",
-              lineNumber: 348,
+              lineNumber: 371,
               columnNumber: 17
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 344,
+            lineNumber: 367,
             columnNumber: 15
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 333,
+          lineNumber: 356,
           columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 234,
+        lineNumber: 236,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 233,
+        lineNumber: 235,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(TabsContent, { value: "variant", children: /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)("div", { children: [
@@ -2101,33 +2144,33 @@ function EditProduct() {
           !1,
           {
             fileName: "app/routes/products_.$productId.edit.jsx",
-            lineNumber: 379,
+            lineNumber: 402,
             columnNumber: 15
           },
           this
         ) : null,
         /* @__PURE__ */ (0, import_jsx_dev_runtime18.jsxDEV)(AdminVariantNew, {}, void 0, !1, {
           fileName: "app/routes/products_.$productId.edit.jsx",
-          lineNumber: 385,
+          lineNumber: 408,
           columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 377,
+        lineNumber: 400,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/products_.$productId.edit.jsx",
-        lineNumber: 376,
+        lineNumber: 399,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/products_.$productId.edit.jsx",
-      lineNumber: 228,
+      lineNumber: 230,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/products_.$productId.edit.jsx",
-    lineNumber: 226,
+    lineNumber: 228,
     columnNumber: 5
   }, this);
 }
@@ -2140,34 +2183,12 @@ __export(produkter_productId_exports, {
 });
 var import_react12 = require("@remix-run/react"), import_node6 = require("@remix-run/node"), import_db4 = __toESM(require_db_server());
 
-// app/components/Stock.jsx
-var import_jsx_dev_runtime19 = require("react/jsx-dev-runtime");
-function Stock({ stock }) {
-  let stockStatus = "", stockColor = "";
-  return stock === 1 ? (stockStatus = " P\xE5 lager", stockColor = "rounded-full bg-green-400 w-2.5 h-2.5") : stock === 2 ? (stockStatus = " F\xE5 p\xE5 lager", stockColor = "rounded-full  bg-yellow-400 w-2.5 h-2.5") : stock === 3 && (stockStatus = " Ikke p\xE5 lager", stockColor = "rounded-full  bg-red-400 w-2.5 h-2.5"), /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("div", { className: "flex items-center", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("span", { className: stockColor }, void 0, !1, {
-      fileName: "app/components/Stock.jsx",
-      lineNumber: 16,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)("h1", { className: "ml-1", children: stockStatus }, void 0, !1, {
-      fileName: "app/components/Stock.jsx",
-      lineNumber: 17,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/components/Stock.jsx",
-    lineNumber: 15,
-    columnNumber: 5
-  }, this);
-}
-
 // app/components/MobilMenu.jsx
 var import_react_scroll = require("react-scroll");
-var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime19 = require("react/jsx-dev-runtime");
 function MobilMenu({ category, active }) {
   let variant = active && "id" in active && active.id === category.id ? "outlineLunds" : "ghostNav";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
     import_react_scroll.Link,
     {
       to: category.id.toString(),
@@ -2195,24 +2216,152 @@ function MobilMenu({ category, active }) {
 
 // app/components/ProductCategory.jsx
 var import_react11 = require("@remix-run/react");
+
+// app/components/Stock.jsx
+var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime");
+function Stock({ stock }) {
+  let stockStatus = "", stockColor = "";
+  return stock === 0 ? (stockStatus = "Ikke p\xE5 lager", stockColor = "rounded-full  bg-red-400 w-2.5 h-2.5") : stock >= 1 && stock <= 4 ? (stockStatus = "F\xE5 p\xE5 lager", stockColor = "rounded-full  bg-yellow-400 w-2.5 h-2.5") : (stockStatus = "P\xE5 lager", stockColor = "rounded-full bg-green-400 w-2.5 h-2.5"), /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("div", { className: "flex  items-center", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("span", { className: stockColor }, void 0, !1, {
+      fileName: "app/components/Stock.jsx",
+      lineNumber: 16,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)("h1", { className: "ml-1 text-xl", children: stockStatus }, void 0, !1, {
+      fileName: "app/components/Stock.jsx",
+      lineNumber: 17,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/components/Stock.jsx",
+    lineNumber: 15,
+    columnNumber: 5
+  }, this);
+}
+
+// app/components/ProductCardsInfo.jsx
 var import_jsx_dev_runtime21 = require("react/jsx-dev-runtime");
+function ProductCardsInfo({ product }) {
+  return product.variants.length === 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "flex flex-col items-start flex-basis-45 p-4", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h3", { className: "font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl", children: product.name }, void 0, !1, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 8,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "text-gray-300", children: [
+      product.price,
+      " kr/kg"
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 11,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "text-gray-600", children: [
+      "Ca. ",
+      product.weight,
+      " g"
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 12,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "py-4 text-xl", children: [
+      "Fra ",
+      product.price,
+      " kr,-"
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 13,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "mt-16 flex flex-row justify-between w-full h-full", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Stock, { stock: product.stock }, void 0, !1, {
+        fileName: "app/components/ProductCardsInfo.jsx",
+        lineNumber: 15,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        "img",
+        {
+          src: pil_default,
+          className: "w-6 h-6 my-auto",
+          alt: "Navigations pil"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/components/ProductCardsInfo.jsx",
+          lineNumber: 17,
+          columnNumber: 11
+        },
+        this
+      )
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 14,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/components/ProductCardsInfo.jsx",
+    lineNumber: 7,
+    columnNumber: 7
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { class: "flex flex-col items-start p-4 h-full", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h3", { className: "font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl", children: product.name }, void 0, !1, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 28,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "text-gray-600 break-words", children: product.description }, void 0, !1, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 31,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { class: "w-full flex flex-row justify-end mt-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+      "img",
+      {
+        src: pil_default,
+        className: "w-6 h-6 my-auto",
+        alt: "Navigations pil"
+      },
+      void 0,
+      !1,
+      {
+        fileName: "app/components/ProductCardsInfo.jsx",
+        lineNumber: 34,
+        columnNumber: 11
+      },
+      this
+    ) }, void 0, !1, {
+      fileName: "app/components/ProductCardsInfo.jsx",
+      lineNumber: 33,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/components/ProductCardsInfo.jsx",
+    lineNumber: 27,
+    columnNumber: 7
+  }, this);
+}
+
+// app/components/ProductCategory.jsx
+var import_jsx_dev_runtime22 = require("react/jsx-dev-runtime");
 global.Buffer = global.Buffer || require("buffer").Buffer;
 function ProductCategory({ products, category }) {
   let filteredProducts = products.filter(
     (product) => product.categoryId === category.id
   );
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "flex flex-col md:m-8 lg:m-2 sm:m-16 m-4 lg:mt-8", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h1", { className: "text-5xl font-black", id: category.id.toString(), children: category.name }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex flex-col md:m-8 lg:m-2 sm:m-16 m-4 lg:mt-8", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("h1", { className: "text-5xl font-black", id: category.id.toString(), children: category.name }, void 0, !1, {
       fileName: "app/components/ProductCategory.jsx",
-      lineNumber: 18,
+      lineNumber: 17,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "grid grid-cols-1 gap-10 sm:w-full md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 auto-rows-[600px,auto] max-w-[800px]", children: filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
-      "div",
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "grid grid-cols-1 gap-10 sm:w-full md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 auto-rows-[600px,auto] max-w-[800px]", children: filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
+      "article",
       {
         className: "list-decimal mb-4 overflow-hidden rounded w-full shadow-lg cursor-pointer hover:shadow-xl",
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react11.Link, { to: `${product.id}`, children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("article", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "bg-red object-cover rounded-t-md h-2/4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react11.Link, { to: `${product.id}`, children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "bg-red object-cover rounded-t-md h-2/4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
             "img",
             {
               src: product.image,
@@ -2223,86 +2372,27 @@ function ProductCategory({ products, category }) {
             !1,
             {
               fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 31,
+              lineNumber: 30,
               columnNumber: 21
             },
             this
           ) }, void 0, !1, {
             fileName: "app/components/ProductCategory.jsx",
-            lineNumber: 30,
+            lineNumber: 29,
             columnNumber: 19
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "flex flex-col items-start flex-basis-45 p-4", children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h3", { className: "font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl", children: product.name }, void 0, !1, {
-              fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 38,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "text-gray-300", children: [
-              product.price,
-              " kr/kg"
-            ] }, void 0, !0, {
-              fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 41,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "text-gray-600", children: [
-              "Ca. ",
-              product.weight,
-              " g"
-            ] }, void 0, !0, {
-              fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 42,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { className: "py-4 text-xl", children: [
-              "Fra ",
-              product.price,
-              " kr,-"
-            ] }, void 0, !0, {
-              fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 43,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("div", { className: "mt-16 flex flex-row justify-between w-full h-full", children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Stock, { stock: product.stock }, void 0, !1, {
-                fileName: "app/components/ProductCategory.jsx",
-                lineNumber: 45,
-                columnNumber: 23
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
-                "img",
-                {
-                  src: pil_default,
-                  className: "w-6 h-6 my-auto",
-                  alt: "Navigations pil"
-                },
-                void 0,
-                !1,
-                {
-                  fileName: "app/components/ProductCategory.jsx",
-                  lineNumber: 46,
-                  columnNumber: 23
-                },
-                this
-              )
-            ] }, void 0, !0, {
-              fileName: "app/components/ProductCategory.jsx",
-              lineNumber: 44,
-              columnNumber: 21
-            }, this)
-          ] }, void 0, !0, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(ProductCardsInfo, { product }, void 0, !1, {
             fileName: "app/components/ProductCategory.jsx",
-            lineNumber: 37,
+            lineNumber: 36,
             columnNumber: 19
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/ProductCategory.jsx",
-          lineNumber: 29,
+          lineNumber: 28,
           columnNumber: 17
         }, this) }, void 0, !1, {
           fileName: "app/components/ProductCategory.jsx",
-          lineNumber: 28,
+          lineNumber: 27,
           columnNumber: 15
         }, this)
       },
@@ -2310,24 +2400,143 @@ function ProductCategory({ products, category }) {
       !1,
       {
         fileName: "app/components/ProductCategory.jsx",
-        lineNumber: 24,
+        lineNumber: 23,
         columnNumber: 13
       },
       this
     )) }, void 0, !1, {
       fileName: "app/components/ProductCategory.jsx",
-      lineNumber: 21,
+      lineNumber: 20,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/ProductCategory.jsx",
-    lineNumber: 17,
+    lineNumber: 16,
     columnNumber: 5
   }, this);
 }
 
+// app/components/ProductCardInfo.jsx
+var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime");
+function ProductCardInfo({ product }) {
+  return (product == null ? void 0 : product.variants.length) > 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex flex-col flex-wrap my-10", children: product.variants.map((variant) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "border-t border-gray-300 pt-5 mt-5", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex w-full flex-row justify-between", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-xl", children: product.name }, void 0, !1, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 10,
+        columnNumber: 15
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-xl", children: [
+        variant.price,
+        " kr,-"
+      ] }, void 0, !0, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 11,
+        columnNumber: 15
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 9,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "w-full flex justify-start mt-1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Stock, { stock: variant.stock }, void 0, !1, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 14,
+      columnNumber: 15
+    }, this) }, void 0, !1, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 13,
+      columnNumber: 13
+    }, this)
+  ] }, variant.id, !0, {
+    fileName: "app/components/ProductCardInfo.jsx",
+    lineNumber: 8,
+    columnNumber: 11
+  }, this)) }, void 0, !1, {
+    fileName: "app/components/ProductCardInfo.jsx",
+    lineNumber: 6,
+    columnNumber: 7
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "info my-10", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "info flex flex-row text-start flex-wrap", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-base text-gray-500", children: "Kilopris" }, void 0, !1, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 25,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-xl", children: [
+        product.price,
+        " kr/kg"
+      ] }, void 0, !0, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 26,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 24,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-base text-gray-500", children: "Generel V\xE6gt" }, void 0, !1, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 29,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-xl", children: [
+        "Ca. ",
+        product.weight,
+        " g"
+      ] }, void 0, !0, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 30,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 28,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto ", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-base text-gray-500 mt-6", children: "Fra" }, void 0, !1, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 34,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-xl", children: [
+        (product == null ? void 0 : product.weight) / 1e3 * product.price,
+        " kr,-"
+      ] }, void 0, !0, {
+        fileName: "app/components/ProductCardInfo.jsx",
+        lineNumber: 35,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 33,
+      columnNumber: 11
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(Stock, { stock: product.stock }, void 0, !1, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 40,
+      columnNumber: 13
+    }, this) }, void 0, !1, {
+      fileName: "app/components/ProductCardInfo.jsx",
+      lineNumber: 39,
+      columnNumber: 11
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/components/ProductCardInfo.jsx",
+    lineNumber: 23,
+    columnNumber: 9
+  }, this) }, void 0, !1, {
+    fileName: "app/components/ProductCardInfo.jsx",
+    lineNumber: 22,
+    columnNumber: 7
+  }, this);
+}
+
 // app/routes/produkter_.$productId.jsx
-var import_jsx_dev_runtime22 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
 async function loader3({ request, params }) {
   let userId = (await getSession(request.headers.get("Cookie"))).get("userId");
   productId = parseInt(params.productId, 10), console.log(productId);
@@ -2341,9 +2550,9 @@ async function loader3({ request, params }) {
 }
 function ProductPage() {
   let { product } = (0, import_react12.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "w-full md:flex-row flex flex-col-reverse", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex flex-col md:max-w-[50%] w-full   sm:min-h-[calc(100vh-83px)] h-full p-8 sm:p-0 sm:px-16", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "h-full m-auto", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "my-4 block", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(BackButton, {}, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "w-full md:flex-row flex flex-col-reverse", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "flex flex-col md:max-w-[50%] w-full sm:min-h-[calc(100vh-83px)] h-full p-8 sm:p-0 sm:px-16", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "h-full m-auto w-full", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "my-4 block", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(BackButton, {}, void 0, !1, {
         fileName: "app/routes/produkter_.$productId.jsx",
         lineNumber: 39,
         columnNumber: 13
@@ -2352,13 +2561,13 @@ function ProductPage() {
         lineNumber: 38,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "navne", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("h1", { className: "text-5xl", children: product.name }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("h1", { className: "text-5xl", children: product.name }, void 0, !1, {
           fileName: "app/routes/produkter_.$productId.jsx",
           lineNumber: 42,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-sm sm:text-lg", children: product.description }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("p", { className: "text-sm sm:text-lg break-words", children: product.description }, void 0, !1, {
           fileName: "app/routes/produkter_.$productId.jsx",
           lineNumber: 43,
           columnNumber: 13
@@ -2368,77 +2577,9 @@ function ProductPage() {
         lineNumber: 41,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "info my-10", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "info flex flex-row text-start flex-wrap", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-base text-gray-500", children: "Kilopris" }, void 0, !1, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 48,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-xl", children: [
-            product.price,
-            " kr/kg"
-          ] }, void 0, !0, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 49,
-            columnNumber: 17
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/produkter_.$productId.jsx",
-          lineNumber: 47,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-base text-gray-500", children: "Generel V\xE6gt" }, void 0, !1, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 52,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-xl", children: [
-            "Ca. ",
-            product.weight,
-            " g"
-          ] }, void 0, !0, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 53,
-            columnNumber: 17
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/produkter_.$productId.jsx",
-          lineNumber: 51,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto ", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-base text-gray-500 mt-6", children: "Fra" }, void 0, !1, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 57,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("p", { className: "text-xl", children: [
-            product.weight / 1e3 * product.price,
-            " kr,-"
-          ] }, void 0, !0, {
-            fileName: "app/routes/produkter_.$productId.jsx",
-            lineNumber: 58,
-            columnNumber: 17
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/produkter_.$productId.jsx",
-          lineNumber: 56,
-          columnNumber: 15
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex-none w-1/2 mt-auto" }, void 0, !1, {
-          fileName: "app/routes/produkter_.$productId.jsx",
-          lineNumber: 62,
-          columnNumber: 15
-        }, this)
-      ] }, void 0, !0, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(ProductCardInfo, { product }, void 0, !1, {
         fileName: "app/routes/produkter_.$productId.jsx",
-        lineNumber: 46,
-        columnNumber: 13
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/produkter_.$productId.jsx",
-        lineNumber: 45,
+        lineNumber: 47,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
@@ -2450,24 +2591,35 @@ function ProductPage() {
       lineNumber: 36,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "md:max-w-[50%] w-full sm:h-[calc(100vh-83px)]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
-      "img",
-      {
-        className: "object-cover sm:h-full w-full",
-        src: product.image,
-        alt: product.name
-      },
-      void 0,
-      !1,
-      {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "md:max-w-[50%] w-full sm:h-[calc(100vh-83px)]", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "w-full bg-white hidden sticky top-0", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(BackButton, { className: "w-full p-16" }, void 0, !1, {
         fileName: "app/routes/produkter_.$productId.jsx",
-        lineNumber: 73,
+        lineNumber: 52,
+        columnNumber: 11
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/produkter_.$productId.jsx",
+        lineNumber: 51,
         columnNumber: 9
-      },
-      this
-    ) }, void 0, !1, {
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        "img",
+        {
+          className: "object-cover sm:h-full w-full",
+          src: product.image,
+          alt: product.name
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/produkter_.$productId.jsx",
+          lineNumber: 54,
+          columnNumber: 9
+        },
+        this
+      )
+    ] }, void 0, !0, {
       fileName: "app/routes/produkter_.$productId.jsx",
-      lineNumber: 69,
+      lineNumber: 50,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
@@ -2489,7 +2641,7 @@ var import_react14 = require("react");
 
 // app/components/ui/checkbox.jsx
 var React12 = __toESM(require("react")), CheckboxPrimitive = __toESM(require("@radix-ui/react-checkbox")), import_lucide_react3 = require("lucide-react");
-var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), Checkbox = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime"), Checkbox = React12.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
   CheckboxPrimitive.Root,
   {
     ref,
@@ -2498,7 +2650,7 @@ var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), Checkbox = Reac
       className
     ),
     ...props,
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(CheckboxPrimitive.Indicator, { className: cn("flex items-center justify-center text-current"), children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_lucide_react3.Check, { className: "h-4 w-4" }, void 0, !1, {
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(CheckboxPrimitive.Indicator, { className: cn("flex items-center justify-center text-current"), children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_lucide_react3.Check, { className: "h-4 w-4" }, void 0, !1, {
       fileName: "app/components/ui/checkbox.jsx",
       lineNumber: 18,
       columnNumber: 7
@@ -2520,16 +2672,16 @@ var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime"), Checkbox = Reac
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
 // app/components/NewProductVariant.jsx
-var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 function NewProductVariant() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "flex-col justify-center w-full h-full mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "mt-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Label2, { htmlFor: "price", className: "block text-gray-600 mb-2", children: "Pris (Kilopris)" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "flex-col justify-center w-full h-full mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "mt-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Label2, { htmlFor: "price", className: "block text-gray-600 mb-2", children: "Pris (Kilopris)" }, void 0, !1, {
         fileName: "app/components/NewProductVariant.jsx",
         lineNumber: 8,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
         Input,
         {
           type: "number",
@@ -2551,13 +2703,13 @@ function NewProductVariant() {
       lineNumber: 7,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "mt-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Label2, { htmlFor: "weight", className: "block text-gray-600 mb-2", children: "V\xE6gt (Generel v\xE6gt i gram)" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "mt-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Label2, { htmlFor: "weight", className: "block text-gray-600 mb-2", children: "V\xE6gt (Generel v\xE6gt i gram)" }, void 0, !1, {
         fileName: "app/components/NewProductVariant.jsx",
         lineNumber: 21,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
         Input,
         {
           type: "number",
@@ -2579,13 +2731,13 @@ function NewProductVariant() {
       lineNumber: 20,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)("div", { className: "mt-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Label2, { htmlFor: "stock", className: "block text-gray-600 mb-2", children: "Lager" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { className: "mt-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(Label2, { htmlFor: "stock", className: "block text-gray-600 mb-2", children: "Lager" }, void 0, !1, {
         fileName: "app/components/NewProductVariant.jsx",
         lineNumber: 33,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
         Input,
         {
           type: "number",
@@ -2615,7 +2767,7 @@ function NewProductVariant() {
 }
 
 // app/routes/products_.new.jsx
-var import_sonner4 = require("sonner"), import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
+var import_sonner4 = require("sonner"), import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
 async function loader4({ request }) {
   await requireUserSession(request);
   let categories = await import_db5.prisma.category.findMany();
@@ -2669,19 +2821,19 @@ function NewProduct() {
   let actionData = (0, import_react13.useActionData)(), [activeShow, setActiveShow] = (0, import_react14.useState)(""), [activeRec, setActiveRec] = (0, import_react14.useState)(""), [selectedValue, setSelectedValue] = (0, import_react14.useState)(""), [isVariantChecked, setIsVariantChecked] = (0, import_react14.useState)(!1), test = (0, import_react14.useRef)(null), { categories } = (0, import_react13.useLoaderData)(), handleCheckboxChange = (checked) => {
     setIsVariantChecked(checked);
   };
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "max-w-lg container mx-auto p-4", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(BackButton, {}, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "max-w-lg container mx-auto p-4", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(BackButton, {}, void 0, !1, {
       fileName: "app/routes/products_.new.jsx",
       lineNumber: 114,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react13.Form, { method: "post", className: " mx-auto", encType: "multipart/form-data", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { className: "text-2xl font-semibold mb-4", children: "Tilf\xF8j produkt" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react13.Form, { method: "post", className: " mx-auto", encType: "multipart/form-data", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "text-2xl font-semibold mb-4", children: "Tilf\xF8j produkt" }, void 0, !1, {
         fileName: "app/routes/products_.new.jsx",
         lineNumber: 116,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { children: (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
         fileName: "app/routes/products_.new.jsx",
         lineNumber: 119,
         columnNumber: 13
@@ -2690,7 +2842,7 @@ function NewProduct() {
         lineNumber: 117,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
         "input",
         {
           type: "file",
@@ -2715,18 +2867,18 @@ function NewProduct() {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "hidden", name: "image", ref: test }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("input", { type: "hidden", name: "image", ref: test }, void 0, !1, {
         fileName: "app/routes/products_.new.jsx",
         lineNumber: 145,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "mb-4", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "name", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "mb-4", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Label2, { htmlFor: "name", className: "block text-gray-600 mb-2", children: "Navn" }, void 0, !1, {
           fileName: "app/routes/products_.new.jsx",
           lineNumber: 147,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
           Input,
           {
             type: "text",
@@ -2750,13 +2902,13 @@ function NewProduct() {
         lineNumber: 146,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "mb-4", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "description", className: "block text-gray-600 mb-2", children: "Beskrivelse" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "mb-4", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Label2, { htmlFor: "description", className: "block text-gray-600 mb-2", children: "Beskrivelse" }, void 0, !1, {
           fileName: "app/routes/products_.new.jsx",
           lineNumber: 162,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
           Textarea,
           {
             type: "text",
@@ -2780,14 +2932,14 @@ function NewProduct() {
         lineNumber: 161,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "mb-4", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "mb-4", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Label2, { htmlFor: "category", className: "block text-gray-600 mb-2", children: "Kategori" }, void 0, !1, {
           fileName: "app/routes/products_.new.jsx",
           lineNumber: 176,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Select, { name: "category", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Select, { name: "category", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(SelectTrigger, { className: "w-[180px]", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(SelectValue, { placeholder: "V\xE6lg kategori" }, void 0, !1, {
             fileName: "app/routes/products_.new.jsx",
             lineNumber: 181,
             columnNumber: 15
@@ -2796,7 +2948,7 @@ function NewProduct() {
             lineNumber: 180,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(SelectContent, { children: categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(SelectItem, { value: category.name, children: category.name }, category.id, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(SelectContent, { children: categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(SelectItem, { value: category.name, children: category.name }, category.id, !1, {
             fileName: "app/routes/products_.new.jsx",
             lineNumber: 185,
             columnNumber: 17
@@ -2815,14 +2967,14 @@ function NewProduct() {
         lineNumber: 175,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "mb-4 flex justify-between", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "show", className: "block text-gray-600 mb-2", children: "Skal den vises?" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "mb-4 flex justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Label2, { htmlFor: "show", className: "block text-gray-600 mb-2", children: "Skal den vises?" }, void 0, !1, {
             fileName: "app/routes/products_.new.jsx",
             lineNumber: 194,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
             Switch,
             {
               onCheckedChange: () => {
@@ -2845,13 +2997,13 @@ function NewProduct() {
           lineNumber: 193,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Label2, { htmlFor: "recommended", className: "block text-gray-600 mb-2", children: "Anbefales p\xE5 forsiden?" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Label2, { htmlFor: "recommended", className: "block text-gray-600 mb-2", children: "Anbefales p\xE5 forsiden?" }, void 0, !1, {
             fileName: "app/routes/products_.new.jsx",
             lineNumber: 207,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
             Switch,
             {
               onCheckedChange: () => {
@@ -2879,8 +3031,8 @@ function NewProduct() {
         lineNumber: 192,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "items-top flex space-x-2 mb-8", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "items-top flex space-x-2 mb-8", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
           Checkbox,
           {
             id: "moreVariants",
@@ -2896,8 +3048,8 @@ function NewProduct() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "grid gap-1.5 leading-none", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "grid gap-1.5 leading-none", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
             "label",
             {
               htmlFor: "terms",
@@ -2913,7 +3065,7 @@ function NewProduct() {
             },
             this
           ),
-          isVariantChecked && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("p", { className: "text-sm text-muted-foreground", children: 'Tilf\xF8j varianter p\xE5 rediger-produkt siden, efter at have trykket "Gem"' }, void 0, !1, {
+          isVariantChecked && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "text-sm text-muted-foreground", children: 'Tilf\xF8j varianter p\xE5 rediger-produkt siden, efter at have trykket "Gem"' }, void 0, !1, {
             fileName: "app/routes/products_.new.jsx",
             lineNumber: 233,
             columnNumber: 15
@@ -2928,12 +3080,12 @@ function NewProduct() {
         lineNumber: 219,
         columnNumber: 9
       }, this),
-      !isVariantChecked && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(NewProductVariant, {}, void 0, !1, {
+      !isVariantChecked && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(NewProductVariant, {}, void 0, !1, {
         fileName: "app/routes/products_.new.jsx",
         lineNumber: 240,
         columnNumber: 31
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
         Button,
         {
           type: "submit",
@@ -2975,10 +3127,10 @@ var import_react15 = require("@remix-run/react"), import_node8 = require("@remix
 
 // app/components/ComMenu.jsx
 var import_react_scroll2 = require("react-scroll");
-var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime28 = require("react/jsx-dev-runtime");
 function ComMenu({ category, active }) {
   let variant = active && "id" in active && active.id === category.id ? "outlineLunds" : "ghostNav";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
     import_react_scroll2.Link,
     {
       to: category.id.toString(),
@@ -3009,11 +3161,14 @@ function ComMenu({ category, active }) {
 }
 
 // app/routes/produkter.jsx
-var import_react_intersection_observer = require("react-intersection-observer"), import_react16 = require("react"), import_core = require("@react-hooks-library/core"), import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
+var import_react_intersection_observer = require("react-intersection-observer"), import_react16 = require("react"), import_core = require("@react-hooks-library/core"), import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
 async function loader5({ request }) {
   let userId = (await getSession(request.headers.get("Cookie"))).get("userId"), products = await import_db6.prisma.product.findMany({
     where: {
       show: !0
+    },
+    include: {
+      variants: !0
     }
   }), categories = await import_db6.prisma.category.findMany({
     select: {
@@ -3047,14 +3202,14 @@ function ProductPage2() {
     return window.addEventListener("scroll", handleScroll), () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: " mx-auto flex flex-col md:flex-row place-content-center", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "sticky top-0  md:hidden bg-white pt-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "text-gray-700 font-bold text-3xl md:ml-8 lg:ml-2 sm:ml-16 ml-4", children: "Kategorier" }, void 0, !1, {
+  }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: " mx-auto flex flex-col md:flex-row place-content-center", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "sticky top-0  md:hidden bg-white pt-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h2", { className: "text-gray-700 font-bold text-3xl md:ml-8 lg:ml-2 sm:ml-16 ml-4", children: "Kategorier" }, void 0, !1, {
         fileName: "app/routes/produkter.jsx",
-        lineNumber: 76,
+        lineNumber: 79,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "no-scrollbar overflow-x-auto whitespace-nowrap p-2", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "no-scrollbar overflow-x-auto whitespace-nowrap p-2", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
         MobilMenu,
         {
           category,
@@ -3064,34 +3219,34 @@ function ProductPage2() {
         !1,
         {
           fileName: "app/routes/produkter.jsx",
-          lineNumber: 82,
+          lineNumber: 85,
           columnNumber: 15
         },
         this
       )) }, void 0, !1, {
         fileName: "app/routes/produkter.jsx",
-        lineNumber: 79,
+        lineNumber: 82,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 75,
+      lineNumber: 78,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "hidden md:block mx-10 min-h-screen", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "sticky top-[calc(50vh-83px)]", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(ComMenu, { category, active }, category.id, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "hidden md:block mx-10 min-h-screen", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "sticky top-[calc(50vh-83px)]", children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(ComMenu, { category, active }, category.id, !1, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 95,
+      lineNumber: 98,
       columnNumber: 15
     }, this)) }, void 0, !1, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 92,
+      lineNumber: 95,
       columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 91,
+      lineNumber: 94,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { ref: categoryWrapper, children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { id: category.id.toString(), children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { ref: categoryWrapper, children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { id: category.id.toString(), children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
       ProductCategory,
       {
         products,
@@ -3101,22 +3256,22 @@ function ProductPage2() {
       !1,
       {
         fileName: "app/routes/produkter.jsx",
-        lineNumber: 105,
+        lineNumber: 108,
         columnNumber: 15
       },
       this
     ) }, category.id, !1, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 104,
+      lineNumber: 107,
       columnNumber: 13
     }, this)) }, void 0, !1, {
       fileName: "app/routes/produkter.jsx",
-      lineNumber: 101,
+      lineNumber: 104,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/produkter.jsx",
-    lineNumber: 74,
+    lineNumber: 77,
     columnNumber: 5
   }, this);
 }
@@ -3132,20 +3287,20 @@ var import_react19 = require("@remix-run/react"), import_node9 = require("@remix
 
 // app/components/ProductCategoryAdmin.jsx
 var import_react17 = require("@remix-run/react");
-var import_jsx_dev_runtime28 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime30 = require("react/jsx-dev-runtime");
 function ProductCategoryAdmin({ products, category, id }) {
   let filteredProducts = products.filter(
     (product) => product.categoryId === id
   );
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "list-decimal mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "w-full flex justify-between", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("h1", { children: category.name }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "list-decimal mb-4 p-4 max-w-lg overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "w-full flex justify-between", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("h1", { children: category.name }, void 0, !1, {
         fileName: "app/components/ProductCategoryAdmin.jsx",
         lineNumber: 24,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialog, { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(Button, { variant: "link", children: "Slet" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex justify-between gap-4 mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialog, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(Button, { variant: "link", children: "Slet" }, void 0, !1, {
           fileName: "app/components/ProductCategoryAdmin.jsx",
           lineNumber: 28,
           columnNumber: 15
@@ -3154,9 +3309,9 @@ function ProductCategoryAdmin({ products, category, id }) {
           lineNumber: 27,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogContent, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogHeader, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogTitle, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogHeader, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogTitle, { children: [
               "Er du sikker p\xE5 at du vil slette ",
               category.id,
               " og alle dets produkter og varianter?"
@@ -3165,7 +3320,7 @@ function ProductCategoryAdmin({ products, category, id }) {
               lineNumber: 32,
               columnNumber: 17
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogDescription, { children: "Dette er permanent" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogDescription, { children: "Dette er permanent" }, void 0, !1, {
               fileName: "app/components/ProductCategoryAdmin.jsx",
               lineNumber: 36,
               columnNumber: 17
@@ -3175,19 +3330,19 @@ function ProductCategoryAdmin({ products, category, id }) {
             lineNumber: 31,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogFooter, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogCancel, { children: "Annull\xE9r" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogFooter, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogCancel, { children: "Annull\xE9r" }, void 0, !1, {
               fileName: "app/components/ProductCategoryAdmin.jsx",
               lineNumber: 41,
               columnNumber: 17
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(AlertDialogAction, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react17.Form, { method: "post", children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("input", { type: "hidden", name: "category", value: id }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AlertDialogAction, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react17.Form, { method: "post", children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("input", { type: "hidden", name: "category", value: id }, void 0, !1, {
                 fileName: "app/components/ProductCategoryAdmin.jsx",
                 lineNumber: 44,
                 columnNumber: 21
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
                 "input",
                 {
                   type: "hidden",
@@ -3203,7 +3358,7 @@ function ProductCategoryAdmin({ products, category, id }) {
                 },
                 this
               ),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)("button", { type: "submit", children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("button", { type: "submit", children: [
                 "Slet ",
                 category.name
               ] }, void 0, !0, {
@@ -3244,7 +3399,7 @@ function ProductCategoryAdmin({ products, category, id }) {
       lineNumber: 23,
       columnNumber: 7
     }, this),
-    filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
+    filteredProducts.map((product) => /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
       import_react17.Link,
       {
         to: `${product.id}/edit`,
@@ -3269,10 +3424,10 @@ function ProductCategoryAdmin({ products, category, id }) {
 
 // app/components/AdminCategoryNew.jsx
 var import_react18 = require("@remix-run/react");
-var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime31 = require("react/jsx-dev-runtime");
 function AdminCategoryNew({}) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(Dialog, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(DialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(Button, { className: "m-2", variant: "outline", children: "+ Tilf\xF8j kategori" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(Dialog, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(DialogTrigger, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(Button, { className: "m-2", variant: "outline", children: "+ Tilf\xF8j kategori" }, void 0, !1, {
       fileName: "app/components/AdminCategoryNew.jsx",
       lineNumber: 18,
       columnNumber: 11
@@ -3281,19 +3436,19 @@ function AdminCategoryNew({}) {
       lineNumber: 17,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(DialogContent, { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(DialogTitle, { children: "Tilf\xF8j ny kategori" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(DialogContent, { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(DialogTitle, { children: "Tilf\xF8j ny kategori" }, void 0, !1, {
         fileName: "app/components/AdminCategoryNew.jsx",
         lineNumber: 23,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react18.Form, { method: "post", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("input", { type: "hidden", name: "actionType", value: "newCategory" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react18.Form, { method: "post", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("input", { type: "hidden", name: "actionType", value: "newCategory" }, void 0, !1, {
           fileName: "app/components/AdminCategoryNew.jsx",
           lineNumber: 25,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { className: "mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
           Input,
           {
             type: "text",
@@ -3313,7 +3468,7 @@ function AdminCategoryNew({}) {
           lineNumber: 26,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(DialogClose, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(DialogClose, { asChild: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
           Button,
           {
             type: "submit",
@@ -3356,7 +3511,7 @@ function AdminCategoryNew({}) {
 
 // app/routes/products.jsx
 var import_sonner5 = require("sonner");
-var import_react20 = require("react"), import_jsx_dev_runtime30 = require("react/jsx-dev-runtime");
+var import_react20 = require("react"), import_jsx_dev_runtime32 = require("react/jsx-dev-runtime");
 async function loader6({ request }) {
   await requireUserSession(request);
   let products = await import_db7.prisma.product.findMany({}), categories = await import_db7.prisma.category.findMany({});
@@ -3388,18 +3543,18 @@ async function action3({ request }) {
 }
 function AdminPage() {
   let { products, categories } = (0, import_react19.useLoaderData)(), actionData = (0, import_react19.useActionData)(), [searchParams] = (0, import_react19.useSearchParams)(), deleted = searchParams.get("deleted");
-  return console.log(actionData), (0, import_react20.useEffect)(() => {
+  return (0, import_react20.useEffect)(() => {
     (actionData == null ? void 0 : actionData.status) === "success" ? import_sonner5.toast.success(actionData.message) : (actionData == null ? void 0 : actionData.status) === "error" && import_sonner5.toast.error(actionData.message);
   }, [actionData]), (0, import_react20.useEffect)(() => {
-    deleted === "true" && import_sonner5.toast.success("Produktet blev slettet"), console.log("i fire once");
-  }, [deleted]), /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "max-w-lg mx-auto mt-2", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: " flex flex-row justify-end w-full", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(AdminCategoryNew, {}, void 0, !1, {
+    deleted === "true" && import_sonner5.toast.success("Produktet blev slettet");
+  }, [deleted]), /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("div", { className: "max-w-lg mx-auto mt-2", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("div", { className: " flex flex-row justify-end w-full", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(AdminCategoryNew, {}, void 0, !1, {
         fileName: "app/routes/products.jsx",
-        lineNumber: 97,
+        lineNumber: 95,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
         import_react19.Link,
         {
           to: "/products/new",
@@ -3410,26 +3565,26 @@ function AdminPage() {
         !1,
         {
           fileName: "app/routes/products.jsx",
-          lineNumber: 98,
+          lineNumber: 96,
           columnNumber: 9
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(Button, { className: "m-2", variant: "ghost", children: "Log ud" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(Button, { className: "m-2", variant: "ghost", children: "Log ud" }, void 0, !1, {
         fileName: "app/routes/products.jsx",
-        lineNumber: 105,
+        lineNumber: 103,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/products.jsx",
-        lineNumber: 104,
+        lineNumber: 102,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/products.jsx",
-      lineNumber: 96,
+      lineNumber: 94,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("div", { children: categories == null ? void 0 : categories.map((category) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
       ProductCategoryAdmin,
       {
         products,
@@ -3440,18 +3595,18 @@ function AdminPage() {
       !1,
       {
         fileName: "app/routes/products.jsx",
-        lineNumber: 119,
+        lineNumber: 117,
         columnNumber: 13
       },
       this
     )) }, void 0, !1, {
       fileName: "app/routes/products.jsx",
-      lineNumber: 116,
+      lineNumber: 114,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/products.jsx",
-    lineNumber: 95,
+    lineNumber: 93,
     columnNumber: 5
   }, this);
 }
@@ -3462,12 +3617,12 @@ __export(index_exports, {
   default: () => Index,
   meta: () => meta
 });
-var import_jsx_dev_runtime31 = require("react/jsx-dev-runtime"), meta = () => [
+var import_jsx_dev_runtime33 = require("react/jsx-dev-runtime"), meta = () => [
   { title: "New Remix App" },
   { name: "description", content: "Welcome to Remix!" }
 ];
 function Index() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("h1", { children: "Lundsbjerggaaard" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("h1", { children: "Lundsbjerggaaard" }, void 0, !1, {
     fileName: "app/routes/_index.jsx",
     lineNumber: 11,
     columnNumber: 7
@@ -3508,7 +3663,7 @@ var import_db8 = __toESM(require_db_server());
 
 // app/components/ui/table.jsx
 var React13 = __toESM(require("react"));
-var import_jsx_dev_runtime32 = require("react/jsx-dev-runtime"), Table = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("div", { className: "relative w-full overflow-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var import_jsx_dev_runtime34 = require("react/jsx-dev-runtime"), Table = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "relative w-full overflow-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "table",
   {
     ref,
@@ -3529,13 +3684,13 @@ var import_jsx_dev_runtime32 = require("react/jsx-dev-runtime"), Table = React13
   columnNumber: 3
 }, this));
 Table.displayName = "Table";
-var TableHeader = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("thead", { ref, className: cn("[&_tr]:border-b", className), ...props }, void 0, !1, {
+var TableHeader = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("thead", { ref, className: cn("[&_tr]:border-b", className), ...props }, void 0, !1, {
   fileName: "app/components/ui/table.jsx",
   lineNumber: 16,
   columnNumber: 3
 }, this));
 TableHeader.displayName = "TableHeader";
-var TableBody = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableBody = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "tbody",
   {
     ref,
@@ -3552,7 +3707,7 @@ var TableBody = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   this
 ));
 TableBody.displayName = "TableBody";
-var TableFooter = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableFooter = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "tfoot",
   {
     ref,
@@ -3569,7 +3724,7 @@ var TableFooter = React13.forwardRef(({ className, ...props }, ref) => /* @__PUR
   this
 ));
 TableFooter.displayName = "TableFooter";
-var TableRow = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableRow = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "tr",
   {
     ref,
@@ -3589,7 +3744,7 @@ var TableRow = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__
   this
 ));
 TableRow.displayName = "TableRow";
-var TableHead = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableHead = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "th",
   {
     ref,
@@ -3609,7 +3764,7 @@ var TableHead = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   this
 ));
 TableHead.displayName = "TableHead";
-var TableCell = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableCell = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "td",
   {
     ref,
@@ -3626,7 +3781,7 @@ var TableCell = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE_
   this
 ));
 TableCell.displayName = "TableCell";
-var TableCaption = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+var TableCaption = React13.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
   "caption",
   {
     ref,
@@ -3646,7 +3801,7 @@ TableCaption.displayName = "TableCaption";
 
 // app/routes/lager.jsx
 var import_node11 = require("@remix-run/node"), import_react21 = require("@remix-run/react"), import_react22 = __toESM(require("react"));
-var import_sonner6 = require("sonner"), import_jsx_dev_runtime33 = require("react/jsx-dev-runtime");
+var import_sonner6 = require("sonner"), import_jsx_dev_runtime35 = require("react/jsx-dev-runtime");
 async function loader8({ request }) {
   await requireUserSession(request);
   let products = await import_db8.prisma.product.findMany({
@@ -3701,8 +3856,8 @@ function Lager() {
   };
   return (0, import_react22.useEffect)(() => {
     (actionData == null ? void 0 : actionData.status) === "success" ? import_sonner6.toast.success(actionData.message) : (actionData == null ? void 0 : actionData.status) === "error" && import_sonner6.toast.error(actionData.message);
-  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { className: "list-decimal mx-auto mt-4 mb-16 max-w-[800px] overflow-hidden rounded-lg bg-white shadow-lg", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { className: "m-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
+  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "list-decimal mx-auto mt-4 mb-16 max-w-[800px] overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "m-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
       Input,
       {
         className: "max-w-[200px]",
@@ -3724,20 +3879,20 @@ function Lager() {
       lineNumber: 113,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(import_react21.Form, { method: "post", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(Table, { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("thead", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableRow, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { children: "Produkt" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(import_react21.Form, { method: "post", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(Table, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("thead", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableRow, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { children: "Produkt" }, void 0, !1, {
             fileName: "app/routes/lager.jsx",
             lineNumber: 126,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { children: "Variant" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { children: "Variant" }, void 0, !1, {
             fileName: "app/routes/lager.jsx",
             lineNumber: 127,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { children: "Lagerbeholdning" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { children: "Lagerbeholdning" }, void 0, !1, {
             fileName: "app/routes/lager.jsx",
             lineNumber: 128,
             columnNumber: 15
@@ -3751,22 +3906,22 @@ function Lager() {
           lineNumber: 124,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableBody, { children: filteredProducts.map((product, index) => {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableBody, { children: filteredProducts.map((product, index) => {
           let bgColorClass = index % 2 === 0 ? "bg-gray-100" : "bg-white";
-          return /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(import_react22.default.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableRow, { className: bgColorClass, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle", children: product.name }, void 0, !1, {
+          return /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(import_react22.default.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableRow, { className: bgColorClass, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle", children: product.name }, void 0, !1, {
                 fileName: "app/routes/lager.jsx",
                 lineNumber: 137,
                 columnNumber: 21
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle", children: "\u2014" }, void 0, !1, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle", children: "\u2014" }, void 0, !1, {
                 fileName: "app/routes/lager.jsx",
                 lineNumber: 140,
                 columnNumber: 21
               }, this),
               " ",
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
                 Input,
                 {
                   type: "number",
@@ -3792,19 +3947,19 @@ function Lager() {
               lineNumber: 136,
               columnNumber: 19
             }, this),
-            product.variants.map((variant) => /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableRow, { className: bgColorClass, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle" }, void 0, !1, {
+            product.variants.map((variant) => /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableRow, { className: bgColorClass, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle" }, void 0, !1, {
                 fileName: "app/routes/lager.jsx",
                 lineNumber: 153,
                 columnNumber: 23
               }, this),
               " ",
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle", children: variant.name }, void 0, !1, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle", children: variant.name }, void 0, !1, {
                 fileName: "app/routes/lager.jsx",
                 lineNumber: 155,
                 columnNumber: 23
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(TableCell, { className: "p-4 align-middle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(TableCell, { className: "p-4 align-middle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
                 Input,
                 {
                   type: "number",
@@ -3845,7 +4000,7 @@ function Lager() {
         lineNumber: 123,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { className: "w-full flex justify-end", children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(Button, { className: "m-4", type: "submit", variant: "outlineLunds", children: "Opdater" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "w-full flex justify-end", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(Button, { className: "m-4", type: "submit", variant: "outlineLunds", children: "Opdater" }, void 0, !1, {
         fileName: "app/routes/lager.jsx",
         lineNumber: 174,
         columnNumber: 11
@@ -3874,7 +4029,7 @@ __export(login_exports, {
   loader: () => loader9
 });
 var import_node12 = require("@remix-run/node"), import_bcryptjs = __toESM(require("bcryptjs")), import_react23 = require("@remix-run/react"), import_db9 = __toESM(require_db_server());
-var import_jsx_dev_runtime34 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime36 = require("react/jsx-dev-runtime");
 async function loader9({ request }) {
   let session = await getSession(request.headers.get("Cookie"));
   return (0, import_node12.json)({ userId: session.get("userId") });
@@ -3882,26 +4037,26 @@ async function loader9({ request }) {
 function Login() {
   var _a, _b;
   let actionData = (0, import_react23.useActionData)(), { userId } = (0, import_react23.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "my-16 p-4 max-w-lg h-full m-auto overflow-hidden rounded-lg bg-white shadow-lg", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("img", { src: "Logo.svg", alt: "Logo", className: "max-w-lg m-auto my-2" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("div", { className: "my-16 p-4 max-w-lg h-full m-auto overflow-hidden rounded-lg bg-white shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("img", { src: "Logo.svg", alt: "Logo", className: "max-w-lg m-auto my-2" }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 20,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("h1", { className: "mb-1 text-lg font-bold", children: "Login" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("h1", { className: "mb-1 text-lg font-bold", children: "Login" }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 21,
       columnNumber: 7
     }, this),
-    (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
+    (actionData == null ? void 0 : actionData.errorMessage) && /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("p", { className: "mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900", children: actionData == null ? void 0 : actionData.errorMessage }, void 0, !1, {
       fileName: "app/routes/login.jsx",
       lineNumber: 23,
       columnNumber: 9
     }, this),
-    userId ? /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("p", { children: [
+    userId ? /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("p", { children: [
         "Du allerede logget ind; g\xE5 til",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(Button, { asChild: !0, className: "ml-1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(import_react23.Link, { to: "/products", children: "Products" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(Button, { asChild: !0, className: "ml-1", children: /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(import_react23.Link, { to: "/products", children: "Products" }, void 0, !1, {
           fileName: "app/routes/login.jsx",
           lineNumber: 32,
           columnNumber: 15
@@ -3915,7 +4070,7 @@ function Login() {
         lineNumber: 29,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(Button, { variant: "outline", children: "Log ud" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("form", { method: "post", action: "/logout", children: /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(Button, { variant: "outline", children: "Log ud" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 36,
         columnNumber: 13
@@ -3928,13 +4083,13 @@ function Login() {
       fileName: "app/routes/login.jsx",
       lineNumber: 28,
       columnNumber: 9
-    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("form", { method: "post", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(Label2, { htmlFor: "phoneNumber", children: "Telefonnummer" }, void 0, !1, {
+    }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("form", { method: "post", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(Label2, { htmlFor: "phoneNumber", children: "Telefonnummer" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 41,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(
         Input,
         {
           type: "text",
@@ -3952,12 +4107,12 @@ function Login() {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(Label2, { htmlFor: "password", children: "Kodeord" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(Label2, { htmlFor: "password", children: "Kodeord" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 49,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(
         Input,
         {
           type: "password",
@@ -3975,12 +4130,12 @@ function Login() {
         },
         this
       ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("br", {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)("br", {}, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 57,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(Button, { variant: "outline", children: "Login" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(Button, { variant: "outline", children: "Login" }, void 0, !1, {
         fileName: "app/routes/login.jsx",
         lineNumber: 58,
         columnNumber: 11
@@ -4022,7 +4177,7 @@ async function action6({ request }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-JR5EB3OU.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-XZNHQU4Q.js", imports: ["/build/_shared/chunk-YN5RPP4O.js", "/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/lager": { id: "routes/lager", parentId: "root", path: "lager", index: void 0, caseSensitive: void 0, module: "/build/routes/lager-DSFYV6OX.js", imports: ["/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-PCTSSQTB.js", imports: ["/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-HIGPI2NL.js", imports: ["/build/_shared/chunk-VWJV5QD2.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-IDZCP7VN.js", imports: ["/build/_shared/chunk-KVQUN7TA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-VWJV5QD2.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-SJN6PFHE.js", imports: ["/build/_shared/chunk-KVQUN7TA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-Y6BJVVSC.js", imports: ["/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-O6C2U64C.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f83716b4", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1706096142026 }, url: "/build/manifest-F83716B4.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-JR5EB3OU.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OOUXF46Y.js", imports: ["/build/_shared/chunk-YN5RPP4O.js", "/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-D3XMRPGK.js", "/build/_shared/chunk-NBEH4DGX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/lager": { id: "routes/lager", parentId: "root", path: "lager", index: void 0, caseSensitive: void 0, module: "/build/routes/lager-DSFYV6OX.js", imports: ["/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-PCTSSQTB.js", imports: ["/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-AFSN3ST7.js", imports: ["/build/_shared/chunk-VWJV5QD2.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-OLGRU2HD.js", imports: ["/build/_shared/chunk-KVQUN7TA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-VWJV5QD2.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-SJN6PFHE.js", imports: ["/build/_shared/chunk-KVQUN7TA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-DUDHNOXS.js", "/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63QMBH3W.js", "/build/_shared/chunk-5AAGE7JK.js", "/build/_shared/chunk-E6F6QD6W.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-6DGKWPRQ.js", imports: ["/build/_shared/chunk-77VCLNKN.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-ZDINYHZR.js", imports: ["/build/_shared/chunk-NP725YJF.js", "/build/_shared/chunk-77VCLNKN.js", "/build/_shared/chunk-LSI5DTKS.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "359dee7e", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1706216541025 }, url: "/build/manifest-359DEE7E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

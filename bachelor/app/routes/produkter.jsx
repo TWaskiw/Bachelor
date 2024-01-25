@@ -21,6 +21,9 @@ export async function loader({ request }) {
     where: {
       show: true,
     },
+    include: {
+      variants: true,
+    },
   });
 
   const categories = await prisma.category.findMany({
