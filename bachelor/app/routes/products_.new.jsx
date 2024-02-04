@@ -11,7 +11,7 @@ import { requireUserSession } from "../sessions.server";
 import { Switch } from "../components/ui/switch";
 import { Textarea } from "../components/ui/textarea";
 import { Button, buttonVariants } from "../components/ui/button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -46,7 +46,10 @@ export async function action({ request }) {
 
   try {
     const categoryName = form.get("category");
+    console.log(categoryName);
     const name = form.get("name");
+    const price = form.get("price");
+    const weight = form.get("weight");
 
     if (!name) {
       return json(
@@ -71,25 +74,53 @@ export async function action({ request }) {
       );
     }
 
-    const product = await prisma.product.create({
-      data: {
-        stock: stock,
-        weight: parseInt(form.get("weight")),
-        price: parseInt(form.get("price")),
-        name: form.get("name"),
-        description: form.get("description"),
-        show: form.get("show") === "on",
-        recommended: form.get("recommended") === "on",
-        image: form.get("image"),
-        categoryId: Number(categoryId.id),
-      },
-    });
     const isCheckboxChecked = form.get("moreVariants") === "on";
+    if (!isCheckboxChecked) {
+      if (!price) {
+        return json(
+          { errorMessage: "Udfyld pris", values: formValues },
+          { status: 400 }
+        );
+      }
+
+      if (!weight) {
+        return json(
+          { errorMessage: "Udfyld vægt", values: formValues },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Objekt af data til 'create' forespørgslen
+    const productData = {
+      weight: parseInt(form.get("weight"), 10),
+      price: parseInt(form.get("price"), 10),
+      name: form.get("name"),
+      description: form.get("description"),
+      show: form.get("show") === "on",
+      recommended: form.get("recommended") === "on",
+      image: form.get("image"),
+      categoryId: Number(categoryId.id),
+    };
+
+    // Tjek om 'stock' har en værdi og tilføj det til 'productData', hvis det er tilfældet
+    const stockValue = form.get("stock");
+    if (stockValue) {
+      productData.stock = parseInt(stockValue, 10);
+    } else {
+      // Hvis 'stock' ikke er angivet, brug standardværdien fra databasen
+      productData.stock = 0;
+    }
+
+    // Brug 'productData' til at oprette produktet
+    const product = await prisma.product.create({
+      data: productData,
+    });
 
     if (isCheckboxChecked) {
       return redirect(`/products/${product.id}/edit?success=true`);
     } else {
-      return redirect(`/products`);
+      return redirect(`/products?success=true`);
     }
   } catch (error) {
     console.error("Fejl ved oprettelse af produkt:", error);
@@ -114,13 +145,7 @@ export default function NewProduct() {
       <BackButton />
       <Form method="post" className=" mx-auto" encType="multipart/form-data">
         <h1 className="text-2xl font-semibold mb-4">Tilføj produkt</h1>
-        <div>
-          {actionData?.errorMessage && (
-            <p className="mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900">
-              {actionData?.errorMessage}
-            </p>
-          )}
-        </div>
+
         <input
           type="file"
           accept="image/*"
@@ -237,8 +262,15 @@ export default function NewProduct() {
             )}
           </div>
         </div>
-        {!isVariantChecked && <NewProductVariant />}
 
+        {!isVariantChecked && <NewProductVariant />}
+        <div>
+          {actionData?.errorMessage && (
+            <p className="mb-3 rounded border border-red-500 bg-red-50 p-2 text-red-900">
+              {actionData?.errorMessage}
+            </p>
+          )}
+        </div>
         <div className="flex justify-between gap-4 mb-4">
           <Button
             type="submit"

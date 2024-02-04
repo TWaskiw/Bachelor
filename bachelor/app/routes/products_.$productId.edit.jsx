@@ -44,7 +44,6 @@ import {
   TabsTrigger,
 } from "../components/ui/tabs";
 import AdminVariantNew from "../components/AdminVariantNew";
-import { Toaster } from "../components/ui/sonner";
 import {
   deleteProduct,
   deleteVariant,
@@ -150,6 +149,10 @@ export async function action({ request, params }) {
               data: {
                 name: name,
                 stock: form.has("stock") ? parseInt(form.get("stock"), 10) : 0,
+                price: form.has("price") ? parseInt(form.get("price"), 10) : 0,
+                weight: form.has("weight")
+                  ? parseInt(form.get("weight"), 10)
+                  : 0,
                 description: form.get("description"),
                 show: form.get("show") === "on",
                 recommended: form.get("recommended") === "on",
@@ -312,8 +315,39 @@ export default function EditProduct() {
                 )}
               </div>
             </div>
+            {product.variants.length === 0 ? (
+              <div className="mb-4 flex">
+                <div className="w-1/2">
+                  <Label htmlFor="price" className="block text-gray-600 mb-2">
+                    Pris
+                  </Label>
+                  <Input
+                    type="number"
+                    name="price"
+                    id="price"
+                    placeholder="Pris"
+                    defaultValue={product?.price}
+                    className="w-[180px] border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                  ></Input>
+                </div>
+                <div className="w-1/2">
+                  <Label htmlFor="stock" className="block text-gray-600 mb-2">
+                    Vægt (g)
+                  </Label>
+
+                  <Input
+                    type="number"
+                    name="weight"
+                    id="weight"
+                    placeholder="Lagerbeholdning"
+                    defaultValue={product?.weight}
+                    className="w-full border rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                  ></Input>
+                </div>
+              </div>
+            ) : null}
             <div className="mb-4 flex">
-              <div className="mb-4 w-1/2">
+              <div className="w-1/2">
                 <Label htmlFor="show" className="block text-gray-600 mb-2">
                   Skal den vises?
                 </Label>
@@ -331,7 +365,7 @@ export default function EditProduct() {
                 />
               </div>
 
-              <div className="mb-4">
+              <div>
                 <Label
                   htmlFor="recommended"
                   className="block text-gray-600 mb-2"

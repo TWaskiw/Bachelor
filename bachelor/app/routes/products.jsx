@@ -9,7 +9,6 @@ import {
 import { json } from "@remix-run/node";
 import { prisma } from "~/db.server";
 import { getSession, requireUserSession } from "~/sessions.server";
-import Product from "~/components/Product";
 import BackButton from "~/components/BackButton";
 import { Button, buttonVariants } from "../components/ui/button";
 import MobilMenu from "../components/MobilMenu";
@@ -74,6 +73,14 @@ export default function AdminPage() {
   const actionData = useActionData();
   const [searchParams] = useSearchParams();
   const deleted = searchParams.get("deleted");
+  const success = searchParams.get("success");
+  console.log(success);
+
+  useEffect(() => {
+    if (success === "true") {
+      toast.success("Produktet blev oprettet");
+    }
+  }, [success]);
 
   useEffect(() => {
     if (actionData?.status === "success") {

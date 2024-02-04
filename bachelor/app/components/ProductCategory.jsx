@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import Product from "./Product";
 import { buttonVariants } from "./ui/button";
 import formatCategoryName from "./formatCategoryName";
 global.Buffer = global.Buffer || require("buffer").Buffer;

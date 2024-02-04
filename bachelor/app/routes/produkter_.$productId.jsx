@@ -2,7 +2,6 @@ import { useLoaderData, Link, Outlet } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { prisma } from "~/db.server";
 import { getSession, requireUserSession } from "~/sessions.server";
-import Product from "~/components/Product";
 import BackButton from "~/components/BackButton";
 import { Button, buttonVariants } from "../components/ui/button";
 import MobilMenu from "../components/MobilMenu";

@@ -1,5 +1,4 @@
 import { Form, Link, useFetcher } from "@remix-run/react";
-import Product from "./Product";
 import { Button, buttonVariants } from "./ui/button";
 import {
   AlertDialog,
@@ -30,7 +29,7 @@ export default function ProductCategoryAdmin({ products, category, id }) {
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  Er du sikker på at du vil slette {category.id} og alle dets
+                  Er du sikker på at du vil slette {category.name} og alle dets
                   produkter og varianter?
                 </AlertDialogTitle>
                 <AlertDialogDescription>
