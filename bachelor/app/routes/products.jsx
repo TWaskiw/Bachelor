@@ -58,7 +58,6 @@ export async function action({ request }) {
         await deleteCategory(categoryId);
         return json({ status: "success", message: "Kategorien blev slettet" });
       } catch (error) {
-        console.error(error); // Log fejlen for debugging
         return json(
           { status: "error", message: "Fejl ved sletning af kategori" },
           { status: 500 }

@@ -90,7 +90,7 @@ export async function action({ request }) {
 
   if (!passwordIsValid) {
     return json(
-      { errorMessage: "Invalid password", values: formDataObject },
+      { errorMessage: "Forkert kodeord", values: formDataObject },
       { status: 401 }
     );
   }

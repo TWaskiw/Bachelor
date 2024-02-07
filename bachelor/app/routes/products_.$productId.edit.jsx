@@ -249,7 +249,6 @@ export default function EditProduct() {
               <Label htmlFor="name" className="block text-gray-600 mb-2">
                 Navn
               </Label>
-
               <Input
                 type="text"
                 name="name"
@@ -319,7 +318,7 @@ export default function EditProduct() {
               <div className="mb-4 flex">
                 <div className="w-1/2">
                   <Label htmlFor="price" className="block text-gray-600 mb-2">
-                    Pris
+                    Pris (kr/kg)
                   </Label>
                   <Input
                     type="number"

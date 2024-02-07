@@ -8,6 +8,7 @@ import MobilMenu from "../components/MobilMenu";
 import ProductCategory from "../components/ProductCategory";
 import extractCategories from "../components/extractCategories";
 import ProductCardsInfo from "../components/ProductCardInfo";
+import paavej from "../../public/billedepaavej.png";
 
 export async function loader({ request, params }) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -52,7 +53,7 @@ export default function ProductPage() {
         </div>
         <img
           className="object-cover sm:h-full w-full"
-          src={product.image}
+          src={paavej}
           alt={product.name}
         />
       </div>

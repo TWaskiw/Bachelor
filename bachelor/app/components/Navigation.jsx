@@ -51,9 +51,12 @@ const Navigation = () => {
             </li>
           ))}
           {userId ? (
-            <li className="md:ml-8 md:my-0 my-7">
+            <li className="md:ml-8 md:my-0 my-7 rounded border-2">
               <Button asChild variant="link">
-                <Link to="/products">Admin</Link>
+                <Link to="/products">Produktstyring</Link>
+              </Button>
+              <Button asChild variant="link">
+                <Link to="/lager">Lager</Link>
               </Button>
             </li>
           ) : (

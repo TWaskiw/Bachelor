@@ -3,6 +3,7 @@ import { buttonVariants } from "./ui/button";
 import formatCategoryName from "./formatCategoryName";
 global.Buffer = global.Buffer || require("buffer").Buffer;
 import logo from "../../public/Logo.svg";
+import paavej from "../../public/billedepaavej.png";
 import ProductCardsInfo from "./ProductCardsInfo";
 
 export default function ProductCategory({ products, category }) {
@@ -27,7 +28,7 @@ export default function ProductCategory({ products, category }) {
                 <div>
                   <div className="bg-red object-cover rounded-t-md h-2/4">
                     <img
-                      src={product.image}
+                      src={paavej}
                       className="h-full w-full object-cover max-h-96"
                       alt={product.name}
                     />

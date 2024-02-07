@@ -7,7 +7,7 @@ export default function ProductCardInfo({ product }) {
         {product.variants.map((variant) => (
           <div key={variant.id} className="border-t border-gray-300 pt-5 mt-5">
             <div className="flex w-full flex-row justify-between">
-              <p className="text-xl">{product.name}</p>
+              <p className="text-xl">{variant.name}</p>
               <p className="text-xl">{variant.price} kr,-</p>
             </div>
             <div className="w-full flex justify-start mt-1">

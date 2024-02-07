@@ -22,7 +22,7 @@ export default function AdminVariants({ variants }) {
               </Button>
             </DialogTrigger>
             <DialogContent>
-              <DialogTitle>Rediger {variant.name}</DialogTitle>
+              <DialogTitle>Redigér {variant.name}</DialogTitle>
               <Form key={variant.id} method="post">
                 <input type="hidden" name="variantId" value={variant.id} />
                 <div className="mb-4">
