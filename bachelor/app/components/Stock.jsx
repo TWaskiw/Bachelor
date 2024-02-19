@@ -1,3 +1,9 @@
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../components/ui/hover-card";
+
 export default function Stock({ stock }) {
   let stockStatus = "";
   let stockColor = "";
@@ -12,9 +18,14 @@ export default function Stock({ stock }) {
     stockColor = "rounded-full bg-green-400 w-2.5 h-2.5";
   }
   return (
-    <div className="flex  items-center">
-      <span className={stockColor}></span>
-      <h1 className="ml-1 text-xl">{stockStatus}</h1>
-    </div>
+    <HoverCard>
+      <HoverCardTrigger className="flex items-center">
+        <span className={stockColor}></span>
+        <h1 className="ml-1 text-xl hover:underline">{stockStatus}</h1>
+      </HoverCardTrigger>
+      <HoverCardContent>
+        <p>Vi har {stock} på lager</p>
+      </HoverCardContent>
+    </HoverCard>
   );
 }

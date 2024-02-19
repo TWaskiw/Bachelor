@@ -66,6 +66,7 @@ model User {
   email          String?
   creationDate   DateTime     @default(now())
   isAdmin        Boolean      @default(false)
+  isCheckout     Boolean      @default(false)
   passwordId     Int          @unique
   password       UserPassword?
   carts          Cart[]
