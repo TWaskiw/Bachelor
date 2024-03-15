@@ -74,6 +74,7 @@ export default function AdminPage() {
   const deleted = searchParams.get("deleted");
   const success = searchParams.get("success");
   console.log(success);
+  console.log(actionData);
 
   useEffect(() => {
     if (success === "true") {

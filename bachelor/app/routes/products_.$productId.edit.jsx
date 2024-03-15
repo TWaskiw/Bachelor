@@ -130,9 +130,19 @@ export async function action({ request, params }) {
       switch (actionType) {
         case "updateProduct":
           const name = form.get("name").trim();
+          const stock = form.get("stock").trim();
           if (!name) {
             return json(
               { errorMessage: "Navn skal udfyldes", values: formValues },
+              { status: 400 }
+            );
+          }
+          if (!stock || stock < 0) {
+            return json(
+              {
+                errorMessage: "Lagerbeholdning skal udfyldes",
+                values: formValues,
+              },
               { status: 400 }
             );
           } else {

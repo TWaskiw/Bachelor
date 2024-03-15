@@ -77,6 +77,7 @@ export default function Lager() {
   const { params } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
+
   console.log(params?.status);
 
   //Tjekker først om product.name overhovedet findes. Hvis den gør, så bliver den lavet til lowercase, ellers bliver den bare sat til en tom string.
