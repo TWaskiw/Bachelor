@@ -1,8 +1,9 @@
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../components/ui/hover-card";
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../components/ui/tooltip";
 
 export default function Stock({ stock }) {
   let stockStatus = "";
@@ -18,14 +19,16 @@ export default function Stock({ stock }) {
     stockColor = "rounded-full bg-green-400 w-2.5 h-2.5";
   }
   return (
-    <HoverCard>
-      <HoverCardTrigger className="flex items-center">
-        <span className={stockColor}></span>
-        <h1 className="ml-1 text-xl hover:underline">{stockStatus}</h1>
-      </HoverCardTrigger>
-      <HoverCardContent>
-        <p>Vi har {stock} på lager</p>
-      </HoverCardContent>
-    </HoverCard>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger className="flex items-center">
+          <span className={stockColor}></span>
+          <h1 className="ml-1 text-xl hover:underline">{stockStatus}</h1>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Vi har {stock} på lager</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

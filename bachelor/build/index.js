@@ -158,7 +158,7 @@ __export(root_exports, {
 });
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-RYLKDNHI.css";
+var tailwind_default = "/build/_assets/tailwind-SIGDNWLL.css";
 
 // app/root.jsx
 var import_react4 = require("@remix-run/react");
@@ -2308,16 +2308,15 @@ var import_react11 = require("@remix-run/react");
 // public/billedepaavej.png
 var billedepaavej_default = "/build/_assets/billedepaavej-55S7OZIY.png";
 
-// app/components/ui/hover-card.jsx
-var React12 = __toESM(require("react")), HoverCardPrimitive = __toESM(require("@radix-ui/react-hover-card"));
-var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime"), HoverCard = HoverCardPrimitive.Root, HoverCardTrigger = HoverCardPrimitive.Trigger, HoverCardContent = React12.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
-  HoverCardPrimitive.Content,
+// app/components/ui/tooltip.jsx
+var React12 = __toESM(require("react")), TooltipPrimitive = __toESM(require("@radix-ui/react-tooltip"));
+var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime"), TooltipProvider = TooltipPrimitive.Provider, Tooltip = TooltipPrimitive.Root, TooltipTrigger = TooltipPrimitive.Trigger, TooltipContent = React12.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
+  TooltipPrimitive.Content,
   {
     ref,
-    align,
     sideOffset,
     className: cn(
-      "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       className
     ),
     ...props
@@ -2325,51 +2324,55 @@ var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime"), HoverCard = Hov
   void 0,
   !1,
   {
-    fileName: "app/components/ui/hover-card.jsx",
-    lineNumber: 13,
+    fileName: "app/components/ui/tooltip.jsx",
+    lineNumber: 15,
     columnNumber: 3
   },
   this
 ));
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 // app/components/Stock.jsx
 var import_jsx_dev_runtime21 = require("react/jsx-dev-runtime");
 function Stock({ stock }) {
   let stockStatus = "", stockColor = "";
-  return stock === 0 ? (stockStatus = "Ikke p\xE5 lager", stockColor = "rounded-full  bg-red-400 w-2.5 h-2.5") : stock >= 1 && stock <= 4 ? (stockStatus = "F\xE5 p\xE5 lager", stockColor = "rounded-full  bg-yellow-400 w-2.5 h-2.5") : (stockStatus = "P\xE5 lager", stockColor = "rounded-full bg-green-400 w-2.5 h-2.5"), /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(HoverCard, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(HoverCardTrigger, { className: "flex items-center", children: [
+  return stock === 0 ? (stockStatus = "Ikke p\xE5 lager", stockColor = "rounded-full  bg-red-400 w-2.5 h-2.5") : stock >= 1 && stock <= 4 ? (stockStatus = "F\xE5 p\xE5 lager", stockColor = "rounded-full  bg-yellow-400 w-2.5 h-2.5") : (stockStatus = "P\xE5 lager", stockColor = "rounded-full bg-green-400 w-2.5 h-2.5"), /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(TooltipProvider, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Tooltip, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(TooltipTrigger, { className: "flex items-center", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("span", { className: stockColor }, void 0, !1, {
         fileName: "app/components/Stock.jsx",
-        lineNumber: 23,
-        columnNumber: 9
+        lineNumber: 25,
+        columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("h1", { className: "ml-1 text-xl hover:underline", children: stockStatus }, void 0, !1, {
         fileName: "app/components/Stock.jsx",
-        lineNumber: 24,
-        columnNumber: 9
+        lineNumber: 26,
+        columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/Stock.jsx",
-      lineNumber: 22,
-      columnNumber: 7
+      lineNumber: 24,
+      columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(HoverCardContent, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(TooltipContent, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)("p", { children: [
       "Vi har ",
       stock,
       " p\xE5 lager"
     ] }, void 0, !0, {
       fileName: "app/components/Stock.jsx",
-      lineNumber: 27,
-      columnNumber: 9
+      lineNumber: 29,
+      columnNumber: 11
     }, this) }, void 0, !1, {
       fileName: "app/components/Stock.jsx",
-      lineNumber: 26,
-      columnNumber: 7
+      lineNumber: 28,
+      columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Stock.jsx",
-    lineNumber: 21,
+    lineNumber: 23,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/components/Stock.jsx",
+    lineNumber: 22,
     columnNumber: 5
   }, this);
 }
@@ -2440,7 +2443,7 @@ function ProductCardsInfo({ product }) {
     fileName: "app/components/ProductCardsInfo.jsx",
     lineNumber: 7,
     columnNumber: 7
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { class: "flex flex-col items-start p-4 h-full", children: [
+  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "flex flex-col items-start p-4 h-full", children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("h3", { className: "font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl", children: product.name }, void 0, !1, {
       fileName: "app/components/ProductCardsInfo.jsx",
       lineNumber: 28,
@@ -2451,7 +2454,7 @@ function ProductCardsInfo({ product }) {
       lineNumber: 31,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { class: "w-full flex flex-row justify-end mt-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)("div", { className: "w-full flex flex-row justify-end mt-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
       "img",
       {
         src: pil_default,
@@ -4330,7 +4333,7 @@ async function action6({ request }) {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-JR5EB3OU.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OGVFEPIG.js", imports: ["/build/_shared/chunk-YN5RPP4O.js", "/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-OHPF6WFS.js", "/build/_shared/chunk-WGYOWBNF.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/lager": { id: "routes/lager", parentId: "root", path: "lager", index: void 0, caseSensitive: void 0, module: "/build/routes/lager-R44JCIWR.js", imports: ["/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-AICQJHLW.js", imports: ["/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-MDCEHECV.js", imports: ["/build/_shared/chunk-XNCVY5JY.js", "/build/_shared/chunk-PAGRDZLQ.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-3ZFTUJXG.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-E3UZKD6P.js", imports: ["/build/_shared/chunk-5BDVTEKK.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-JEVOA56M.js", "/build/_shared/chunk-ZATYOJQL.js", "/build/_shared/chunk-XNCVY5JY.js", "/build/_shared/chunk-PAGRDZLQ.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-3ZFTUJXG.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-DQXLXGWC.js", imports: ["/build/_shared/chunk-5BDVTEKK.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-JEVOA56M.js", "/build/_shared/chunk-ZATYOJQL.js", "/build/_shared/chunk-PAGRDZLQ.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-3ZFTUJXG.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-TBNPIQAR.js", imports: ["/build/_shared/chunk-FJPWIH42.js", "/build/_shared/chunk-ZATYOJQL.js", "/build/_shared/chunk-3ZFTUJXG.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-ACM5E7KP.js", imports: ["/build/_shared/chunk-JEVOA56M.js", "/build/_shared/chunk-FJPWIH42.js", "/build/_shared/chunk-ZATYOJQL.js", "/build/_shared/chunk-3ZFTUJXG.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "15f10eae", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1710500289317 }, url: "/build/manifest-15F10EAE.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-JR5EB3OU.js", imports: ["/build/_shared/chunk-OAPPX4FA.js", "/build/_shared/chunk-WEAPBHQG.js", "/build/_shared/chunk-2UIWU3DG.js", "/build/_shared/chunk-7PHB3BFD.js", "/build/_shared/chunk-MPR3XBMG.js", "/build/_shared/chunk-JR22VO6P.js", "/build/_shared/chunk-CJ4MY3PQ.js", "/build/_shared/chunk-PZDJHGND.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-QCYXGZQU.js", imports: ["/build/_shared/chunk-YN5RPP4O.js", "/build/_shared/chunk-YQMVL4AD.js", "/build/_shared/chunk-OHPF6WFS.js", "/build/_shared/chunk-WGYOWBNF.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-RAH6YEIA.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/lager": { id: "routes/lager", parentId: "root", path: "lager", index: void 0, caseSensitive: void 0, module: "/build/routes/lager-R44JCIWR.js", imports: ["/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-AICQJHLW.js", imports: ["/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-4R65K2YN.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products": { id: "routes/products", parentId: "root", path: "products", index: void 0, caseSensitive: void 0, module: "/build/routes/products-GTSSSRBY.js", imports: ["/build/_shared/chunk-4XZGTNCE.js", "/build/_shared/chunk-KVQ67B2H.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-4WZZVHE6.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.$productId.edit": { id: "routes/products_.$productId.edit", parentId: "root", path: "products/:productId/edit", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.$productId.edit-HJNYOLZO.js", imports: ["/build/_shared/chunk-CY6X6XZA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-5R4AQITI.js", "/build/_shared/chunk-LTVIBEK3.js", "/build/_shared/chunk-4XZGTNCE.js", "/build/_shared/chunk-KVQ67B2H.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-4WZZVHE6.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/products_.new": { id: "routes/products_.new", parentId: "root", path: "products/new", index: void 0, caseSensitive: void 0, module: "/build/routes/products_.new-TSM45Q5M.js", imports: ["/build/_shared/chunk-CY6X6XZA.js", "/build/_shared/chunk-76CPQDYC.js", "/build/_shared/chunk-XAZF6QVY.js", "/build/_shared/chunk-5R4AQITI.js", "/build/_shared/chunk-LTVIBEK3.js", "/build/_shared/chunk-KVQ67B2H.js", "/build/_shared/chunk-MDH6HNHD.js", "/build/_shared/chunk-4WZZVHE6.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter": { id: "routes/produkter", parentId: "root", path: "produkter", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter-GRPS6UFQ.js", imports: ["/build/_shared/chunk-OG7DJS57.js", "/build/_shared/chunk-LTVIBEK3.js", "/build/_shared/chunk-4WZZVHE6.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/produkter_.$productId": { id: "routes/produkter_.$productId", parentId: "root", path: "produkter/:productId", index: void 0, caseSensitive: void 0, module: "/build/routes/produkter_.$productId-I5KZBHBM.js", imports: ["/build/_shared/chunk-5R4AQITI.js", "/build/_shared/chunk-OG7DJS57.js", "/build/_shared/chunk-LTVIBEK3.js", "/build/_shared/chunk-4WZZVHE6.js", "/build/_shared/chunk-FX2LC63G.js", "/build/_shared/chunk-63W34KY2.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "80f258eb", hmr: { runtime: "/build/_shared/chunk-MPR3XBMG.js", timestamp: 1710527090650 }, url: "/build/manifest-80F258EB.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

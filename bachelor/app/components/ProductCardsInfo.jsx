@@ -24,13 +24,13 @@ export default function ProductCardsInfo({ product }) {
     );
   } else {
     return (
-      <div class="flex flex-col items-start p-4 h-full">
+      <div className="flex flex-col items-start p-4 h-full">
         <h3 className="font-extrabold text-gray-800 font-sans text-lg  md:text-3xl lg:text-3xl xl:text-3xl">
           {product.name}
         </h3>
         <p className="text-gray-600 break-words">{product.description}</p>
 
-        <div class="w-full flex flex-row justify-end mt-auto">
+        <div className="w-full flex flex-row justify-end mt-auto">
           <img
             src={Pil}
             className="w-6 h-6 my-auto"
